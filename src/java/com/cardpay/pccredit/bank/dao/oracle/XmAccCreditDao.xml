@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardpay.pccredit.bank.dao.XmAccCreditDao" >
+  <resultMap id="BaseResultMap" type="com.cardpay.pccredit.bank.model.XmAccCredit" >
+    <result column="CREATED_TIME" jdbcType="VARCHAR" property="createdTime" />
+    <result column="DATA_DT" property="dataDt" jdbcType="VARCHAR" />
+    <result column="LOAD_TIME" property="loadTime" jdbcType="VARCHAR" />
+    <result column="LOAN_ACCOUNT" property="loanAccount" jdbcType="VARCHAR" />
+    <result column="CUS_NAME" property="cusName" jdbcType="VARCHAR" />
+    <result column="CERT_TYPE" property="certType" jdbcType="VARCHAR" />
+    <result column="CERT_CODE" property="certCode" jdbcType="VARCHAR" />
+    <result column="FINA_BR_ID" property="finaBrId" jdbcType="VARCHAR" />
+    <result column="TYPE_CARD" property="typeCard" jdbcType="VARCHAR" />
+    <result column="OPEN_ACCOUNT_DATE" property="openAccountDate" jdbcType="VARCHAR" />
+    <result column="CREDIT_LIMIT" property="creditLimit" jdbcType="DECIMAL" />
+    <result column="CRE_LMT_DIV_PAY" property="creLmtDivPay" jdbcType="DECIMAL" />
+    <result column="DUE_DATE" property="dueDate" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_STATE" property="accountState" jdbcType="VARCHAR" />
+    <result column="ACC_STATE_DATE" property="accStateDate" jdbcType="VARCHAR" />
+    <result column="CONSUME_BALANCE_Y" property="consumeBalanceY" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_Y" property="accountY" jdbcType="DECIMAL" />
+    <result column="BALANCE_EXP_Y" property="balanceExpY" jdbcType="DECIMAL" />
+    <result column="BALANCE_INT_Y" property="balanceIntY" jdbcType="DECIMAL" />
+    <result column="CODE_CUR" property="codeCur" jdbcType="VARCHAR" />
+    <result column="BILL_BALANCE_LAST" property="billBalanceLast" jdbcType="DECIMAL" />
+    <result column="BALANCE_COM_LAST" property="balanceComLast" jdbcType="DECIMAL" />
+    <result column="BALANCE_INT_LAST" property="balanceIntLast" jdbcType="DECIMAL" />
+    <result column="BALANCE_CASH_LAST" property="balanceCashLast" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_LAST" property="accountLast" jdbcType="DECIMAL" />
+    <result column="MAX_OVERDUE_TERM" property="maxOverdueTerm" jdbcType="DECIMAL" />
+    <result column="BALANCE_COM" property="balanceCom" jdbcType="DECIMAL" />
+    <result column="BILL_DAYS" property="billDays" jdbcType="VARCHAR" />
+    <result column="RE_BALANCE_STAGE" property="reBalanceStage" jdbcType="DECIMAL" />
+    <result column="BALANCE_Y" property="balanceY" jdbcType="DECIMAL" />
+    <result column="BALANCE_LAST" property="balanceLast" jdbcType="DECIMAL" />
+    <result column="FLAG_REPAY_FULL" property="flagRepayFull" jdbcType="VARCHAR" />
+    <result column="COM_RECEIVE" property="comReceive" jdbcType="DECIMAL" />
+    <result column="LAST_ACC_INT" property="lastAccInt" jdbcType="DECIMAL" />
+    <result column="CUR_ACC_INT" property="curAccInt" jdbcType="DECIMAL" />
+    <result column="CUR_COM_INT" property="curComInt" jdbcType="DECIMAL" />
+    <result column="ACC_COM_INT" property="accComInt" jdbcType="DECIMAL" />
+    <result column="TOTAL_BALANCE" property="totalBalance" jdbcType="DECIMAL" />
+    <result column="OVERDRAW_AMOUNT" property="overdrawAmount" jdbcType="DECIMAL" />
+    <result column="NOMAL_OD_AMT" property="nomalOdAmt" jdbcType="DECIMAL" />
+    <result column="OVERDUE_OD_AMT" property="overdueOdAmt" jdbcType="DECIMAL" />
+    <result column="SLUGGISH_OD_AMT" property="sluggishOdAmt" jdbcType="DECIMAL" />
+    <result column="DOUBTFUL_OD_AMT" property="doubtfulOdAmt" jdbcType="DECIMAL" />
+    <result column="OD_INNER_CUMU" property="odInnerCumu" jdbcType="DECIMAL" />
+    <result column="OD_OUT_CUMU" property="odOutCumu" jdbcType="DECIMAL" />
+    <result column="OVERDUE_DATE" property="overdueDate" jdbcType="VARCHAR" />
+    <result column="OVERDRAFT_DATE" property="overdraftDate" jdbcType="VARCHAR" />
+    <result column="FLAG_OVERDUE" property="flagOverdue" jdbcType="VARCHAR" />
+    <result column="OVERDUE_BALANCE_IN" property="overdueBalanceIn" jdbcType="DECIMAL" />
+    <result column="OVERDUE_INT_IN" property="overdueIntIn" jdbcType="DECIMAL" />
+    <result column="OVERDUE_CAP_REST" property="overdueCapRest" jdbcType="DECIMAL" />
+    <result column="OVERDUE_INT_REST" property="overdueIntRest" jdbcType="DECIMAL" />
+    <result column="LAST_REPAY_DATE" property="lastRepayDate" jdbcType="VARCHAR" />
+    <result column="MAIN_BR_ID" property="mainBrId" jdbcType="VARCHAR" />
+    <result column="MGR_NAME" property="mgrName" jdbcType="VARCHAR" />
+    <result column="MGR_NO" property="mgrNo" jdbcType="VARCHAR" />
+    <result column="CARD_STATUS" property="cardStatus" jdbcType="VARCHAR" />
+    <result column="GUAR_NAME" property="guarName" jdbcType="VARCHAR" />
+    <result column="GUAR_CERT_CODE" property="guarCertCode" jdbcType="VARCHAR" />
+    <result column="GUAR_MPHONE" property="guarMphone" jdbcType="VARCHAR" />
+    <result column="MAIN_BR_NETID" property="mainBrNetid" jdbcType="VARCHAR" />
+    <result column="FINA_BR_NETID" property="finaBrNetid" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+	<insert id="insert" parameterType="com.cardpay.pccredit.bank.model.XmAccCredit" >
+	    insert into XM_ACC_CREDIT (CREATED_TIME,DATA_DT, LOAD_TIME, LOAN_ACCOUNT, 
+      CUS_NAME, CERT_TYPE, CERT_CODE, 
+      FINA_BR_ID, TYPE_CARD, OPEN_ACCOUNT_DATE, 
+      CREDIT_LIMIT, CRE_LMT_DIV_PAY, DUE_DATE, 
+      ACCOUNT_STATE, ACC_STATE_DATE, CONSUME_BALANCE_Y, 
+      ACCOUNT_Y, BALANCE_EXP_Y, BALANCE_INT_Y, 
+      CODE_CUR, BILL_BALANCE_LAST, BALANCE_COM_LAST, 
+      BALANCE_INT_LAST, BALANCE_CASH_LAST, ACCOUNT_LAST, 
+      MAX_OVERDUE_TERM, BALANCE_COM, BILL_DAYS, 
+      RE_BALANCE_STAGE, BALANCE_Y, BALANCE_LAST, 
+      FLAG_REPAY_FULL, COM_RECEIVE, LAST_ACC_INT, 
+      CUR_ACC_INT, CUR_COM_INT, ACC_COM_INT, 
+      TOTAL_BALANCE, OVERDRAW_AMOUNT, NOMAL_OD_AMT, 
+      OVERDUE_OD_AMT, SLUGGISH_OD_AMT, DOUBTFUL_OD_AMT, 
+      OD_INNER_CUMU, OD_OUT_CUMU, OVERDUE_DATE, 
+      OVERDRAFT_DATE, FLAG_OVERDUE, OVERDUE_BALANCE_IN, 
+      OVERDUE_INT_IN, OVERDUE_CAP_REST, OVERDUE_INT_REST, 
+      LAST_REPAY_DATE, A51, A52, 
+      A53, A54, MGR_NO, MAIN_BR_ID, 
+      LEVEL_FOUR_MARKING, ACCOUNT_NUMBER, LEVEL_FIVE_RESULT, 
+      LEVEL_FIVE_MACHINE_REASON, LEVEL_FIVE_REASON, 
+      CARD_STATUS, GUAR_CERT_CODE, GUAR_NAME, 
+      GUAR_MPHONE)
+    values (#{createdTime,jdbcType=VARCHAR},#{dataDt,jdbcType=VARCHAR}, #{loadTime,jdbcType=VARCHAR}, #{loanAccount,jdbcType=VARCHAR}, 
+      #{cusName,jdbcType=VARCHAR}, #{certType,jdbcType=VARCHAR}, #{certCode,jdbcType=VARCHAR}, 
+      #{finaBrId,jdbcType=VARCHAR}, #{typeCard,jdbcType=VARCHAR}, #{openAccountDate,jdbcType=VARCHAR}, 
+      #{creditLimit,jdbcType=DECIMAL}, #{creLmtDivPay,jdbcType=DECIMAL}, #{dueDate,jdbcType=VARCHAR}, 
+      #{accountState,jdbcType=VARCHAR}, #{accStateDate,jdbcType=VARCHAR}, #{consumeBalanceY,jdbcType=DECIMAL}, 
+      #{accountY,jdbcType=DECIMAL}, #{balanceExpY,jdbcType=DECIMAL}, #{balanceIntY,jdbcType=DECIMAL}, 
+      #{codeCur,jdbcType=VARCHAR}, #{billBalanceLast,jdbcType=DECIMAL}, #{balanceComLast,jdbcType=DECIMAL}, 
+      #{balanceIntLast,jdbcType=DECIMAL}, #{balanceCashLast,jdbcType=DECIMAL}, #{accountLast,jdbcType=DECIMAL}, 
+      #{maxOverdueTerm,jdbcType=DECIMAL}, #{balanceCom,jdbcType=DECIMAL}, #{billDays,jdbcType=VARCHAR}, 
+      #{reBalanceStage,jdbcType=DECIMAL}, #{balanceY,jdbcType=DECIMAL}, #{balanceLast,jdbcType=DECIMAL}, 
+      #{flagRepayFull,jdbcType=VARCHAR}, #{comReceive,jdbcType=DECIMAL}, #{lastAccInt,jdbcType=DECIMAL}, 
+      #{curAccInt,jdbcType=DECIMAL}, #{curComInt,jdbcType=DECIMAL}, #{accComInt,jdbcType=DECIMAL}, 
+      #{totalBalance,jdbcType=DECIMAL}, #{overdrawAmount,jdbcType=DECIMAL}, #{nomalOdAmt,jdbcType=DECIMAL}, 
+      #{overdueOdAmt,jdbcType=DECIMAL}, #{sluggishOdAmt,jdbcType=DECIMAL}, #{doubtfulOdAmt,jdbcType=DECIMAL}, 
+      #{odInnerCumu,jdbcType=DECIMAL}, #{odOutCumu,jdbcType=DECIMAL}, #{overdueDate,jdbcType=VARCHAR}, 
+      #{overdraftDate,jdbcType=VARCHAR}, #{flagOverdue,jdbcType=VARCHAR}, #{overdueBalanceIn,jdbcType=DECIMAL}, 
+      #{overdueIntIn,jdbcType=DECIMAL}, #{overdueCapRest,jdbcType=DECIMAL}, #{overdueIntRest,jdbcType=DECIMAL}, 
+      #{lastRepayDate,jdbcType=VARCHAR}, #{a51,jdbcType=VARCHAR}, #{a52,jdbcType=VARCHAR}, 
+      #{a53,jdbcType=VARCHAR}, #{a54,jdbcType=VARCHAR}, #{mgrNo,jdbcType=VARCHAR}, #{mainBrId,jdbcType=VARCHAR}, 
+      #{levelFourMarking,jdbcType=VARCHAR}, #{accountNumber,jdbcType=VARCHAR}, #{levelFiveResult,jdbcType=VARCHAR}, 
+      #{levelFiveMachineReason,jdbcType=VARCHAR}, #{levelFiveReason,jdbcType=VARCHAR}, 
+      #{cardStatus,jdbcType=VARCHAR}, #{guarCertCode,jdbcType=VARCHAR}, #{guarName,jdbcType=VARCHAR}, 
+      #{guarMphone,jdbcType=VARCHAR})
+	  </insert>
+	  
+	  <insert id="insertXmAccCredit" parameterType="map" >
+	    insert into XM_ACC_CREDIT (DATA_DT, LOAD_TIME, LOAN_ACCOUNT, 
+      CUS_NAME, CERT_TYPE, CERT_CODE, 
+      FINA_BR_ID, TYPE_CARD, OPEN_ACCOUNT_DATE, 
+      CREDIT_LIMIT, CRE_LMT_DIV_PAY, DUE_DATE, 
+      ACCOUNT_STATE, ACC_STATE_DATE, CONSUME_BALANCE_Y, 
+      ACCOUNT_Y, BALANCE_EXP_Y, BALANCE_INT_Y, 
+      CODE_CUR, BILL_BALANCE_LAST, BALANCE_COM_LAST, 
+      BALANCE_INT_LAST, BALANCE_CASH_LAST, ACCOUNT_LAST, 
+      MAX_OVERDUE_TERM, BALANCE_COM, BILL_DAYS, 
+      RE_BALANCE_STAGE, BALANCE_Y, BALANCE_LAST, 
+      FLAG_REPAY_FULL, COM_RECEIVE, LAST_ACC_INT, 
+      CUR_ACC_INT, CUR_COM_INT, ACC_COM_INT, 
+      TOTAL_BALANCE, OVERDRAW_AMOUNT, NOMAL_OD_AMT, 
+      OVERDUE_OD_AMT, SLUGGISH_OD_AMT, DOUBTFUL_OD_AMT, 
+      OD_INNER_CUMU, OD_OUT_CUMU, OVERDUE_DATE, 
+      OVERDRAFT_DATE, FLAG_OVERDUE, OVERDUE_BALANCE_IN, 
+      OVERDUE_INT_IN, OVERDUE_CAP_REST, OVERDUE_INT_REST, 
+      LAST_REPAY_DATE, A51, A52, 
+      A53, A54, MGR_NO, MAIN_BR_ID, 
+      LEVEL_FOUR_MARKING, ACCOUNT_NUMBER, LEVEL_FIVE_RESULT, 
+      LEVEL_FIVE_MACHINE_REASON, LEVEL_FIVE_REASON, 
+      CARD_STATUS, GUAR_CERT_CODE, GUAR_NAME, 
+      GUAR_MPHONE)
+    values (#{dataDt,jdbcType=VARCHAR}, #{loadTime,jdbcType=VARCHAR}, #{loanAccount,jdbcType=VARCHAR}, 
+      #{cusName,jdbcType=VARCHAR}, #{certType,jdbcType=VARCHAR}, #{certCode,jdbcType=VARCHAR}, 
+      #{finaBrId,jdbcType=VARCHAR}, #{typeCard,jdbcType=VARCHAR}, #{openAccountDate,jdbcType=VARCHAR}, 
+      #{creditLimit,jdbcType=DECIMAL}, #{creLmtDivPay,jdbcType=DECIMAL}, #{dueDate,jdbcType=VARCHAR}, 
+      #{accountState,jdbcType=VARCHAR}, #{accStateDate,jdbcType=VARCHAR}, #{consumeBalanceY,jdbcType=DECIMAL}, 
+      #{accountY,jdbcType=DECIMAL}, #{balanceExpY,jdbcType=DECIMAL}, #{balanceIntY,jdbcType=DECIMAL}, 
+      #{codeCur,jdbcType=VARCHAR}, #{billBalanceLast,jdbcType=DECIMAL}, #{balanceComLast,jdbcType=DECIMAL}, 
+      #{balanceIntLast,jdbcType=DECIMAL}, #{balanceCashLast,jdbcType=DECIMAL}, #{accountLast,jdbcType=DECIMAL}, 
+      #{maxOverdueTerm,jdbcType=DECIMAL}, #{balanceCom,jdbcType=DECIMAL}, #{billDays,jdbcType=VARCHAR}, 
+      #{reBalanceStage,jdbcType=DECIMAL}, #{balanceY,jdbcType=DECIMAL}, #{balanceLast,jdbcType=DECIMAL}, 
+      #{flagRepayFull,jdbcType=VARCHAR}, #{comReceive,jdbcType=DECIMAL}, #{lastAccInt,jdbcType=DECIMAL}, 
+      #{curAccInt,jdbcType=DECIMAL}, #{curComInt,jdbcType=DECIMAL}, #{accComInt,jdbcType=DECIMAL}, 
+      #{totalBalance,jdbcType=DECIMAL}, #{overdrawAmount,jdbcType=DECIMAL}, #{nomalOdAmt,jdbcType=DECIMAL}, 
+      #{overdueOdAmt,jdbcType=DECIMAL}, #{sluggishOdAmt,jdbcType=DECIMAL}, #{doubtfulOdAmt,jdbcType=DECIMAL}, 
+      #{odInnerCumu,jdbcType=DECIMAL}, #{odOutCumu,jdbcType=DECIMAL}, #{overdueDate,jdbcType=VARCHAR}, 
+      #{overdraftDate,jdbcType=VARCHAR}, #{flagOverdue,jdbcType=VARCHAR}, #{overdueBalanceIn,jdbcType=DECIMAL}, 
+      #{overdueIntIn,jdbcType=DECIMAL}, #{overdueCapRest,jdbcType=DECIMAL}, #{overdueIntRest,jdbcType=DECIMAL}, 
+      #{lastRepayDate,jdbcType=VARCHAR}, #{a51,jdbcType=VARCHAR}, #{a52,jdbcType=VARCHAR}, 
+      #{a53,jdbcType=VARCHAR}, #{a54,jdbcType=VARCHAR}, #{mgrNo,jdbcType=VARCHAR}, #{mainBrId,jdbcType=VARCHAR}, 
+      #{levelFourMarking,jdbcType=VARCHAR}, #{accountNumber,jdbcType=VARCHAR}, #{levelFiveResult,jdbcType=VARCHAR}, 
+      #{levelFiveMachineReason,jdbcType=VARCHAR}, #{levelFiveReason,jdbcType=VARCHAR}, 
+      #{cardStatus,jdbcType=VARCHAR}, #{guarCertCode,jdbcType=VARCHAR}, #{guarName,jdbcType=VARCHAR}, 
+      #{guarMphone,jdbcType=VARCHAR})
+	  </insert>
+
+   <select id="findXmAccCreditByCustrNbr" resultMap="BaseResultMap">
+		select * 
+		from 
+		XM_ACC_CREDIT
+		where 
+		CERT_CODE=#{custrNbr}
+		and
+		CREATED_TIME=#{createdTime}
+	</select>
+	
+	<select id="findXmAccCredit" resultMap="BaseResultMap">
+		select * 
+		from 
+		XM_ACC_CREDIT
+	</select>
+</mapper>

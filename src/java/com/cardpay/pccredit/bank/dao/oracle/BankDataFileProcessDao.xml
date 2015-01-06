@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardpay.pccredit.bank.dao.BankDataFileProcessDao" >
+  <resultMap id="BaseResultMap" type="com.cardpay.pccredit.bank.model.BankDataFileProcess" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="PROCESS_TIME" property="processTime" jdbcType="TIMESTAMP"/>
+    <result column="TYPE" property="type" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <insert id="insertBankDataFileProcess" parameterType="com.cardpay.pccredit.bank.model.BankDataFileProcess" >
+    insert into BANK_DATA_PROCESS (ID, FILE_NAME, STATUS, PROCESS_TIME, TYPE)
+    values (#{id,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{processTime,jdbcType=DATE}, #{type,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="findBankDataFileProcess" resultMap="BaseResultMap" parameterType="com.cardpay.pccredit.bank.model.BankDataFileProcess">
+  	select * from BANK_DATA_PROCESS t 
+  	where 1=1
+  	and FILE_NAME = #{fileName,jdbcType=VARCHAR}
+  </select>
+  
+  <update id="updateByPrimaryKey" parameterType="com.cardpay.pccredit.bank.model.BankDataFileProcess" >
+    update BANK_DATA_PROCESS
+    <set >
+      <if test="fileName != null" >
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

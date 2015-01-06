@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cardpay.pccredit.bank.dao.BankDao">
+<resultMap id="CardInformationResultMap" type="com.cardpay.pccredit.bank.model.CardInformation">
+		<result property="id" column="ID" />
+		<result property="customerId" column="CUSTOMER_ID" />
+		<result property="productId" column="PRODUCT_ID" />
+		<result property="cardNumber" column="CARD_NUMBER" />
+		<result property="cardActivateDate" column="CARD_ACTIVATE_DATE" />
+		<result property="cardStatusCode" column="CARD_STATUS_CODE" />
+		<result property="cardStatusDate" column="CARD_STATUS_DATE" />
+		<result property="cardLogoutCode" column="CARD_LOGOUT_CODE" />
+		<result property="cashSuspendDate" column="CASH_SUSPEND_DATE" />
+		<result property="cardAffiliated" column="CARD_AFFILIATED" />
+		<result property="idNumber" column="ID_NUMBER" />
+		<result property="expireDate" column="EXPIRE_DATE" />
+		<result property="againExpireDate" column="AGAIN_EXPIRE_DATE" />
+		<result property="cardCost" column="CARD_COST" />
+		<result property="nextCostMonth" column="NEXT_COST_MONTH" />
+		<result property="cardMakeDate" column="CARD_MAKE_DATE" />
+		<result property="cardMakeCode" column="CARD_MAKE_CODE" />
+		<result property="cardAffiliatedScale" column="CARD_AFFILIATED_SCALE" />
+		<result property="cardLossDate" column="CARD_LOSS_DATE" />
+		<result property="cashSuspendMode" column="CASH_SUSPEND_MODE" />
+</resultMap>
+<resultMap id="CustomerAccountInforResultMap" type="com.cardpay.pccredit.bank.model.CustomerAccountInfor">
+		<result property="id" column="id" />
+		<result property="customerId" column="CUSTOMER_ID" />
+		<result property="accountStatus" column="ACCOUNT_STATUS" />
+		<result property="overdueAmount" column="OVERDUE_AMOUNT" />
+		<result property="tableTurnPay" column="TABLE_TURN_PAY" />
+		<result property="compoundAmount" column="COMPOUND_AMOUNT" />
+		<result property="currentPeriodPay" column="CURRENT_PERIOD_PAY" />
+		<result property="verificationCode" column="VERIFICATION_CODE" />
+		<result property="currentPeriodAnnuity" column="CURRENT_PERIOD_ANNUITY" />
+		<result property="cardNumber" column="CARD_NUMBER" />
+		<result property="currentPeriodOverduePay" column="CURRENT_PERIOD_OVERDUE_PAY" />
+		<result property="currentPeriodCash" column="CURRENT_PERIOD_CASH" />
+		<result property="currentPeriodScale" column="CURRENT_PERIOD_SCALE" />
+		<result property="accountStatusDate" column="ACCOUNT_STATUS_DATE" />
+		<result property="accountChargeAmount" column="ACCOUNT_CHARGE_AMOUNT" />
+		<result property="creditAmount" column="CREDIT_AMOUNT" />
+		<result property="amountProfitsInreturn" column="AMOUNT_PROFITS_INRETURN" />
+		<result property="reimbursementDeadline" column="REIMBURSEMENT_DEADLINE" />
+		<result property="statementDate" column="STATEMENT_DATE" />
+		<result property="debitAmountAdjustment" column="DEBIT_AMOUNT_ADJUSTMENT" />
+		<result property="consumptionLogo" column="CONSUMPTION_LOGO" />
+		<result property="compoundInterestReceivable" column="COMPOUND_INTEREST_RECEIVABLE" />
+		<result property="interestReceivable" column="INTEREST_RECEIVABLE" />
+		<result property="accruedInterestCompound" column="ACCRUED_INTEREST_COMPOUND" />
+		<result property="currentPeriodAccrued" column="CURRENT_PERIOD_ACCRUED" />
+		<result property="currentShouldCompounded" column="CURRENT_SHOULD_COMPOUNDED" />
+		<result property="nextInterestReceivable" column="NEXT_INTEREST_RECEIVABLE" />
+		<result property="recentInterestDate" column="RECENT_INTEREST_DATE" />
+		<result property="lastPaymentDate" column="LAST_PAYMENT_DATE" />
+		<result property="amountInstallmentPayment" column="AMOUNT_INSTALLMENT_PAYMENT" />
+		<result property="instalmentTotalAmount" column="INSTALMENT_TOTAL_AMOUNT" />
+		<result property="paymentInstallmentCredit" column="PAYMENT_INSTALLMENT_CREDIT" />
+		<result property="stagingRemainingPrincipal" column="STAGING_REMAINING_PRINCIPAL" />
+		<result property="overdueTotalNumber" column="OVERDUE_TOTAL_NUMBER" />
+		<result property="repaymentAccountPeriod" column="REPAYMENT_ACCOUNT_PERIOD" />
+		<result property="consumptionAccountPeriod" column="CONSUMPTION_ACCOUNT_PERIOD" />
+		<result property="transactionsAccount" column="TRANSACTIONS_ACCOUNT" />
+		<result property="accountQueueDate" column="ACCOUNT_QUEUE_DATE" />
+		<result property="amountOtherCosts" column="AMOUNT_OTHER_COSTS" />
+		<result property="amountControversy" column="AMOUNT_CONTROVERSY" />
+		<result property="prePeriodAccount" column="PRE_PERIOD_ACCOUNT" />
+		<result property="recentLowestBill" column="RECENT_LOWEST_BILL" />
+		<result property="overdueTime" column="OVERDUE_TIME" />
+		<result property="tempAmount" column="TEMP_AMOUNT" />
+		<result property="tempStartDate" column="TEMP_START_DATE" />
+		<result property="tempLossDate" column="TEMP_LOSS_DATE" />
+		<result property="chargeLogo" column="CHARGE_LOGO" />
+		<result property="accountNumber" column="ACCOUNT_NUMBER" />
+		<result property="aging" column="AGING" />
+	</resultMap>
+<resultMap id="AverageDailyOverdraftResultMap" type="com.cardpay.pccredit.bank.model.AverageDailyOverdraft">
+	<result property="id" column="id" />
+	<result property="accountNumber" column="ACCOUNT_NUMBER" />
+	<result property="averageDailyOverdraft" column="AVERAGE_DAILY_OVERDRAFT" />
+	<result property="principalOverdraft" column="PRINCIPAL_OVERDRAFT" />
+	<result property="totalAmountOverdraft" column="TOTAL_AMOUNT_OVERDRAFT" />
+	<result property="allDueStatus" column="ALL_DUE_STATUS" />
+	<result property="lowDueStatus" column="LOW_DUE_STATUS" />
+	<result property="periods" column="PERIODS" />
+	<result property="month" column="MONTH" />
+	<result property="year" column="YEAR" />
+	<result property="createdTime" column="CREATED_TIME" />
+</resultMap>
+<resultMap id="ProductAttributeResultMap" type="com.cardpay.pccredit.bank.model.ProductAttribute">
+	<result property="id" column="ID"/>
+	<result property="productName" column="PRODUCT_NAME"/>
+	<result property="purposeLoan" column="PURPOSE_LOAN"/>
+	<result property="creditLine" column="CREDIT_LINE"/>
+	<result property="rateRange" column="RATE_RANGE"/>
+	<result property="productTypeCode" column="PRODUCT_TYPE_CODE"/>
+	<result property="loanTimeLimit" column="LOAN_TIME_LIMIT"/>
+	<result property="loanPrincipal" column="LOAN_PRINCIPAL"/>
+	<result property="letterPaymentWay" column="LETTER_PAYMENT_WAY"/>
+	<result property="numbererestSettlementWay" column="NUMBEREREST_SETTLEMENT_WAY"/>
+	<result property="assureMeans" column="ASSURE_MEANS"/>
+	<result property="penaltyNumbererest" column="PENALTY_NUMBEREREST"/>
+	<result property="productRiskTolerance" column="PRODUCT_RISK_TOLERANCE"/>
+	<result property="status" column="STATUS"/>
+	<result property="seqno" column="SEQNO"/>
+	<result property="awaitAudit" column="AWAIT_AUDIT"/>
+	<result property="createdBy" column="CREATED_BY"/>
+	<result property="createdTime" column="CREATED_TIME"/>
+	<result property="modifiedBy" column="MODIFIED_BY"/>
+	<result property="modifiedTime" column="MODIFIED_TIME"/>
+</resultMap>
+<resultMap id="CustomerInforResultMap" type="com.cardpay.pccredit.bank.model.CustomerInfor">
+	<result property="id" column="id"/>
+	<result property="code" column="code"/>
+	<result property="chineseName" column="CHINESE_NAME"/>
+	<result property="nationality" column="NATIONALITY"/>
+	<result property="sex" column="SEX"/>
+	<result property="pinyinenglishName" column="PINYINENGLISH_NAME"/>
+	<result property="birthday" column="BIRTHDAY"/>
+	<result property="cardType" column="CARD_TYPE"/>
+	<result property="cardId" column="CARD_ID"/>  
+	<result property="residentialAddress" column="RESIDENTIAL_ADDRESS"/>
+	<result property="zipCode" column="ZIP_CODE"/>
+	<result property="homePhone" column="HOME_PHONE"/>
+	<result property="telephone" column="TELEPHONE"/>
+	<result property="mail" column="MAIL"/>
+	<result property="residentialPropertie" column="RESIDENTIAL_PROPERTIE"/>
+	<result property="maritalStatus" column="MARITAL_STATUS"/>
+	<result property="degreeEducation" column="DEGREE_EDUCATION"/>
+	<result property="householdAddress" column="HOUSEHOLD_ADDRESS"/>
+	<result property="zipCodeAddress" column="ZIP_CODE_ADDRESS"/>
+	<result property="applyCredit" column="APPLY_CREDIT"/>
+	<result property="finalApproval" column="FINAL_APPROVAL"/> 
+	<result property="actualAmount" column="ACTUAL_AMOUNT"/> 
+	<result property="temporaryQuota" column="TEMPORARY_QUOTA"/> 
+	<result property="cashAdvanceRatio" column="CASH_ADVANCE_RATIO"/>
+	<result property="cardStatus" column="CARD_STATUS"/>
+	<result property="userId" column="USER_ID"/>
+	<result property="divisionalStatus" column="DIVISIONAL_STATUS"/>
+	<result property="createdBy" column="CREATED_BY"/>
+	<result property="createdTime" column="CREATED_TIME"/>
+	<result property="modifiedBy" column="MODIFIED_BY"/>
+	<result property="modifiedTime" column="MODIFIED_TIME"/>
+</resultMap>
+<resultMap id="CustomerOverdueResultMap" type="com.cardpay.pccredit.bank.model.CustomerOverdue">
+	<result property="id" column="id"/>
+	<result property="customerId" column="CUSTOMER_ID"/>
+	<result property="productId" column="PRODUCT_ID"/>
+	<result property="numberDaysOverdue" column="NUMBER_DAYS_OVERDUE"/>
+	<result property="currentBalance" column="CURRENT_BALANCE"/>
+	<result property="minimumPayment" column="MINIMUM_PAYMENT"/>
+	<result property="reminder" column="REMINDER"/>
+	<result property="reminderWay" column="REMINDER_WAY"/>
+	<result property="reminderDate" column="REMINDER_DATE"/>
+	<result property="overduePaybackAll" column="OVERDUE_PAYBACK_ALL"/>
+	<result property="lateDate" column="LATE_DATE"/>
+	<result property="createdBy" column="CREATED_BY"/>
+	<result property="createdTime" column="CREATED_TIME"/>
+	<result property="modifiedBy" column="MODIFIED_BY"/>
+	<result property="modifiedTime" column="MODIFIED_TIME"/>
+</resultMap>
+	<delete id="deleteCustomerOverdue">
+		delete 
+		from
+		CUSTOMER_OVERDUE
+		where 
+		ID=#{id}
+	</delete>
+	<select id="findCustomerOverdue" resultMap="CustomerOverdueResultMap">
+		select *
+		from
+		CUSTOMER_OVERDUE
+		where
+		CUSTOMER_ID=#{customerId}
+		and
+		PRODUCT_ID=#{productId}
+	</select>
+	<select id="findCardInformation" resultMap="CardInformationResultMap">
+		select * 
+		from
+		CARD_INFORMATION
+		where 
+		CARD_NUMBER=#{cardNar}
+	</select>
+	<select id="findCustomerAccountInfor" resultMap="CustomerAccountInforResultMap">
+		select * 
+		from
+		CUSTOMER_ACCOUNT_INFORMATION c
+		where 1=1
+		<if test="cardNumber!=null and cardNumber!=''">
+			and c.CARD_NUMBER=#{cardNumber}
+		</if>
+	</select>
+	<select id="findCustomerInforByCard" resultMap="CustomerInforResultMap" >
+		select *
+		from
+		basic_customer_information
+		where 
+		card_type=#{certType}
+		and
+		card_id=#{certCode}
+	</select>
+	<select id="findProductAttributeByCode" resultMap="ProductAttributeResultMap" >
+		select *
+		from
+		PRODUCT_ATTRIBUTE
+		where 
+		seqno=#{code}
+	</select>
+	<select id="findAverageDailyOverdraftByAccountNumber" resultMap="AverageDailyOverdraftResultMap">
+		select * 
+		from average_daily_overdraft
+		where account_number=#{accountNumber}
+		and year=#{year}
+		and month=#{month}
+	</select>
+	<insert id="insertAverageDailyOverdraft" parameterType="com.cardpay.pccredit.bank.model.AverageDailyOverdraft">
+		insert into AVERAGE_DAILY_OVERDRAFT (ID,ACCOUNT_NUMBER,AVERAGE_DAILY_OVERDRAFT,PRINCIPAL_OVERDRAFT,TOTAL_AMOUNT_OVERDRAFT,
+		ALL_DUE_STATUS,LOW_DUE_STATUS,PERIODS,MONTH,YEAR,CREATED_TIME)
+		values
+		(#{id},#{accountNumber},#{averageDailyOverdraft},#{principalOverdraft},#{totalAmountOverdraft},
+		#{allDueStatus},#{lowDueStatus},#{periods},#{month},#{year},#{createdTime})
+	</insert>
+	<insert id="insertCustomerAccountInfor" parameterType="com.cardpay.pccredit.bank.model.CustomerAccountInfor">
+		insert into 
+		customer_account_information
+		(ID,CUSTOMER_ID,ACCOUNT_STATUS,OVERDUE_AMOUNT,TABLE_TURN_PAY,COMPOUND_AMOUNT,CURRENT_PERIOD_PAY,VERIFICATION_CODE,	CURRENT_PERIOD_ANNUITY,CARD_NUMBER,CURRENT_PERIOD_OVERDUE_PAY,CURRENT_PERIOD_CASH,CURRENT_PERIOD_SCALE,	ACCOUNT_STATUS_DATE,ACCOUNT_CHARGE_AMOUNT,CREDIT_AMOUNT,AMOUNT_PROFITS_INRETURN,REIMBURSEMENT_DEADLINE,STATEMENT_DATE,	DEBIT_AMOUNT_ADJUSTMENT,CONSUMPTION_LOGO,COMPOUND_INTEREST_RECEIVABLE,INTEREST_RECEIVABLE,ACCRUED_INTEREST_COMPOUND,CURRENT_PERIOD_ACCRUED,	CURRENT_SHOULD_COMPOUNDED,NEXT_INTEREST_RECEIVABLE,RECENT_INTEREST_DATE,LAST_PAYMENT_DATE,AMOUNT_INSTALLMENT_PAYMENT,INSTALMENT_TOTAL_AMOUNT,	PAYMENT_INSTALLMENT_CREDIT,STAGING_REMAINING_PRINCIPAL,OVERDUE_TOTAL_NUMBER,REPAYMENT_ACCOUNT_PERIOD,CONSUMPTION_ACCOUNT_PERIOD,TRANSACTIONS_ACCOUNT,	ACCOUNT_QUEUE_DATE,AMOUNT_OTHER_COSTS,AMOUNT_CONTROVERSY,PRE_PERIOD_ACCOUNT,RECENT_LOWEST_BILL,OVERDUE_TIME,TEMP_AMOUNT,TEMP_START_DATE,TEMP_LOSS_DATE,CHARGE_LOGO,ACCOUNT_NUMBER,AGING)
+		values
+		(#{id},#{customerId},#{accountStatus},#{overdueAmount},#{tableTurnPay},#{compoundAmount},#{currentPeriodPay},#{verificationCode},#{currentPeriodAnnuity},#{cardNumber},#{currentPeriodOverduePay},#{currentPeriodCash},#{currentPeriodScale},#{accountStatusDate},#{accountChargeAmount},#{creditAmount},#{amountProfitsInreturn},#{reimbursementDeadline},#{statementDate},#{debitAmountAdjustment},#{consumptionLogo},#{compoundInterestReceivable},#{interestReceivable},#{accruedInterestCompound},#{currentPeriodAccrued},#{currentShouldCompounded},#{nextInterestReceivable},#{recentInterestDate},#{lastPaymentDate},#{amountInstallmentPayment},#{instalmentTotalAmount},#{paymentInstallmentCredit},#{stagingRemainingPrincipal},#{overdueTotalNumber},#{repaymentAccountPeriod},#{consumptionAccountPeriod},#{transactionsAccount},#{accountQueueDate},#{amountOtherCosts},#{amountControversy},#{prePeriodAccount},#{recentLowestBill},#{overdueTime},#{tempAmount},#{tempStartDate},#{tempLossDate},#{chargeLogo},#{accountNumber},#{aging})
+	</insert>
+	<insert id="insertCustomerOverdue" parameterType="com.cardpay.pccredit.bank.model.CustomerOverdue">
+		insert into
+		CUSTOMER_OVERDUE
+		(ID,CUSTOMER_ID,PRODUCT_ID,NUMBER_DAYS_OVERDUE,CURRENT_BALANCE,MINIMUM_PAYMENT,REMINDER,REMINDER_WAY,REMINDER_DATE,OVERDUE_PAYBACK_ALL,LATE_DATE,CREATED_BY,CREATED_TIME,MODIFIED_BY,MODIFIED_TIME)
+		values
+		(#{id},#{customerId},#{productId},#{numberDaysOverdue},#{currentBalance},#{minimumPayment},#{reminder},#{reminderWay},#{reminderDate},#{overduePaybackAll},#{lateDate},#{createdBy},#{createdTime},#{modifiedBy},#{modifiedTime})
+	</insert>
+	<insert id="transferhistoricalToHistory" parameterType="com.cardpay.pccredit.bank.model.CustomerOverdueHistory">
+		insert into CUSTOMER_OVERDUE_HISTORY(ID,CUSTOMER_ID,PRODUCT_ID,NUMBER_DAYS_OVERDUE,OVERDUE_AMOUNT,LATE_DATE,CREATED_TIME)
+		values
+		(#{id},#{customerId},#{productId},#{numberDaysOverdue},#{overdue_amount},#{lateDate},#{createdTime})
+	</insert>
+	<insert id="insertCardInformation" parameterType="com.cardpay.pccredit.bank.model.CardInformation">
+		insert into
+		CARD_INFORMATION
+		(ID,CUSTOMER_ID,PRODUCT_ID,CARD_NUMBER,CARD_ACTIVATE_DATE,CARD_STATUS_CODE,CARD_STATUS_DATE,CARD_LOGOUT_CODE,CASH_SUSPEND_DATE,CARD_AFFILIATED,ID_NUMBER,EXPIRE_DATE,AGAIN_EXPIRE_DATE,CARD_COST,NEXT_COST_MONTH,CARD_MAKE_DATE,CARD_MAKE_CODE,CARD_AFFILIATED_SCALE,CARD_LOSS_DATE,CASH_SUSPEND_MODE)
+		values(#{id},#{customerId},#{productId},#{cardNumber},#{cardActivateDate},#{cardStatusCode},#{cardStatusDate},#{cardLogoutCode},#{cashSuspendDate},#{cardAffiliated},#{idNumber},#{expireDate},#{againExpireDate},#{cardCost},#{nextCostMonth},#{cardMakeDate},#{cardMakeCode},#{cardAffiliatedScale},#{cardLossDate},#{cashSuspendMode})
+	</insert>
+	<update id="updateCardInformation" parameterType="com.cardpay.pccredit.bank.model.CardInformation">
+		update 
+		CARD_INFORMATION
+		<set>
+			<if test="cardActivateDate!=null and cardActivateDate!=''">
+				CARD_ACTIVATE_DATE=#{cardActivateDate},
+			</if>
+			<if test="cardStatusCode!=null and cardStatusCode!=''">
+				CARD_STATUS_CODE=#{cardStatusCode},
+			</if>
+			<if test="cardStatusDate!=null and cardStatusDate!=''">
+				CARD_STATUS_DATE=#{cardStatusDate},
+			</if>
+			<if test="cardLogoutCode!=null and cardLogoutCode!=''">
+				CARD_LOGOUT_CODE=#{cardLogoutCode},
+			</if>
+			<if test="cashSuspendDate!=null and cashSuspendDate!=''">
+				CASH_SUSPEND_DATE=#{cashSuspendDate},
+			</if>
+			<if test="cardAffiliated!=null and cardAffiliated!=''">
+				CARD_AFFILIATED=#{cardAffiliated},
+			</if>
+			<if test="expireDate!=null and expireDate!=''">
+				EXPIRE_DATE=#{expireDate},
+			</if>
+			<if test="againExpireDate!=null and againExpireDate!=''">
+				AGAIN_EXPIRE_DATE=#{againExpireDate},
+			</if>
+			<if test="cardCost!=null and cardCost!=''">
+				CARD_COST=#{cardCost},
+			</if>
+			<if test="nextCostMonth!=null and nextCostMonth!=''">
+				NEXT_COST_MONTH=#{nextCostMonth},
+			</if>
+			<if test="cardMakeDate!=null and cardMakeDate!=''">
+				CARD_MAKE_DATE=#{cardMakeDate},
+			</if>
+			<if test="cardMakeCode!=null and cardMakeCode!=''">
+				CARD_MAKE_CODE=#{cardMakeCode},
+			</if>
+			<if test="cardAffiliatedScale!=null and cardAffiliatedScale!=''">
+				CARD_AFFILIATED_SCALE=#{cardAffiliatedScale},
+			</if>
+			<if test="cardLossDate!=null and cardLossDate!=''">
+				CARD_LOSS_DATE=#{cardLossDate},
+			</if>
+			<if test="cashSuspendMode!=null and cashSuspendMode!=''">
+				CASH_SUSPEND_MODE=#{cashSuspendMode},
+			</if>
+		</set>
+		where ID=#{id}
+	</update>
+	<update id="updateAverageDailyOverdraft" parameterType="com.cardpay.pccredit.bank.model.AverageDailyOverdraft">
+		update average_daily_overdraft
+	<set> 
+		<if test="averageDailyOverdraft!=null and averageDailyOverdraft!=''">
+		    average_daily_overdraft=#{averageDailyOverdraft},
+		</if>
+		<if test="principalOverdraft!=null and principalOverdraft!=''">
+			principal_overdraft=#{principalOverdraft},
+		</if>
+		<if test="totalAmountOverdraft!=null and totalAmountOverdraft!=''">
+			total_amount_overdraft=#{totalAmountOverdraft},
+		</if>
+		<if test="allDueStatus!=null and allDueStatus!=''">
+			ALL_DUE_STATUS=#{allDueStatus},
+		</if>
+		<if test="lowDueStatus!=null and lowDueStatus!=''">
+			LOW_DUE_STATUS=#{lowDueStatus},
+		</if>
+		<if test="periods!=null and periods!=''">
+			PERIODS=#{periods},
+		</if>
+		<if test="month!=null and month!=''">
+			MONTH=#{month},
+		</if>
+		<if test="year!=null and year!=''">
+			YEAR=#{year},
+		</if>
+		<if test="createdTime!=null and createdTime!=''">
+			CREATED_TIME=#{createdTime}
+		</if>
+	</set>
+		where account_number=#{accountNumber}
+	</update>
+	<update id="updateCustomerAccountInfor" parameterType="com.cardpay.pccredit.bank.model.CustomerAccountInfor">
+	update CUSTOMER_ACCOUNT_INFORMATION
+	<set>
+	    <if test="accountStatus!=null and accountStatus!=''">
+	    	ACCOUNT_STATUS=#{accountStatus},
+	    </if>
+	    <if test="overdueAmount!=null and overdueAmount!=''">
+	    	OVERDUE_AMOUNT=#{overdueAmount},
+	    </if>
+	    <if test="tableTurnPay!=null and tableTurnPay!=''">
+		    TABLE_TURN_PAY=#{tableTurnPay},
+	    </if>
+		<if test="compoundAmount!=null and compoundAmount!=''">
+			COMPOUND_AMOUNT=#{compoundAmount},
+		</if>
+		<if test="currentPeriodPay!=null and currentPeriodPay!=''">
+			CURRENT_PERIOD_PAY=#{currentPeriodPay},
+		</if>
+		<if test="verificationCode!=null and verificationCode!=''">
+			VERIFICATION_CODE=#{verificationCode},
+		</if>
+		<if test="currentPeriodAnnuity!=null and currentPeriodAnnuity!=''">
+			CURRENT_PERIOD_ANNUITY=#{currentPeriodAnnuity},
+		</if>
+		<if test="cardNumber!=null and cardNumber!=''">
+			CARD_NUMBER=#{cardNumber},
+		</if>
+		<if test="currentPeriodOverduePay!=null and currentPeriodOverduePay!=''">
+			CURRENT_PERIOD_OVERDUE_PAY=#{currentPeriodOverduePay},
+		</if>
+		<if test="currentPeriodCash!=null and currentPeriodCash!=''">
+			CURRENT_PERIOD_CASH=#{currentPeriodCash},
+		</if>
+		<if test="currentPeriodScale!=null and currentPeriodScale!=''">
+			CURRENT_PERIOD_SCALE=#{currentPeriodScale},
+		</if>
+		<if test="accountStatusDate!=null and accountStatusDate!=''">
+			ACCOUNT_STATUS_DATE=#{accountStatusDate},
+		</if>
+		<if test="accountChargeAmount!=null and accountChargeAmount!=''">
+			ACCOUNT_CHARGE_AMOUNT=#{accountChargeAmount},
+		</if>
+		<if test="creditAmount!=null and creditAmount!=''">
+			CREDIT_AMOUNT=#{creditAmount},
+		</if>
+		<if test="amountProfitsInreturn!=null and amountProfitsInreturn!=''">
+			AMOUNT_PROFITS_INRETURN=#{amountProfitsInreturn},
+		</if>
+		<if test="reimbursementDeadline!=null and reimbursementDeadline!=''">
+			REIMBURSEMENT_DEADLINE=#{reimbursementDeadline},
+		</if>
+		<if test="statementDate!=null and statementDate!=''">
+			STATEMENT_DATE=#{statementDate},
+		</if>
+		<if test="debitAmountAdjustment!=null and debitAmountAdjustment!=''">
+			DEBIT_AMOUNT_ADJUSTMENT=#{debitAmountAdjustment},
+		</if>
+		<if test="consumptionLogo!=null and consumptionLogo!=''">
+			CONSUMPTION_LOGO=#{consumptionLogo},
+		</if>
+		<if test="compoundInterestReceivable!=null and compoundInterestReceivable!=''">
+			COMPOUND_INTEREST_RECEIVABLE=#{COMPOUND_INTEREST_RECEIVABLE},
+		</if>
+		<if test="interestReceivable!=null and interestReceivable!=''">
+			INTEREST_RECEIVABLE=#{interestReceivable},
+		</if>
+		<if test="accruedInterestCompound!=null and accruedInterestCompound!=''">
+			ACCRUED_INTEREST_COMPOUND=#{accruedInterestCompound},
+		</if>
+		<if test="currentPeriodAccrued!=null and currentPeriodAccrued!=''">
+			CURRENT_PERIOD_ACCRUED=#{currentPeriodAccrued},
+		</if>
+		<if test="currentShouldCompounded!=null and currentShouldCompounded!=''">
+			CURRENT_SHOULD_COMPOUNDED=#{currentShouldCompounded},
+		</if>
+		<if test="nextInterestReceivable!=null and nextInterestReceivable!=''">
+			NEXT_INTEREST_RECEIVABLE=#{nextInterestReceivable},
+		</if>
+		<if test="recentInterestDate!=null and recentInterestDate!=''">
+			RECENT_INTEREST_DATE=#{recentInterestDate},
+		</if>
+		<if test="lastPaymentDate!=null and lastPaymentDate!=''">
+			LAST_PAYMENT_DATE=#{lastPaymentDate},
+		</if>
+		<if test="amountInstallmentPayment!=null and amountInstallmentPayment!=''">
+			AMOUNT_INSTALLMENT_PAYMENT=#{amountInstallmentPayment},
+		</if>
+		<if test="instalmentTotalAmount!=null and instalmentTotalAmount!=''">
+			INSTALMENT_TOTAL_AMOUNT=#{instalmentTotalAmount},
+		</if>
+		<if test="paymentInstallmentCredit!=null and paymentInstallmentCredit!=''">
+			PAYMENT_INSTALLMENT_CREDIT=#{paymentInstallmentCredit},
+		</if>
+		<if test="stagingRemainingPrincipal!=null and stagingRemainingPrincipal!=''">
+			STAGING_REMAINING_PRINCIPAL=#{stagingRemainingPrincipal},
+		</if>
+		<if test="overdueTotalNumber!=null and overdueTotalNumber!=''">
+			OVERDUE_TOTAL_NUMBER=#{overdueTotalNumber},
+		</if>
+		<if test="repaymentAccountPeriod!=null and repaymentAccountPeriod!=''">
+			REPAYMENT_ACCOUNT_PERIOD=#{repaymentAccountPeriod},
+		</if>
+		<if test="consumptionAccountPeriod!=null and consumptionAccountPeriod!=''">
+			CONSUMPTION_ACCOUNT_PERIOD=#{consumptionAccountPeriod},
+		</if>
+		<if test="transactionsAccount!=null and transactionsAccount!=''">
+			TRANSACTIONS_ACCOUNT=#{transactionsAccount},
+		</if>
+		<if test="accountQueueDate!=null and accountQueueDate!=''">
+			ACCOUNT_QUEUE_DATE=#{accountQueueDate},
+		</if>
+		<if test="amountOtherCosts!=null and amountOtherCosts!=''">
+			AMOUNT_OTHER_COSTS=#{amountOtherCosts},
+		</if>
+		<if test="amountControversy!=null and amountControversy!=''">
+			AMOUNT_CONTROVERSY=#{amountControversy},
+		</if>
+		<if test="prePeriodAccount!=null and prePeriodAccount!=''">
+			PRE_PERIOD_ACCOUNT=#{prePeriodAccount},
+		</if>
+		<if test="recentLowestBill!=null and recentLowestBill!=''">
+			RECENT_LOWEST_BILL=#{recentLowestBill},
+		</if>
+		<if test="overdueTime!=null and overdueTime!=''">
+			OVERDUE_TIME=#{overdueTime},
+		</if>
+		<if test="tempAmount!=null and tempAmount!=''">
+			TEMP_AMOUNT=#{tempAmount},
+		</if>
+		<if test="tempStartDate!=null and tempStartDate!=''">
+			TEMP_START_DATE=#{tempStartDate},
+		</if>
+		<if test="tempLossDate!=null and tempLossDate!=''">
+			TEMP_LOSS_DATE=#{tempLossDate},
+		</if>
+		<if test="chargeLogo!=null and chargeLogo!=''">
+			CHARGE_LOGO=#{chargeLogo},
+		</if>
+		<if test="aging!=null and aging!=''">
+			AGING=#{aging}
+		</if>
+	</set> 
+	where ACCOUNT_NUMBER=#{accountNumber}
+	</update>
+	<update id="updateCustomerOverdue">
+		update customer_overdue
+		<set>
+      <if test="customerId != null">
+        CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="numberDaysOverdue != null">
+        NUMBER_DAYS_OVERDUE = #{numberDaysOverdue,jdbcType=VARCHAR},
+      </if>
+      <if test="currentBalance != null">
+        CURRENT_BALANCE = #{currentBalance,jdbcType=VARCHAR},
+      </if>
+      <if test="minimumPayment != null">
+        MINIMUM_PAYMENT = #{minimumPayment,jdbcType=VARCHAR},
+      </if>
+      <if test="reminder != null">
+        REMINDER = #{reminder,jdbcType=VARCHAR},
+      </if>
+      <if test="reminderWay != null">
+        REMINDER_WAY = #{reminderWay,jdbcType=VARCHAR},
+      </if>
+      <if test="reminderDate != null">
+        REMINDER_DATE = #{reminderDate,jdbcType=DATE},
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="modifiedBy != null">
+        MODIFIED_BY = #{modifiedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null">
+        MODIFIED_TIME = #{modifiedTime,jdbcType=DATE},
+      </if>
+      <if test="overduePaybackAll != null">
+        OVERDUE_PAYBACK_ALL = #{overduePaybackAll,jdbcType=VARCHAR},
+      </if>
+      <if test="lateDate != null">
+        LATE_DATE = #{lateDate,jdbcType=DATE},
+      </if>
+    </set>
+    where id=#{id}
+	</update>
+</mapper>

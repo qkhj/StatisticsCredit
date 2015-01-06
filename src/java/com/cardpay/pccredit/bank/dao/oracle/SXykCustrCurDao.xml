@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardpay.pccredit.bank.dao.SXykCustrCurDao" >
+<resultMap id="BaseResultMap" type="com.cardpay.pccredit.bank.model.SXykCustrCur" >
+    <result column="CREATED_TIME" jdbcType="VARCHAR" property="createdTime" />
+    <result column="CUSTR_NBR" property="custrNbr" jdbcType="VARCHAR" />
+    <result column="SECUR_NBR" property="securNbr" jdbcType="VARCHAR" />
+    <result column="NATION" property="nation" jdbcType="VARCHAR" />
+    <result column="BUSI_PHONE" property="busiPhone" jdbcType="VARCHAR" />
+    <result column="CAR_DATE" property="carDate" jdbcType="VARCHAR" />
+    <result column="CAR_ID" property="carId" jdbcType="VARCHAR" />
+    <result column="CAR_NAM" property="carNam" jdbcType="VARCHAR" />
+    <result column="CAR_CODE" property="carCode" jdbcType="VARCHAR" />
+    <result column="CLASS_CODE" property="classCode" jdbcType="VARCHAR" />
+    <result column="COMP_NAME" property="compName" jdbcType="VARCHAR" />
+    <result column="CON_NAM1" property="conNam1" jdbcType="VARCHAR" />
+    <result column="CON_NAM2" property="conNam2" jdbcType="VARCHAR" />
+    <result column="CON_TEL1" property="conTel1" jdbcType="VARCHAR" />
+    <result column="CON_TEL2" property="conTel2" jdbcType="VARCHAR" />
+    <result column="CONTR_NAM1" property="contrNam1" jdbcType="VARCHAR" />
+    <result column="CONTR_REA1" property="contrRea1" jdbcType="VARCHAR" />
+    <result column="CONTR_NAM2" property="contrNam2" jdbcType="VARCHAR" />
+    <result column="CONTR_REA2" property="contrRea2" jdbcType="VARCHAR" />
+    <result column="CONTR_REA" property="contrRea" jdbcType="VARCHAR" />
+    <result column="CONTR_NAM" property="contrNam" jdbcType="VARCHAR" />
+    <result column="CONTR_TEL" property="contrTel" jdbcType="VARCHAR" />
+    <result column="CRED_LIMIT" property="credLimit" jdbcType="DECIMAL" />
+    <result column="CREDLIM_X" property="credlimX" jdbcType="DECIMAL" />
+    <result column="DAY_BIRTH" property="dayBirth" jdbcType="VARCHAR" />
+    <result column="DEPENDENTS" property="dependents" jdbcType="DECIMAL" />
+    <result column="EDUCA" property="educa" jdbcType="VARCHAR" />
+    <result column="EMAIL_ADDR" property="emailAddr" jdbcType="VARCHAR" />
+    <result column="EMPLY_DEPT" property="emplyDept" jdbcType="VARCHAR" />
+    <result column="EMPLY_NBR" property="emplyNbr" jdbcType="VARCHAR" />
+    <result column="EXTENSION" property="extension" jdbcType="VARCHAR" />
+    <result column="GENDER" property="gender" jdbcType="VARCHAR" />
+    <result column="HOME_CODE" property="homeCode" jdbcType="VARCHAR" />
+    <result column="HOME_PHONE" property="homePhone" jdbcType="VARCHAR" />
+    <result column="INCOME_AN2" property="incomeAn2" jdbcType="DECIMAL" />
+    <result column="INCOME_ANN" property="incomeAnn" jdbcType="DECIMAL" />
+    <result column="INCOME_SR2" property="incomeSr2" jdbcType="VARCHAR" />
+    <result column="INCOME_SRC" property="incomeSrc" jdbcType="VARCHAR" />
+    <result column="IRD_N" property="irdN" jdbcType="VARCHAR" />
+    <result column="LANG_CODE" property="langCode" jdbcType="VARCHAR" />
+    <result column="MAIL_CODE" property="mailCode" jdbcType="VARCHAR" />
+    <result column="MAR_STATUS" property="marStatus" jdbcType="VARCHAR" />
+    <result column="MO_PHONE" property="moPhone" jdbcType="VARCHAR" />
+    <result column="MP_LIMIT" property="mpLimit" jdbcType="DECIMAL" />
+    <result column="MTHR_MNAME" property="mthrMname" jdbcType="VARCHAR" />
+    <result column="OCC_CATGRY" property="occCatgry" jdbcType="VARCHAR" />
+    <result column="OCC_CODE" property="occCode" jdbcType="VARCHAR" />
+    <result column="POSN_EMPLY" property="posnEmply" jdbcType="VARCHAR" />
+    <result column="RACE_CODE" property="raceCode" jdbcType="VARCHAR" />
+    <result column="REL_NAM" property="relNam" jdbcType="VARCHAR" />
+    <result column="REL_TEL" property="relTel" jdbcType="VARCHAR" />
+    <result column="FORECOMP" property="forecomp" jdbcType="VARCHAR" />
+    <result column="FOREDEPT" property="foredept" jdbcType="VARCHAR" />
+    <result column="FOREJOB" property="forejob" jdbcType="VARCHAR" />
+    <result column="FOREBUSI" property="forebusi" jdbcType="VARCHAR" />
+    <result column="FOREANN" property="foreann" jdbcType="DECIMAL" />
+    <result column="YR_FORECOM" property="yrForecom" jdbcType="DECIMAL" />
+    <result column="SPU_NAM" property="spuNam" jdbcType="VARCHAR" />
+    <result column="SPU_TEL" property="spuTel" jdbcType="VARCHAR" />
+    <result column="SURNAME" property="surname" jdbcType="VARCHAR" />
+    <result column="XTITLE" property="xtitle" jdbcType="VARCHAR" />
+    <result column="WORK_CALLS" property="workCalls" jdbcType="VARCHAR" />
+    <result column="YR_IN_COM2" property="yrInCom2" jdbcType="DECIMAL" />
+    <result column="YR_IN_COMP" property="yrInComp" jdbcType="DECIMAL" />
+    <result column="YR_THERE" property="yrThere" jdbcType="DECIMAL" />
+    <result column="SPU_MOBILE" property="spuMobile" jdbcType="VARCHAR" />
+    <result column="HOME_LOAN" property="homeLoan" jdbcType="DECIMAL" />
+    <result column="CON_MO1" property="conMo1" jdbcType="VARCHAR" />
+    <result column="CON_MO2" property="conMo2" jdbcType="VARCHAR" />
+    <result column="REL_MOBILE" property="relMobile" jdbcType="VARCHAR" />
+    <result column="INT_TAXCOD" property="intTaxcod" jdbcType="VARCHAR" />
+    <result column="ID_VERIFY" property="idVerify" jdbcType="VARCHAR" />
+    <result column="IDCP_YN" property="idcpYn" jdbcType="VARCHAR" />
+    <result column="ORG_NO" property="orgNo" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="insertSXykCustrCur" parameterType="map" >
+    insert into S_XYK_CUSTR_CUR (CREATED_TIME,CUSTR_NBR, SECUR_NBR, NATION, 
+      BUSI_PHONE, CAR_DATE, CAR_ID, 
+      CAR_NAM, CAR_CODE, CLASS_CODE, 
+      COMP_NAME, CON_NAM1, CON_NAM2, 
+      CON_TEL1, CON_TEL2, CONTR_NAM1, 
+      CONTR_REA1, CONTR_NAM2, CONTR_REA2, 
+      CONTR_REA, CONTR_NAM, CONTR_TEL, 
+      CRED_LIMIT, CREDLIM_X, DAY_BIRTH, 
+      DEPENDENTS, EDUCA, EMAIL_ADDR, 
+      EMPLY_DEPT, EMPLY_NBR, EXTENSION, 
+      GENDER, HOME_CODE, HOME_PHONE, 
+      INCOME_AN2, INCOME_ANN, INCOME_SR2, 
+      INCOME_SRC, IRD_N, LANG_CODE, 
+      MAIL_CODE, MAR_STATUS, MO_PHONE, 
+      MP_LIMIT, MTHR_MNAME, OCC_CATGRY, 
+      OCC_CODE, POSN_EMPLY, RACE_CODE, 
+      REL_NAM, REL_TEL, FORECOMP, 
+      FOREDEPT, FOREJOB, FOREBUSI, 
+      FOREANN, YR_FORECOM, SPU_NAM, 
+      SPU_TEL, SURNAME, XTITLE, 
+      WORK_CALLS, YR_IN_COM2, YR_IN_COMP, 
+      YR_THERE, SPU_MOBILE, HOME_LOAN, 
+      CON_MO1, CON_MO2, REL_MOBILE, 
+      INT_TAXCOD, ID_VERIFY, IDCP_YN, 
+      ORG_NO)
+    values (#{createdTime,jdbcType=VARCHAR},#{custrNbr,jdbcType=VARCHAR}, #{securNbr,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, 
+      #{busiPhone,jdbcType=VARCHAR}, #{carDate,jdbcType=VARCHAR}, #{carId,jdbcType=VARCHAR}, 
+      #{carNam,jdbcType=VARCHAR}, #{carCode,jdbcType=VARCHAR}, #{classCode,jdbcType=VARCHAR}, 
+      #{compName,jdbcType=VARCHAR}, #{conNam1,jdbcType=VARCHAR}, #{conNam2,jdbcType=VARCHAR}, 
+      #{conTel1,jdbcType=VARCHAR}, #{conTel2,jdbcType=VARCHAR}, #{contrNam1,jdbcType=VARCHAR}, 
+      #{contrRea1,jdbcType=VARCHAR}, #{contrNam2,jdbcType=VARCHAR}, #{contrRea2,jdbcType=VARCHAR}, 
+      #{contrRea,jdbcType=VARCHAR}, #{contrNam,jdbcType=VARCHAR}, #{contrTel,jdbcType=VARCHAR}, 
+      #{credLimit,jdbcType=DECIMAL}, #{credlimX,jdbcType=DECIMAL}, #{dayBirth,jdbcType=VARCHAR}, 
+      #{dependents,jdbcType=DECIMAL}, #{educa,jdbcType=VARCHAR}, #{emailAddr,jdbcType=VARCHAR}, 
+      #{emplyDept,jdbcType=VARCHAR}, #{emplyNbr,jdbcType=VARCHAR}, #{extension,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=VARCHAR}, #{homeCode,jdbcType=VARCHAR}, #{homePhone,jdbcType=VARCHAR}, 
+      #{incomeAn2,jdbcType=DECIMAL}, #{incomeAnn,jdbcType=DECIMAL}, #{incomeSr2,jdbcType=VARCHAR}, 
+      #{incomeSrc,jdbcType=VARCHAR}, #{irdN,jdbcType=VARCHAR}, #{langCode,jdbcType=VARCHAR}, 
+      #{mailCode,jdbcType=VARCHAR}, #{marStatus,jdbcType=VARCHAR}, #{moPhone,jdbcType=VARCHAR}, 
+      #{mpLimit,jdbcType=DECIMAL}, #{mthrMname,jdbcType=VARCHAR}, #{occCatgry,jdbcType=VARCHAR}, 
+      #{occCode,jdbcType=VARCHAR}, #{posnEmply,jdbcType=VARCHAR}, #{raceCode,jdbcType=VARCHAR}, 
+      #{relNam,jdbcType=VARCHAR}, #{relTel,jdbcType=VARCHAR}, #{forecomp,jdbcType=VARCHAR}, 
+      #{foredept,jdbcType=VARCHAR}, #{forejob,jdbcType=VARCHAR}, #{forebusi,jdbcType=VARCHAR}, 
+      #{foreann,jdbcType=DECIMAL}, #{yrForecom,jdbcType=DECIMAL}, #{spuNam,jdbcType=VARCHAR}, 
+      #{spuTel,jdbcType=VARCHAR}, #{surname,jdbcType=VARCHAR}, #{xtitle,jdbcType=VARCHAR}, 
+      #{workCalls,jdbcType=VARCHAR}, #{yrInCom2,jdbcType=DECIMAL}, #{yrInComp,jdbcType=DECIMAL}, 
+      #{yrThere,jdbcType=DECIMAL}, #{spuMobile,jdbcType=VARCHAR}, #{homeLoan,jdbcType=DECIMAL}, 
+      #{conMo1,jdbcType=VARCHAR}, #{conMo2,jdbcType=VARCHAR}, #{relMobile,jdbcType=VARCHAR}, 
+      #{intTaxcod,jdbcType=VARCHAR}, #{idVerify,jdbcType=VARCHAR}, #{idcpYn,jdbcType=VARCHAR}, 
+      #{orgNo,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="findBankCustomerByCardIds" resultMap="BaseResultMap">
+  	select custr_Nbr,nation,busi_Phone,comp_Name,educa,gender,home_Code,home_Phone,mar_Status,
+  	mo_Phone,occ_Catgry,occ_Code,posn_Emply,race_Code,surname,yr_In_Comp,id_Verify
+  	from S_XYK_CUSTR_CUR 
+  	where custr_nbr in
+  	<foreach collection="cardIds" item="cardId" open="(" separator="," close=")">
+		#{cardId}
+	</foreach>
+  </select>
+  
+</mapper>
