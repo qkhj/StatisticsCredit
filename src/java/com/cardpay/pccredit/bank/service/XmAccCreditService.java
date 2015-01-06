@@ -40,6 +40,7 @@ public class XmAccCreditService {
 		
 		// 解析”存贷记卡台帐“数据文件
 		List<Map<String, Object>> datas = tools.parseDataFile(fileName, confList);
+		System.out.println("twh-datas.size()="+datas.size());
 		for(Map<String, Object> map : datas){
 			String value = (String) map.get("billDays");
 			value = value.replaceAll("[\\.0]+$", "");
@@ -51,9 +52,24 @@ public class XmAccCreditService {
 			xmAccCreditDao.insertXmAccCredit(map);
 		}
 	}
+	
 	public XmAccCredit findXmAccCreditByCustrNbr(String custrNbr){
 		String createdTime = DateHelper.getDateFormat(new Date(), "yyyyMMdd");
 		return xmAccCreditDao.findXmAccCreditByCustrNbr(custrNbr,createdTime);
+	}
+	
+	public static void main(String[] args) {
+		try {
+			ImportBankDataFileTools tools = new ImportBankDataFileTools();
+			// 解析数据文件配置
+			List<DataFileConf> confList = tools.parseDataFileConf("D:\\Development\\eclipse-jee-with-android_workspace\\StatisticsCredit\\src\\conf\\datamapping\\xmAccCredit.xml");
+			
+			// 解析”存贷记卡台帐“数据文件
+			List<Map<String, Object>> datas = tools.largeFileIO("C:\\Users\\Administrator\\Desktop\\STA_902_cmis_ACC_CREDIT_ADD_20141228.dat", confList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }	
 	

@@ -1,8 +1,12 @@
 package com.cardpay.pccredit.bank.service;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,22 +82,21 @@ public class ImportBankDataFileTools {
 	 */
 	public List<Map<String, Object>> parseDataFile(String fileName, List<DataFileConf> confList) throws Exception{
 		List<Map<String, Object>> datas = new ArrayList<Map<String, Object>>();
-		int count = 0;
 		FileInputStream fis = null;
 		InputStreamReader isr = null;
 		BufferedReader br = null;
 		try{
 			fis=new FileInputStream(fileName);
 		    isr=new InputStreamReader(fis, "gbk");
-		    br = new BufferedReader(isr);
+		    br = new BufferedReader(isr,10*1024*1024);// 用5M的缓冲读取文本文件  
 		      
 			String line="", value = null, type = null, column = null;
 	        String[] dataArrs=null;
 	        Map<String, Object> map = null;
-	        
+	        int count = 0;
 	        while ((line=br.readLine())!=null) {
+	        	System.out.println(count);
 	        	count++;
-	        	System.out.println("twh-"+count);
 	        	dataArrs = StringUtils.splitPreserveAllTokens(line.replaceAll(SPLITE_CHARS, "±"),"±");
 	            map = new HashMap<String, Object>();
 	            boolean flag = true;
@@ -179,5 +182,61 @@ public class ImportBankDataFileTools {
 	
 	public String getFileFullName(String fileName){
 		return InitServer.getClassPath() + fileName;
+	}
+	
+	public List<Map<String, Object>> largeFileIO(String fileName, List<DataFileConf> confList) {
+		List<Map<String, Object>> datas = new ArrayList<Map<String, Object>>();
+        try {
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(new File(fileName)));
+            BufferedReader in = new BufferedReader(new InputStreamReader(bis, "gbk"), 10 * 1024 * 1024);//10M缓存
+            
+            String line="", value = null, type = null, column = null;
+	        String[] dataArrs=null;
+	        Map<String, Object> map = null;
+	        int count = 0;
+            while (in.ready()) {
+				line = in.readLine();
+				System.out.println(count);
+				count++;
+				dataArrs = StringUtils.splitPreserveAllTokens(line.replaceAll(SPLITE_CHARS, "±"),"±");
+				map = new HashMap<String, Object>();
+				boolean flag = true;
+				for(DataFileConf dataFileConf : confList){
+					type = dataFileConf.getJdbcType();
+					column = dataFileConf.getColumn();
+					
+					if(dataFileConf.getIndex() >= 1){
+						value = dataArrs[dataFileConf.getIndex()-1].trim();
+					}
+					
+					if(DECIMAL.equals(type) || VARCHAR.equals(type)){
+						value = value.trim();
+						
+						if(DECIMAL.equals(type) || NumberUtils.isNumber(value)){
+							value = NumberUtils.createBigDecimal(value).toString();
+						}
+											
+						if(DECIMAL.equals(type) && StringUtils.isNotEmpty(value) && !NumberUtils.isNumber(value)){
+							log.info(value + " is not number, line string : " + line);
+							flag = false;
+							break;
+						}
+					}else if(DATE_STRING.equals(type)){
+						value = value.replaceAll("-", "");
+					}else if(DATE_NOW.equals(type)){
+						value = DateHelper.getDateFormat(new Date(), dataFileConf.getStyle());
+					}
+					
+					map.put(SqlJavaNameUtil.getVariableName(column, false),value);
+				}
+				if(flag){
+					datas.add(map);
+				}
+            }
+            in.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return datas;
 	}
 }

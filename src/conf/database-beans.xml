@@ -27,8 +27,8 @@
 		destroy-method="close">
 		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="jdbcUrl" value="jdbc:oracle:thin:@11.23.11.35:1521:orcl" /> 
-		<property name="user" value="pccredit1" />
-		<property name="password" value="pccredit1" />
+		<property name="user" value="pccredit" />
+		<property name="password" value="pccredit" />
 		
 		<property name="minPoolSize" value="2" />
 		<property name="maxPoolSize" value="10" />
@@ -50,7 +50,7 @@
 		<property name="minPoolSize" value="2" />
 		<property name="maxPoolSize" value="10" />
 		<property name="acquireIncrement" value="1" />
-
+		
 		<property name="idleConnectionTestPeriod" value="1800" />
 		<property name="testConnectionOnCheckout" value="true" />
 		<property name="preferredTestQuery" value="select 1 from dual" />
