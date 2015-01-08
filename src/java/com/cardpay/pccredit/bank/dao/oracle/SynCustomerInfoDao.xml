@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardpay.pccredit.bank.dao.SynCustomerInfoDao" >
+  <resultMap id="customerInfoMap" type="com.cardpay.pccredit.bank.model.CustomerInfor" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CARD_ID" property="cardId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="dictMap" type="com.cardpay.pccredit.bank.model.Dict" >
+    <result column="DICT_TYPE" property="dictType" jdbcType="VARCHAR" />
+    <result column="TYPE_CODE" property="TypeCode" jdbcType="VARCHAR" />
+    <result column="TYPE_NAME" property="TypeName" jdbcType="VARCHAR" />
+    <result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<select id="findCustomerInforByPage" resultMap="customerInfoMap" >
+		SELECT * FROM
+			(SELECT ROW_.*,ROWNUM ROWNUM_
+				FROM (
+					 SELECT c.id,
+							c.card_id
+					 FROM  basic_customer_information c
+ 			<![CDATA[
+					) ROW_
+				WHERE ROWNUM <= #{limit}*#{page} + #{limit}) 
+			WHERE ROWNUM_ > #{limit}*#{page}
+			]]>
+	</select>
+
+	<select id="findDictByDictType" resultMap="dictMap">
+		select type_code,type_name,bank_code
+		from dict 
+		where dict_type=#{dictType} order by type_code asc
+	</select>
+	
+	<select id="findIndustryType" resultMap="dictMap">
+		select type_code,type_name,bank_code
+		from industry_dict
+		 order by type_code asc
+	</select>
+	
+	<update id="updateCustomerInfos" parameterType="com.cardpay.pccredit.bank.model.CustomerInfor">
+		update basic_customer_information
+		<set>
+			<if test="cardId!=null and cardId!=''">
+				card_id=#{cardId},
+			</if>
+			<if test="chineseName!=null and chineseName!=''">
+				chinese_name=#{chineseName},
+			</if>
+			<if test="telephone!=null and telephone!=''">
+				telephone=#{telephone},
+			</if>
+			<if test="homePhone!=null and homePhone!=''">
+				home_phone=#{homePhone},
+			</if>
+			<if test="nationality!=null and nationality!=''">
+				nationality=#{nationality},
+			</if>
+			<if test="sex!=null and sex!=''">
+				sex=#{sex},
+			</if>
+			<if test="cardType!=null and cardType!=''">
+				card_type=#{cardType},
+			</if>
+			<if test="residentialPropertie!=null and residentialPropertie!=''">
+				residential_propertie=#{residentialPropertie},
+			</if>
+			<if test="degreeEducation!=null and degreeEducation!=''">
+				degree_education=#{degreeEducation},
+			</if>
+			<if test="maritalStatus!=null and maritalStatus!=''">
+				marital_status=#{maritalStatus},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<update id="updateCustomerCarresInfos" parameterType="com.cardpay.pccredit.bank.model.CustomerCareersInformation">
+		update customer_careers_information
+		<set>
+			<if test="unitPhone!=null and unitPhone!=''">
+				unit_phone=#{unitPhone},
+			</if>
+			<if test="nameUnit!=null and nameUnit!=''">
+				name_unit=#{nameUnit},
+			</if>
+			<if test="workTime!=null and workTime!=''">
+				work_time=#{workTime},
+			</if>
+			<if test="unitNature!=null and unitNature!=''">
+				unit_nature=#{unitNature},
+			</if>
+			<if test="industryType!=null and industryType!=''">
+				industry_type=#{industryType},
+			</if>
+			<if test="title!=null and title!=''">
+				title=#{title},
+			</if>
+		</set>
+		where customer_id=#{customerId}
+	</update>
+
+</mapper>

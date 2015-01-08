@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<resultMap id="BaseResultMap" type="com.cardpay.pccredit.bank.model.XmAccCredit">
+	<result column="CREATED_TIME" jdbcType="DATE_NOW" index="" style="yyyyMMdd"/>
+	<result column="DATA_DT" jdbcType="DATE_NOW" index="" style="yyyyMMdd"/>
+
+	<result column="LOAD_TIME" jdbcType="DATE_NOW" index="" style="yyyy-MM-dd HH:mm:ss"/>
+
+	<result column="LOAN_ACCOUNT" jdbcType="VARCHAR" index="1" />
+
+	<result column="CUS_NAME" jdbcType="VARCHAR" index="2" />
+
+	<result column="CERT_TYPE" jdbcType="VARCHAR" index="3" />
+
+	<result column="CERT_CODE" jdbcType="VARCHAR" index="4" />
+
+	<result column="FINA_BR_ID" jdbcType="VARCHAR" index="5" />
+
+	<result column="TYPE_CARD" jdbcType="VARCHAR" index="6" />
+
+	<result column="OPEN_ACCOUNT_DATE" jdbcType="DATE_STRING" index="7" />
+
+	<result column="CREDIT_LIMIT" jdbcType="DECIMAL" index="8" />
+
+	<result column="CRE_LMT_DIV_PAY" jdbcType="DECIMAL" index="9" />
+
+	<result column="DUE_DATE" jdbcType="DATE_STRING" index="10" />
+
+	<result column="ACCOUNT_STATE" jdbcType="VARCHAR" index="11" />
+
+	<result column="ACC_STATE_DATE" jdbcType="DATE_STRING" index="12" />
+
+	<result column="CONSUME_BALANCE_Y" jdbcType="DECIMAL" index="13" />
+
+	<result column="ACCOUNT_Y" jdbcType="DECIMAL" index="14" />
+
+	<result column="BALANCE_EXP_Y" jdbcType="DECIMAL" index="15" />
+
+	<result column="BALANCE_INT_Y" jdbcType="DECIMAL" index="16" />
+
+	<result column="CODE_CUR" jdbcType="VARCHAR" index="17" />
+
+	<result column="BILL_BALANCE_LAST" jdbcType="DECIMAL" index="18" />
+
+	<result column="BALANCE_COM_LAST" jdbcType="DECIMAL" index="19" />
+
+	<result column="BALANCE_INT_LAST" jdbcType="DECIMAL" index="20" />
+
+	<result column="BALANCE_CASH_LAST" jdbcType="DECIMAL" index="21" />
+
+	<result column="ACCOUNT_LAST" jdbcType="DECIMAL" index="22" />
+
+	<result column="MAX_OVERDUE_TERM" jdbcType="DECIMAL" index="23" />
+
+	<result column="BALANCE_COM" jdbcType="DECIMAL" index="24" />
+
+	<result column="BILL_DAYS" jdbcType="VARCHAR" index="25" />
+
+	<result column="RE_BALANCE_STAGE" jdbcType="DECIMAL" index="26" />
+
+	<result column="BALANCE_Y" jdbcType="DECIMAL" index="27" />
+
+	<result column="BALANCE_LAST" jdbcType="DECIMAL" index="28" />
+
+	<result column="FLAG_REPAY_FULL" jdbcType="VARCHAR" index="29" />
+
+	<result column="COM_RECEIVE" jdbcType="DECIMAL" index="30" />
+
+	<result column="LAST_ACC_INT" jdbcType="DECIMAL" index="31" />
+
+	<result column="CUR_ACC_INT" jdbcType="DECIMAL" index="32" />
+
+	<result column="CUR_COM_INT" jdbcType="DECIMAL" index="33" />
+
+	<result column="ACC_COM_INT" jdbcType="DECIMAL" index="34" />
+
+	<result column="TOTAL_BALANCE" jdbcType="DECIMAL" index="35" />
+
+	<result column="OVERDRAW_AMOUNT" jdbcType="DECIMAL" index="36" />
+
+	<result column="NOMAL_OD_AMT" jdbcType="DECIMAL" index="37" />
+
+	<result column="OVERDUE_OD_AMT" jdbcType="DECIMAL" index="38" />
+
+	<result column="SLUGGISH_OD_AMT" jdbcType="DECIMAL" index="39" />
+
+	<result column="DOUBTFUL_OD_AMT" jdbcType="DECIMAL" index="40" />
+
+	<result column="OD_INNER_CUMU" jdbcType="DECIMAL" index="41" />
+
+	<result column="OD_OUT_CUMU" jdbcType="DECIMAL" index="42" />
+
+	<result column="OVERDUE_DATE" jdbcType="DATE_STRING" index="43" />
+
+	<result column="OVERDRAFT_DATE" jdbcType="DATE_STRING" index="44" />
+
+	<result column="FLAG_OVERDUE" jdbcType="VARCHAR" index="45" />
+
+	<result column="OVERDUE_BALANCE_IN" jdbcType="DECIMAL" index="46" />
+
+	<result column="OVERDUE_INT_IN" jdbcType="DECIMAL" index="47" />
+
+	<result column="OVERDUE_CAP_REST" jdbcType="DECIMAL" index="48" />
+
+	<result column="OVERDUE_INT_REST" jdbcType="DECIMAL" index="49" />
+
+	<result column="LAST_REPAY_DATE" jdbcType="DATE_STRING" index="50" />
+
+	<result column="A51" jdbcType="VARCHAR" index="51" />
+
+	<result column="A52" jdbcType="VARCHAR" index="52" />
+
+	<result column="A53" jdbcType="VARCHAR" index="53" />
+
+	<result column="A54" jdbcType="VARCHAR" index="54" />
+
+	<result column="MGR_NO" jdbcType="VARCHAR" index="55" />
+
+	<result column="MAIN_BR_ID" jdbcType="VARCHAR" index="56" />
+
+	<result column="LEVEL_FOUR_MARKING" jdbcType="VARCHAR" index="57" />
+
+	<result column="ACCOUNT_NUMBER" jdbcType="VARCHAR" index="58" />
+
+	<result column="LEVEL_FIVE_RESULT" jdbcType="VARCHAR" index="59" />
+
+	<result column="LEVEL_FIVE_MACHINE_REASON" jdbcType="VARCHAR" index="60" />
+
+	<result column="LEVEL_FIVE_REASON" jdbcType="VARCHAR" index="61" />
+
+	<result column="CARD_STATUS" jdbcType="VARCHAR" index="62" />
+
+	<result column="GUAR_CERT_CODE" jdbcType="VARCHAR" index="64" />
+
+	<result column="GUAR_NAME" jdbcType="VARCHAR" index="63" />
+
+	<result column="GUAR_MPHONE" jdbcType="VARCHAR" index="65" />
+</resultMap>

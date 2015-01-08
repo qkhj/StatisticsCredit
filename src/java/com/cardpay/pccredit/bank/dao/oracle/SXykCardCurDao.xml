@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardpay.pccredit.bank.dao.SXykCardCurDao" >
+  <resultMap id="BaseResultMap" type="com.cardpay.pccredit.bank.model.SXykCardCur" >
+    <result column="CREATED_TIME" jdbcType="VARCHAR" property="createdTime" />
+    <result column="CARD_NBR" property="cardNbr" jdbcType="VARCHAR" />
+    <result column="PRODUCT" property="product" jdbcType="VARCHAR" />
+    <result column="CANCL_CODE" property="canclCode" jdbcType="VARCHAR" />
+    <result column="CANCL_DAY" property="canclDay" jdbcType="VARCHAR" />
+    <result column="CANCL_EMPL" property="canclEmpl" jdbcType="VARCHAR" />
+    <result column="CANCL_TIME" property="canclTime" jdbcType="VARCHAR" />
+    <result column="ACTIONCODE" property="actioncode" jdbcType="VARCHAR" />
+    <result column="CREATE_DAY" property="createDay" jdbcType="VARCHAR" />
+    <result column="CASHAD_NOX" property="cashadNox" jdbcType="VARCHAR" />
+    <result column="CASHADV_NO" property="cashadvNo" jdbcType="VARCHAR" />
+    <result column="DESPATCH" property="despatch" jdbcType="VARCHAR" />
+    <result column="EMBOSS_LN2" property="embossLn2" jdbcType="VARCHAR" />
+    <result column="EMBOSS_NME" property="embossNme" jdbcType="VARCHAR" />
+    <result column="EXPIRY_DTE" property="expiryDte" jdbcType="VARCHAR" />
+    <result column="EXPIRY_NEW" property="expiryNew" jdbcType="VARCHAR" />
+    <result column="FEE_CODE" property="feeCode" jdbcType="VARCHAR" />
+    <result column="ISSUE_DAY" property="issueDay" jdbcType="VARCHAR" />
+    <result column="ISSUE_REAS" property="issueReas" jdbcType="VARCHAR" />
+    <result column="LOSS_DAY" property="lossDay" jdbcType="VARCHAR" />
+    <result column="LOSS_REPRT" property="lossReprt" jdbcType="VARCHAR" />
+    <result column="LOSS_TIME" property="lossTime" jdbcType="VARCHAR" />
+    <result column="DEPAM_TDX" property="depamTdx" jdbcType="DECIMAL" />
+    <result column="DEPAM_TDY" property="depamTdy" jdbcType="DECIMAL" />
+    <result column="DEPNO_TDX" property="depnoTdx" jdbcType="VARCHAR" />
+    <result column="DEPNO_TDY" property="depnoTdy" jdbcType="VARCHAR" />
+    <result column="DEPOSIT_NO" property="depositNo" jdbcType="VARCHAR" />
+    <result column="HRCASH_NO" property="hrcashNo" jdbcType="VARCHAR" />
+    <result column="HRCASH_NOX" property="hrcashNox" jdbcType="VARCHAR" />
+    <result column="MAX_PAMTX" property="maxPamtx" jdbcType="VARCHAR" />
+    <result column="MAX_PINTRY" property="maxPintry" jdbcType="VARCHAR" />
+    <result column="PIN_FAILDL" property="pinFaildl" jdbcType="VARCHAR" />
+    <result column="PIN_FAILS" property="pinFails" jdbcType="VARCHAR" />
+    <result column="PURCAM_TDX" property="purcamTdx" jdbcType="DECIMAL" />
+    <result column="PURCAM_TDY" property="purcamTdy" jdbcType="DECIMAL" />
+    <result column="PURCHS_NOX" property="purchsNox" jdbcType="VARCHAR" />
+    <result column="PURCHSE_NO" property="purchseNo" jdbcType="VARCHAR" />
+    <result column="REISS_DTE" property="reissDte" jdbcType="VARCHAR" />
+    <result column="URGENTFEE" property="urgentfee" jdbcType="VARCHAR" />
+    <result column="VALID_FROM" property="validFrom" jdbcType="VARCHAR" />
+    <result column="VALID_NEW" property="validNew" jdbcType="VARCHAR" />
+    <result column="SMS_YN" property="smsYn" jdbcType="VARCHAR" />
+    <result column="PIN_CHK" property="pinChk" jdbcType="VARCHAR" />
+    <result column="CDFRM" property="cdfrm" jdbcType="VARCHAR" />
+    <result column="LIMIT_X" property="limitX" jdbcType="VARCHAR" />
+    <result column="CRED_LMT0" property="credLmt0" jdbcType="VARCHAR" />
+    <result column="CUSTR_NBR" property="custrNbr" jdbcType="VARCHAR" />
+    <result column="AREA_CODE" property="areaCode" jdbcType="VARCHAR" />
+    <result column="FEE_MONTH" property="feeMonth" jdbcType="VARCHAR" />
+    <result column="EC_YN" property="ecYn" jdbcType="VARCHAR" />
+    <result column="EC_ENDDT" property="ecEnddt" jdbcType="VARCHAR" />
+    <result column="LTNONLY_YN" property="ltnonlyYn" jdbcType="VARCHAR" />
+    <result column="TRACK2_N" property="track2N" jdbcType="VARCHAR" />
+    <result column="ACTIVEDAY" property="activeday" jdbcType="VARCHAR" />
+    <result column="ACTIVECH" property="activech" jdbcType="VARCHAR" />
+    <result column="CANCL_REAS" property="canclReas" jdbcType="VARCHAR" />
+    <result column="NTNP_YN" property="ntnpYn" jdbcType="VARCHAR" />
+    <result column="PASSWORD_AMT" property="passwordAmt" jdbcType="VARCHAR" />
+    <result column="INTEGRAL_FEE" property="integralFee" jdbcType="VARCHAR" />
+    <result column="WITHDRW_YN" property="withdrwYn" jdbcType="VARCHAR" />
+    <result column="XFRFROM_YN" property="xfrfromYn" jdbcType="VARCHAR" />
+    <result column="DEPOSIT_YN" property="depositYn" jdbcType="VARCHAR" />
+    <result column="BALINQ_YN" property="balinqYn" jdbcType="VARCHAR" />
+    <result column="PURCH_YN" property="purchYn" jdbcType="VARCHAR" />
+    <result column="CASHBCK_YN" property="cashbckYn" jdbcType="VARCHAR" />
+    <result column="XFRCHNL" property="xfrchnl" jdbcType="VARCHAR" />
+    <result column="ORG_NO" property="orgNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="findSXykCardCurByCardNbr" resultMap="BaseResultMap">
+		select * 
+		from
+		S_XYK_CARD_CUR
+		where
+		CARD_NBR=#{cardNar}
+		and
+		CREATED_TIME=#{createdTime}
+	</select>
+	
+	<select id="findSXykCardCur" resultMap="BaseResultMap">
+		select * 
+		from
+		S_XYK_CARD_CUR
+		where 
+		CREATED_TIME=#{createdTime}
+	</select>
+	<insert id="insertSXykCardCur" parameterType="map" >
+	    insert into S_XYK_CARD_CUR (CREATED_TIME,CARD_NBR, PRODUCT, CANCL_CODE, 
+	      CANCL_DAY, CANCL_EMPL, CANCL_TIME, 
+	      ACTIONCODE, CREATE_DAY, CASHAD_NOX, 
+	      CASHADV_NO, DESPATCH, EMBOSS_LN2, 
+	      EMBOSS_NME, EXPIRY_DTE, EXPIRY_NEW, 
+	      FEE_CODE, ISSUE_DAY, ISSUE_REAS, 
+	      LOSS_DAY, LOSS_REPRT, LOSS_TIME, 
+	      DEPAM_TDX, DEPAM_TDY, DEPNO_TDX, 
+	      DEPNO_TDY, DEPOSIT_NO, HRCASH_NO, 
+	      HRCASH_NOX, MAX_PAMTX, MAX_PINTRY, 
+	      PIN_FAILDL, PIN_FAILS, PURCAM_TDX, 
+	      PURCAM_TDY, PURCHS_NOX, PURCHSE_NO, 
+	      REISS_DTE, URGENTFEE, VALID_FROM, 
+	      VALID_NEW, SMS_YN, PIN_CHK, 
+	      CDFRM, LIMIT_X, CRED_LMT0, 
+	      CUSTR_NBR, AREA_CODE, FEE_MONTH, 
+	      EC_YN, EC_ENDDT, LTNONLY_YN, 
+	      TRACK2_N, ACTIVEDAY, ACTIVECH, 
+	      CANCL_REAS, NTNP_YN, PASSWORD_AMT, 
+	      INTEGRAL_FEE, WITHDRW_YN, XFRFROM_YN, 
+	      DEPOSIT_YN, BALINQ_YN, PURCH_YN, 
+	      CASHBCK_YN, XFRCHNL, ORG_NO
+	      )
+	    values (#{createdTime,jdbcType=VARCHAR},#{cardNbr,jdbcType=VARCHAR}, #{product,jdbcType=VARCHAR}, #{canclCode,jdbcType=VARCHAR}, 
+	      #{canclDay,jdbcType=VARCHAR}, #{canclEmpl,jdbcType=VARCHAR}, #{canclTime,jdbcType=VARCHAR}, 
+	      #{actioncode,jdbcType=VARCHAR}, #{createDay,jdbcType=VARCHAR}, #{cashadNox,jdbcType=VARCHAR}, 
+	      #{cashadvNo,jdbcType=VARCHAR}, #{despatch,jdbcType=VARCHAR}, #{embossLn2,jdbcType=VARCHAR}, 
+	      #{embossNme,jdbcType=VARCHAR}, #{expiryDte,jdbcType=VARCHAR}, #{expiryNew,jdbcType=VARCHAR}, 
+	      #{feeCode,jdbcType=VARCHAR}, #{issueDay,jdbcType=VARCHAR}, #{issueReas,jdbcType=VARCHAR}, 
+	      #{lossDay,jdbcType=VARCHAR}, #{lossReprt,jdbcType=VARCHAR}, #{lossTime,jdbcType=VARCHAR}, 
+	      #{depamTdx,jdbcType=DECIMAL}, #{depamTdy,jdbcType=DECIMAL}, #{depnoTdx,jdbcType=VARCHAR}, 
+	      #{depnoTdy,jdbcType=VARCHAR}, #{depositNo,jdbcType=VARCHAR}, #{hrcashNo,jdbcType=VARCHAR}, 
+	      #{hrcashNox,jdbcType=VARCHAR}, #{maxPamtx,jdbcType=VARCHAR}, #{maxPintry,jdbcType=VARCHAR}, 
+	      #{pinFaildl,jdbcType=VARCHAR}, #{pinFails,jdbcType=VARCHAR}, #{purcamTdx,jdbcType=DECIMAL}, 
+	      #{purcamTdy,jdbcType=DECIMAL}, #{purchsNox,jdbcType=VARCHAR}, #{purchseNo,jdbcType=VARCHAR}, 
+	      #{reissDte,jdbcType=VARCHAR}, #{urgentfee,jdbcType=VARCHAR}, #{validFrom,jdbcType=VARCHAR}, 
+	      #{validNew,jdbcType=VARCHAR}, #{smsYn,jdbcType=VARCHAR}, #{pinChk,jdbcType=VARCHAR}, 
+	      #{cdfrm,jdbcType=VARCHAR}, #{limitX,jdbcType=VARCHAR}, #{credLmt0,jdbcType=VARCHAR}, 
+	      #{custrNbr,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, #{feeMonth,jdbcType=VARCHAR}, 
+	      #{ecYn,jdbcType=VARCHAR}, #{ecEnddt,jdbcType=VARCHAR}, #{ltnonlyYn,jdbcType=VARCHAR}, 
+	      #{track2N,jdbcType=VARCHAR}, #{activeday,jdbcType=VARCHAR}, #{activech,jdbcType=VARCHAR}, 
+	      #{canclReas,jdbcType=VARCHAR}, #{ntnpYn,jdbcType=VARCHAR}, #{passwordAmt,jdbcType=VARCHAR}, 
+	      #{integralFee,jdbcType=VARCHAR}, #{withdrwYn,jdbcType=VARCHAR}, #{xfrfromYn,jdbcType=VARCHAR}, 
+	      #{depositYn,jdbcType=VARCHAR}, #{balinqYn,jdbcType=VARCHAR}, #{purchYn,jdbcType=VARCHAR}, 
+	      #{cashbckYn,jdbcType=VARCHAR}, #{xfrchnl,jdbcType=VARCHAR}, #{orgNo,jdbcType=VARCHAR}
+      )
+  </insert>
+</mapper>

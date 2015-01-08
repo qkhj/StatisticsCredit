@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="GBK"?>
+<resultMap id="BaseResultMap" type="com.cardpay.pccredit.bank.model.SXykCustrCur">
+   <result column="FILE_TYPE" index="1" jdbcType="VARCHAR"/>
+    <result column="CUNEG_STS" index="2" jdbcType="VARCHAR"/>
+    <result column="CUSTR_NBR" index="3" jdbcType="VARCHAR"/>
+    <result column="NAME_EXTND" index="4" jdbcType="VARCHAR"/>
+    <result column="CUSTR_REF" index="5" jdbcType="VARCHAR"/>
+    <result column="APPLNREF" index="6" jdbcType="VARCHAR"/>
+    <result column="PRODUCT" index="7" jdbcType="VARCHAR"/>
+    <result column="REASN_CODE" index="8" jdbcType="VARCHAR"/>
+    <result column="REASN_DESC" index="9" jdbcType="VARCHAR"/>
+    <result column="INP_SOURCE" index="10" jdbcType="VARCHAR"/>
+    <result column="SCOR_NOTE" index="11" jdbcType="VARCHAR"/>
+    <result column="CHG_DAY" index="12" jdbcType="VARCHAR"/>
+    <result column="CHG_TIME" index="13" jdbcType="VARCHAR"/>
+    <result column="CHG_EMPLOY" index="14" jdbcType="VARCHAR"/>
+    <result column="INST_NO" index="15" jdbcType="VARCHAR"/>
+    <result column="CREATED_TIME" jdbcType="DATE_NOW" index="" style="yyyyMMdd"/>
+ </resultMap>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardpay.pccredit.bank.dao.CustomerCardInformationDao" >
+  <resultMap id="BaseResultMap" type="com.cardpay.pccredit.bank.model.CustomerCardInformation" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CARD_ID" property="cardId" jdbcType="VARCHAR" />
+    <result column="POUNDAGE" property="poundage" jdbcType="VARCHAR" />
+    <result column="LATE_FEE" property="lateFee" jdbcType="VARCHAR" />
+    <result column="ANNUAL_FEE" property="annualFee" jdbcType="VARCHAR" />
+    <result column="CASH_WITHDRAWAL_FEE" property="cashWithdrawalFee" jdbcType="VARCHAR" />
+    <result column="INTEREST" property="interest" jdbcType="VARCHAR" />
+    <result column="ACTIVE_STATUS" property="activeStatus" jdbcType="VARCHAR" />
+    <result column="YEAR" property="year" jdbcType="VARCHAR" />
+    <result column="MONTH" property="month" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_TIME" property="createdTime" jdbcType="DATE" />
+    <result column="MODIFIED_BY" property="modifiedBy" jdbcType="VARCHAR" />
+    <result column="MODIFIED_TIME" property="modifiedTime" jdbcType="DATE" />
+    <result column="EFFECTIVE_STATUS" property="effectiveStatus"/>
+    <result column="ACTIVATION_STATUS" property="activationStatus"/>
+
+  </resultMap>
+ <insert id="insert" parameterType="com.cardpay.pccredit.bank.model.CustomerCardInformation" >
+    insert into CUSTOMER_CARD_INFORMATION (ID, CARD_ID, POUNDAGE, 
+      LATE_FEE, ANNUAL_FEE, CASH_WITHDRAWAL_FEE, 
+      INTEREST, STATUS, YEAR, 
+      MONTH, CREATED_BY, CREATED_TIME, 
+      MODIFIED_BY, MODIFIED_TIME,EFFECTIVE_STATUS,ACTIVATION_STATUS)
+    values (#{id,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, #{poundage,jdbcType=VARCHAR}, 
+      #{lateFee,jdbcType=VARCHAR}, #{annualFee,jdbcType=VARCHAR}, #{cashWithdrawalFee,jdbcType=VARCHAR}, 
+      #{interest,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, 
+      #{month,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=DATE}, 
+      #{modifiedBy,jdbcType=VARCHAR}, #{modifiedTime,jdbcType=DATE},#{effectiveStatus},#{activationStatus})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cardpay.pccredit.bank.model.CustomerCardInformation" >
+    insert into CUSTOMER_CARD_INFORMATION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="cardId != null" >
+        CARD_ID,
+      </if>
+      <if test="poundage != null" >
+        POUNDAGE,
+      </if>
+      <if test="lateFee != null" >
+        LATE_FEE,
+      </if>
+      <if test="annualFee != null" >
+        ANNUAL_FEE,
+      </if>
+      <if test="cashWithdrawalFee != null" >
+        CASH_WITHDRAWAL_FEE,
+      </if>
+      <if test="interest != null" >
+        INTEREST,
+      </if>
+      <if test="activeStatus != null" >
+        ACTIVE_STATUS,
+      </if>
+      <if test="year != null" >
+        YEAR,
+      </if>
+      <if test="month != null" >
+        MONTH,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME,
+      </if>
+      <if test="modifiedBy != null" >
+        MODIFIED_BY,
+      </if>
+      <if test="modifiedTime != null" >
+        MODIFIED_TIME,
+      </if>
+      <if test="effectiveStatus !=null">
+      	EFFECTIVE_STATUS
+      </if>
+      <if test="activationStatus !=null">
+      	ACTIVATION_STATUS
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="poundage != null" >
+        #{poundage,jdbcType=VARCHAR},
+      </if>
+      <if test="lateFee != null" >
+        #{lateFee,jdbcType=VARCHAR},
+      </if>
+      <if test="annualFee != null" >
+        #{annualFee,jdbcType=VARCHAR},
+      </if>
+      <if test="cashWithdrawalFee != null" >
+        #{cashWithdrawalFee,jdbcType=VARCHAR},
+      </if>
+      <if test="interest != null" >
+        #{interest,jdbcType=VARCHAR},
+      </if>
+      <if test="activeStatus != null" >
+        #{activeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null" >
+        #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime},
+      </if>
+      <if test="modifiedBy != null" >
+        #{modifiedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=DATE},
+      </if>
+      <if test="effectiveStatus != null">
+      	#{effectiveStatus}
+      </if>
+      <if test="activationStatus !=null">
+      	#{activationStatus}
+      </if>
+    </trim>
+  </insert>
+  <select id="findCustomerCardInformationByCardId" resultMap="BaseResultMap">
+  	select *
+  	from
+  	customer_card_information
+  	where 1=1
+  	and card_id=#{cardId}
+  	and year=#{year}
+  	and month=#{month}
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cardpay.pccredit.bank.model.CustomerCardInformation" >
+  	update customer_card_information
+  	<set>
+  		<if test="poundage!=null">
+  			poundage=#{poundage},
+  		</if>
+  		<if test="lateFee!=null">
+  			late_fee=#{lateFee},
+        </if>
+        <if test="annualFee!=null">
+        	annual_fee=#{annualFee},
+        </if>
+        <if test="cashWithdrawalFee!=null">
+        	cash_withdrawal_fee=#{cashWithdrawalFee},
+    	</if>
+    	<if test="interest!=null">
+    		interest=#{interest},
+    	</if>
+    	<if test="activeStatus!=null">
+    		active_status=#{activeStatus},
+    	</if>
+    	<if test="modifiedTime!=null">
+    		modified_time=#{modifiedTime},
+    	</if>
+    	<if test="effectiveStatus!=null">
+    		effective_status=#{effectiveStatus}
+    	</if>
+    	<if test="activationStatus !=null">
+      	    ACTIVATION_STATUS=#{activationStatus}
+    	</if>
+  	</set>
+  	where id=#{id}
+  </update>
+</mapper>

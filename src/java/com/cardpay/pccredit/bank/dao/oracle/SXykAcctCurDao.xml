@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardpay.pccredit.bank.dao.SXykAcctCurDao" >
+  <resultMap id="BaseResultMap" type="com.cardpay.pccredit.bank.model.SXykAcctCur">
+    <result column="CREATED_TIME" jdbcType="VARCHAR" property="createdTime" />
+    <result column="CARD_NBR" jdbcType="VARCHAR" property="cardNbr" />
+    <result column="XACCOUNT" jdbcType="VARCHAR" property="xaccount" />
+    <result column="ADD_CHGDAY" jdbcType="VARCHAR" property="addChgday" />
+    <result column="ADDR_TYPE" jdbcType="VARCHAR" property="addrType" />
+    <result column="PRODUCT" jdbcType="VARCHAR" property="product" />
+    <result column="BRANCH" jdbcType="VARCHAR" property="branch" />
+    <result column="BUSINESS" jdbcType="VARCHAR" property="business" />
+    <result column="DAY_OPENED" jdbcType="VARCHAR" property="dayOpened" />
+    <result column="CRED_LIMIT" jdbcType="DECIMAL" property="credLimit" />
+    <result column="CREDLIM_X" jdbcType="DECIMAL" property="credlimX" />
+    <result column="MP_LIMIT" jdbcType="DECIMAL" property="mpLimit" />
+    <result column="AUTHS_AMT" jdbcType="DECIMAL" property="authsAmt" />
+    <result column="CUTOFF_DAY" jdbcType="VARCHAR" property="cutoffDay" />
+    <result column="LASTPAYDAY" jdbcType="VARCHAR" property="lastpayday" />
+    <result column="PAYMT_CLRD" jdbcType="DECIMAL" property="paymtClrd" />
+    <result column="PURCHASES" jdbcType="DECIMAL" property="purchases" />
+    <result column="PURCHASES_SIGN" jdbcType="VARCHAR" property="purchasesSign" />
+    <result column="CARD_FEES" jdbcType="DECIMAL" property="cardFees" />
+    <result column="CASH_ADFEE" jdbcType="DECIMAL" property="cashAdfee" />
+    <result column="CASH_ADVCE" jdbcType="DECIMAL" property="cashAdvce" />
+    <result column="OTHER_FEES" jdbcType="DECIMAL" property="otherFees" />
+    <result column="PENCHG_ACC" jdbcType="DECIMAL" property="penchgAcc" />
+    <result column="STM_OVERDU" jdbcType="DECIMAL" property="stmOverdu" />
+    <result column="STM_DAY" jdbcType="VARCHAR" property="stmDay" />
+    <result column="QUERY_AMT" jdbcType="DECIMAL" property="queryAmt" />
+    <result column="DEBIT_ADJ" jdbcType="DECIMAL" property="debitAdj" />
+    <result column="CRED_ADJ" jdbcType="DECIMAL" property="credAdj" />
+    <result column="CLOSE_CODE" jdbcType="VARCHAR" property="closeCode" />
+    <result column="CLOSE_CHDY" jdbcType="VARCHAR" property="closeChdy" />
+    <result column="BAL_FREE" jdbcType="DECIMAL" property="balFree" />
+    <result column="BAL_INT" jdbcType="DECIMAL" property="balInt" />
+    <result column="BAL_INT_SIGN" jdbcType="VARCHAR" property="balIntSign" />
+    <result column="BAL_NOINT" jdbcType="DECIMAL" property="balNoint" />
+    <result column="BAL_ORINT" jdbcType="DECIMAL" property="balOrint" />
+    <result column="OCT_DAYIN" jdbcType="VARCHAR" property="octDayin" />
+    <result column="CURR_NUM" jdbcType="VARCHAR" property="currNum" />
+    <result column="INT_UPTODY" jdbcType="VARCHAR" property="intUptody" />
+    <result column="INT_CHGD" jdbcType="DECIMAL" property="intChgd" />
+    <result column="NBR_PAYMNT" jdbcType="VARCHAR" property="nbrPaymnt" />
+    <result column="NBR_PURCH" jdbcType="VARCHAR" property="nbrPurch" />
+    <result column="NBR_TRANS" jdbcType="VARCHAR" property="nbrTrans" />
+    <result column="POINT_ADJ" jdbcType="VARCHAR" property="pointAdj" />
+    <result column="POINT_CLM" jdbcType="VARCHAR" property="pointClm" />
+    <result column="POINT_CUM" jdbcType="VARCHAR" property="pointCum" />
+    <result column="POINT_EAR" jdbcType="VARCHAR" property="pointEar" />
+    <result column="REPAY_CODE" jdbcType="VARCHAR" property="repayCode" />
+    <result column="STM_NOINT" jdbcType="DECIMAL" property="stmNoint" />
+    <result column="STM_BALFRE" jdbcType="DECIMAL" property="stmBalfre" />
+    <result column="STM_BALORI" jdbcType="DECIMAL" property="stmBalori" />
+    <result column="STM_BALINT" jdbcType="DECIMAL" property="stmBalint" />
+    <result column="STM_BALINT_SIGN" jdbcType="VARCHAR" property="stmBalintSign" />
+    <result column="STM_BALNCE" jdbcType="DECIMAL" property="stmBalnce" />
+    <result column="STM_MINDUE" jdbcType="DECIMAL" property="stmMindue" />
+    <result column="STM_CODE" jdbcType="VARCHAR" property="stmCode" />
+    <result column="AGEING_A_1" jdbcType="DECIMAL" property="ageingA1" />
+    <result column="AGEING_A_2" jdbcType="DECIMAL" property="ageingA2" />
+    <result column="AGEING_A_3" jdbcType="DECIMAL" property="ageingA3" />
+    <result column="AGEING_A_4" jdbcType="DECIMAL" property="ageingA4" />
+    <result column="AGEING_A_5" jdbcType="DECIMAL" property="ageingA5" />
+    <result column="AGEING_A_6" jdbcType="DECIMAL" property="ageingA6" />
+    <result column="MTHS_ODUE" jdbcType="VARCHAR" property="mthsOdue" />
+    <result column="BAL_CMPINT" jdbcType="DECIMAL" property="balCmpint" />
+    <result column="CRED_VOUCH" jdbcType="DECIMAL" property="credVouch" />
+    <result column="CYCLE_NBR" jdbcType="VARCHAR" property="cycleNbr" />
+    <result column="EXCH_FLAG" jdbcType="VARCHAR" property="exchFlag" />
+    <result column="MP_AUTHS" jdbcType="DECIMAL" property="mpAuths" />
+    <result column="MP_BAL" jdbcType="DECIMAL" property="mpBal" />
+    <result column="ADDRESS1" jdbcType="VARCHAR" property="address1" />
+    <result column="ADDRESS2" jdbcType="VARCHAR" property="address2" />
+    <result column="ADDRESS3" jdbcType="VARCHAR" property="address3" />
+    <result column="ADDRESS4" jdbcType="VARCHAR" property="address4" />
+    <result column="ADDRESS5" jdbcType="VARCHAR" property="address5" />
+    <result column="POST_CODE" jdbcType="VARCHAR" property="postCode" />
+    <result column="BAL_MP" jdbcType="DECIMAL" property="balMp" />
+    <result column="STM_BALMP" jdbcType="DECIMAL" property="stmBalmp" />
+    <result column="BANKACCT_A_1" jdbcType="VARCHAR" property="bankacctA1" />
+    <result column="BANKACCT_A_2" jdbcType="VARCHAR" property="bankacctA2" />
+    <result column="BANKACCT_A_3" jdbcType="VARCHAR" property="bankacctA3" />
+    <result column="BANKACCT_A_4" jdbcType="VARCHAR" property="bankacctA4" />
+    <result column="BANKCODE_A_5" jdbcType="VARCHAR" property="bankcodeA5" />
+    <result column="BANKCODE_A_6" jdbcType="VARCHAR" property="bankcodeA6" />
+    <result column="BANKCODE_A_7" jdbcType="VARCHAR" property="bankcodeA7" />
+    <result column="BANKCODE_A_8" jdbcType="VARCHAR" property="bankcodeA8" />
+    <result column="REPAY_CODE_1" jdbcType="VARCHAR" property="repayCode1" />
+    <result column="REPAY_CODX" jdbcType="VARCHAR" property="repayCodx" />
+    <result column="EXCH_CODE" jdbcType="VARCHAR" property="exchCode" />
+    <result column="EXCH_CODE_1" jdbcType="VARCHAR" property="exchCode1" />
+    <result column="STM_CLOSDY" jdbcType="VARCHAR" property="stmClosdy" />
+    <result column="POINT_ADJ_1" jdbcType="VARCHAR" property="pointAdj1" />
+    <result column="POINT_CUM_1" jdbcType="VARCHAR" property="pointCum1" />
+    <result column="CREDCODE" jdbcType="VARCHAR" property="credcode" />
+    <result column="CREDCODE_1" jdbcType="VARCHAR" property="credcode1" />
+    <result column="ACCT_FLAG" jdbcType="VARCHAR" property="acctFlag" />
+    <result column="CA_PCNT" jdbcType="DECIMAL" property="caPcnt" />
+    <result column="BRNCH_INTR" jdbcType="VARCHAR" property="brnchIntr" />
+    <result column="BRNCHCRLMT" jdbcType="VARCHAR" property="brnchcrlmt" />
+    <result column="VRF_CNTNT" jdbcType="VARCHAR" property="vrfCntnt" />
+    <result column="SMS_FREEYN" jdbcType="VARCHAR" property="smsFreeyn" />
+    <result column="TEMP_LIMIT" jdbcType="VARCHAR" property="tempLimit" />
+    <result column="TLMT_END" jdbcType="VARCHAR" property="tlmtEnd" />
+    <result column="TLMT_BEG" jdbcType="VARCHAR" property="tlmtBeg" />
+    <result column="PA_LIMIT" jdbcType="VARCHAR" property="paLimit" />
+    <result column="PAY_FLAG" jdbcType="VARCHAR" property="payFlag" />
+    <result column="INT_CHDCMP" jdbcType="DECIMAL" property="intChdcmp" />
+    <result column="INT_NOTION" jdbcType="DECIMAL" property="intNotion" />
+    <result column="INT_CUNOT" jdbcType="DECIMAL" property="intCunot" />
+    <result column="INT_CURCMP" jdbcType="DECIMAL" property="intCurcmp" />
+    <result column="INT_CMPOND" jdbcType="DECIMAL" property="intCmpond" />
+    <result column="IMP_FLAG" jdbcType="VARCHAR" property="impFlag" />
+    <result column="NCRED_REN" jdbcType="VARCHAR" property="ncredRen" />
+    <result column="MONTR_CODE" jdbcType="VARCHAR" property="montrCode" />
+    <result column="CRED_LMT2" jdbcType="VARCHAR" property="credLmt2" />
+    <result column="CRED_FLAG" jdbcType="VARCHAR" property="credFlag" />
+    <result column="BAL_NINT01" jdbcType="DECIMAL" property="balNint01" />
+    <result column="BAL_NINT02" jdbcType="DECIMAL" property="balNint02" />
+    <result column="BAL_NINT03" jdbcType="DECIMAL" property="balNint03" />
+    <result column="BAL_NINT04" jdbcType="DECIMAL" property="balNint04" />
+    <result column="BAL_NINT05" jdbcType="DECIMAL" property="balNint05" />
+    <result column="BAL_NINT06" jdbcType="DECIMAL" property="balNint06" />
+    <result column="BAL_NINT07" jdbcType="DECIMAL" property="balNint07" />
+    <result column="BAL_NINT08" jdbcType="DECIMAL" property="balNint08" />
+    <result column="BAL_NINT09" jdbcType="DECIMAL" property="balNint09" />
+    <result column="BAL_NINT10" jdbcType="DECIMAL" property="balNint10" />
+    <result column="STM_NINT01" jdbcType="DECIMAL" property="stmNint01" />
+    <result column="STM_NINT02" jdbcType="DECIMAL" property="stmNint02" />
+    <result column="STM_NINT03" jdbcType="DECIMAL" property="stmNint03" />
+    <result column="STM_NINT04" jdbcType="DECIMAL" property="stmNint04" />
+    <result column="STM_NINT05" jdbcType="DECIMAL" property="stmNint05" />
+    <result column="STM_NINT06" jdbcType="DECIMAL" property="stmNint06" />
+    <result column="STM_NINT07" jdbcType="DECIMAL" property="stmNint07" />
+    <result column="STM_NINT08" jdbcType="DECIMAL" property="stmNint08" />
+    <result column="STM_NINT09" jdbcType="DECIMAL" property="stmNint09" />
+    <result column="STM_NINT10" jdbcType="DECIMAL" property="stmNint10" />
+    <result column="WROF_FLAG" jdbcType="VARCHAR" property="wrofFlag" />
+    <result column="CANCL_RESN" jdbcType="VARCHAR" property="canclResn" />
+    <result column="SHADOW_INT" jdbcType="DECIMAL" property="shadowInt" />
+    <result column="SHADOW_CMP" jdbcType="DECIMAL" property="shadowCmp" />
+    <result column="SHADOW_PEN" jdbcType="DECIMAL" property="shadowPen" />
+    <result column="BAL_CMPFEE" jdbcType="DECIMAL" property="balCmpfee" />
+    <result column="FP_FLAG" jdbcType="VARCHAR" property="fpFlag" />
+    <result column="FREE_LIMIT" jdbcType="DECIMAL" property="freeLimit" />
+    <result column="FREE_PCNT" jdbcType="DECIMAL" property="freePcnt" />
+    <result column="FREE_MAX" jdbcType="DECIMAL" property="freeMax" />
+    <result column="FREE_MIN" jdbcType="DECIMAL" property="freeMin" />
+    <result column="MP_REM_PPL" jdbcType="DECIMAL" property="mpRemPpl" />
+    <result column="CRED_LMT3" jdbcType="VARCHAR" property="credLmt3" />
+    <result column="MPAUTO_GW" jdbcType="VARCHAR" property="mpautoGw" />
+    <result column="ORG_NO" jdbcType="VARCHAR" property="orgNo" />
+  </resultMap>
+
+<insert id="insertSXykAcctCur" parameterType="map">
+    insert into S_XYK_ACCT_CUR (CREATED_TIME,CARD_NBR, XACCOUNT, ADD_CHGDAY, 
+      ADDR_TYPE, PRODUCT, BRANCH, 
+      BUSINESS, DAY_OPENED, CRED_LIMIT, 
+      CREDLIM_X, MP_LIMIT, AUTHS_AMT, 
+      CUTOFF_DAY, LASTPAYDAY, PAYMT_CLRD, 
+      PURCHASES, PURCHASES_SIGN, CARD_FEES, 
+      CASH_ADFEE, CASH_ADVCE, OTHER_FEES, 
+      PENCHG_ACC, STM_OVERDU, STM_DAY, 
+      QUERY_AMT, DEBIT_ADJ, CRED_ADJ, 
+      CLOSE_CODE, CLOSE_CHDY, BAL_FREE, 
+      BAL_INT, BAL_INT_SIGN, BAL_NOINT, 
+      BAL_ORINT, OCT_DAYIN, CURR_NUM, 
+      INT_UPTODY, INT_CHGD, NBR_PAYMNT, 
+      NBR_PURCH, NBR_TRANS, POINT_ADJ, 
+      POINT_CLM, POINT_CUM, POINT_EAR, 
+      REPAY_CODE, STM_NOINT, STM_BALFRE, 
+      STM_BALORI, STM_BALINT, STM_BALINT_SIGN, 
+      STM_BALNCE, STM_MINDUE, STM_CODE, 
+      AGEING_A_1, AGEING_A_2, AGEING_A_3, 
+      AGEING_A_4, AGEING_A_5, AGEING_A_6, 
+      MTHS_ODUE, BAL_CMPINT, CRED_VOUCH, 
+      CYCLE_NBR, EXCH_FLAG, MP_AUTHS, 
+      MP_BAL, ADDRESS1, ADDRESS2, 
+      ADDRESS3, ADDRESS4, ADDRESS5, 
+      POST_CODE, BAL_MP, STM_BALMP, 
+      BANKACCT_A_1, BANKACCT_A_2, BANKACCT_A_3, 
+      BANKACCT_A_4, BANKCODE_A_5, BANKCODE_A_6, 
+      BANKCODE_A_7, BANKCODE_A_8, REPAY_CODE_1, 
+      REPAY_CODX, EXCH_CODE, EXCH_CODE_1, 
+      STM_CLOSDY, POINT_ADJ_1, POINT_CUM_1, 
+      CREDCODE, CREDCODE_1, ACCT_FLAG, 
+      CA_PCNT, BRNCH_INTR, BRNCHCRLMT, 
+      VRF_CNTNT, SMS_FREEYN, TEMP_LIMIT, 
+      TLMT_END, TLMT_BEG, PA_LIMIT, 
+      PAY_FLAG, INT_CHDCMP, INT_NOTION, 
+      INT_CUNOT, INT_CURCMP, INT_CMPOND, 
+      IMP_FLAG, NCRED_REN, MONTR_CODE, 
+      CRED_LMT2, CRED_FLAG, BAL_NINT01, 
+      BAL_NINT02, BAL_NINT03, BAL_NINT04, 
+      BAL_NINT05, BAL_NINT06, BAL_NINT07, 
+      BAL_NINT08, BAL_NINT09, BAL_NINT10, 
+      STM_NINT01, STM_NINT02, STM_NINT03, 
+      STM_NINT04, STM_NINT05, STM_NINT06, 
+      STM_NINT07, STM_NINT08, STM_NINT09, 
+      STM_NINT10, WROF_FLAG, CANCL_RESN, 
+      SHADOW_INT, SHADOW_CMP, SHADOW_PEN, 
+      BAL_CMPFEE, FP_FLAG, FREE_LIMIT, 
+      FREE_PCNT, FREE_MAX, FREE_MIN, 
+      MP_REM_PPL, CRED_LMT3, MPAUTO_GW, 
+      ORG_NO)
+    values (#{createdTime,jdbcType=VARCHAR},#{cardNbr,jdbcType=VARCHAR}, #{xaccount,jdbcType=VARCHAR}, #{addChgday,jdbcType=VARCHAR}, 
+      #{addrType,jdbcType=VARCHAR}, #{product,jdbcType=VARCHAR}, #{branch,jdbcType=VARCHAR}, 
+      #{business,jdbcType=VARCHAR}, #{dayOpened,jdbcType=VARCHAR}, #{credLimit,jdbcType=DECIMAL}, 
+      #{credlimX,jdbcType=DECIMAL}, #{mpLimit,jdbcType=DECIMAL}, #{authsAmt,jdbcType=DECIMAL}, 
+      #{cutoffDay,jdbcType=VARCHAR}, #{lastpayday,jdbcType=VARCHAR}, #{paymtClrd,jdbcType=DECIMAL}, 
+      #{purchases,jdbcType=DECIMAL}, #{purchasesSign,jdbcType=VARCHAR}, #{cardFees,jdbcType=DECIMAL}, 
+      #{cashAdfee,jdbcType=DECIMAL}, #{cashAdvce,jdbcType=DECIMAL}, #{otherFees,jdbcType=DECIMAL}, 
+      #{penchgAcc,jdbcType=DECIMAL}, #{stmOverdu,jdbcType=DECIMAL}, #{stmDay,jdbcType=VARCHAR}, 
+      #{queryAmt,jdbcType=DECIMAL}, #{debitAdj,jdbcType=DECIMAL}, #{credAdj,jdbcType=DECIMAL}, 
+      #{closeCode,jdbcType=VARCHAR}, #{closeChdy,jdbcType=VARCHAR}, #{balFree,jdbcType=DECIMAL}, 
+      #{balInt,jdbcType=DECIMAL}, #{balIntSign,jdbcType=VARCHAR}, #{balNoint,jdbcType=DECIMAL}, 
+      #{balOrint,jdbcType=DECIMAL}, #{octDayin,jdbcType=VARCHAR}, #{currNum,jdbcType=VARCHAR}, 
+      #{intUptody,jdbcType=VARCHAR}, #{intChgd,jdbcType=DECIMAL}, #{nbrPaymnt,jdbcType=VARCHAR}, 
+      #{nbrPurch,jdbcType=VARCHAR}, #{nbrTrans,jdbcType=VARCHAR}, #{pointAdj,jdbcType=VARCHAR}, 
+      #{pointClm,jdbcType=VARCHAR}, #{pointCum,jdbcType=VARCHAR}, #{pointEar,jdbcType=VARCHAR}, 
+      #{repayCode,jdbcType=VARCHAR}, #{stmNoint,jdbcType=DECIMAL}, #{stmBalfre,jdbcType=DECIMAL}, 
+      #{stmBalori,jdbcType=DECIMAL}, #{stmBalint,jdbcType=DECIMAL}, #{stmBalintSign,jdbcType=VARCHAR}, 
+      #{stmBalnce,jdbcType=DECIMAL}, #{stmMindue,jdbcType=DECIMAL}, #{stmCode,jdbcType=VARCHAR}, 
+      #{ageingA1,jdbcType=DECIMAL}, #{ageingA2,jdbcType=DECIMAL}, #{ageingA3,jdbcType=DECIMAL}, 
+      #{ageingA4,jdbcType=DECIMAL}, #{ageingA5,jdbcType=DECIMAL}, #{ageingA6,jdbcType=DECIMAL}, 
+      #{mthsOdue,jdbcType=VARCHAR}, #{balCmpint,jdbcType=DECIMAL}, #{credVouch,jdbcType=DECIMAL}, 
+      #{cycleNbr,jdbcType=VARCHAR}, #{exchFlag,jdbcType=VARCHAR}, #{mpAuths,jdbcType=DECIMAL}, 
+      #{mpBal,jdbcType=DECIMAL}, #{address1,jdbcType=VARCHAR}, #{address2,jdbcType=VARCHAR}, 
+      #{address3,jdbcType=VARCHAR}, #{address4,jdbcType=VARCHAR}, #{address5,jdbcType=VARCHAR}, 
+      #{postCode,jdbcType=VARCHAR}, #{balMp,jdbcType=DECIMAL}, #{stmBalmp,jdbcType=DECIMAL}, 
+      #{bankacctA1,jdbcType=VARCHAR}, #{bankacctA2,jdbcType=VARCHAR}, #{bankacctA3,jdbcType=VARCHAR}, 
+      #{bankacctA4,jdbcType=VARCHAR}, #{bankcodeA5,jdbcType=VARCHAR}, #{bankcodeA6,jdbcType=VARCHAR}, 
+      #{bankcodeA7,jdbcType=VARCHAR}, #{bankcodeA8,jdbcType=VARCHAR}, #{repayCode1,jdbcType=VARCHAR}, 
+      #{repayCodx,jdbcType=VARCHAR}, #{exchCode,jdbcType=VARCHAR}, #{exchCode1,jdbcType=VARCHAR}, 
+      #{stmClosdy,jdbcType=VARCHAR}, #{pointAdj1,jdbcType=VARCHAR}, #{pointCum1,jdbcType=VARCHAR}, 
+      #{credcode,jdbcType=VARCHAR}, #{credcode1,jdbcType=VARCHAR}, #{acctFlag,jdbcType=VARCHAR}, 
+      #{caPcnt,jdbcType=DECIMAL}, #{brnchIntr,jdbcType=VARCHAR}, #{brnchcrlmt,jdbcType=VARCHAR}, 
+      #{vrfCntnt,jdbcType=VARCHAR}, #{smsFreeyn,jdbcType=VARCHAR}, #{tempLimit,jdbcType=VARCHAR}, 
+      #{tlmtEnd,jdbcType=VARCHAR}, #{tlmtBeg,jdbcType=VARCHAR}, #{paLimit,jdbcType=VARCHAR}, 
+      #{payFlag,jdbcType=VARCHAR}, #{intChdcmp,jdbcType=DECIMAL}, #{intNotion,jdbcType=DECIMAL}, 
+      #{intCunot,jdbcType=DECIMAL}, #{intCurcmp,jdbcType=DECIMAL}, #{intCmpond,jdbcType=DECIMAL}, 
+      #{impFlag,jdbcType=VARCHAR}, #{ncredRen,jdbcType=VARCHAR}, #{montrCode,jdbcType=VARCHAR}, 
+      #{credLmt2,jdbcType=VARCHAR}, #{credFlag,jdbcType=VARCHAR}, #{balNint01,jdbcType=DECIMAL}, 
+      #{balNint02,jdbcType=DECIMAL}, #{balNint03,jdbcType=DECIMAL}, #{balNint04,jdbcType=DECIMAL}, 
+      #{balNint05,jdbcType=DECIMAL}, #{balNint06,jdbcType=DECIMAL}, #{balNint07,jdbcType=DECIMAL}, 
+      #{balNint08,jdbcType=DECIMAL}, #{balNint09,jdbcType=DECIMAL}, #{balNint10,jdbcType=DECIMAL}, 
+      #{stmNint01,jdbcType=DECIMAL}, #{stmNint02,jdbcType=DECIMAL}, #{stmNint03,jdbcType=DECIMAL}, 
+      #{stmNint04,jdbcType=DECIMAL}, #{stmNint05,jdbcType=DECIMAL}, #{stmNint06,jdbcType=DECIMAL}, 
+      #{stmNint07,jdbcType=DECIMAL}, #{stmNint08,jdbcType=DECIMAL}, #{stmNint09,jdbcType=DECIMAL}, 
+      #{stmNint10,jdbcType=DECIMAL}, #{wrofFlag,jdbcType=VARCHAR}, #{canclResn,jdbcType=VARCHAR}, 
+      #{shadowInt,jdbcType=DECIMAL}, #{shadowCmp,jdbcType=DECIMAL}, #{shadowPen,jdbcType=DECIMAL}, 
+      #{balCmpfee,jdbcType=DECIMAL}, #{fpFlag,jdbcType=VARCHAR}, #{freeLimit,jdbcType=DECIMAL}, 
+      #{freePcnt,jdbcType=DECIMAL}, #{freeMax,jdbcType=DECIMAL}, #{freeMin,jdbcType=DECIMAL}, 
+      #{mpRemPpl,jdbcType=DECIMAL}, #{credLmt3,jdbcType=VARCHAR}, #{mpautoGw,jdbcType=VARCHAR}, 
+      #{orgNo,jdbcType=VARCHAR})
+  </insert>
+  
+<select id="findSXykAcctCurByCardNbr" resultMap="BaseResultMap">
+		select *
+		from 
+		S_XYK_ACCT_CUR
+		where
+		CARD_NBR=#{cardNbr}
+		and
+		CREATED_TIME=#{createdTime}
+</select>
+</mapper>
