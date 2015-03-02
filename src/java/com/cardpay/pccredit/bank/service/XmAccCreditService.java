@@ -66,7 +66,7 @@ public class XmAccCreditService {
 			
 			// 解析”存贷记卡台帐“数据文件
 			long start = System.currentTimeMillis();
-			List<Map<String, Object>> datas = tools.parseDataFile("C:\\Users\\Administrator\\Desktop\\shuju\\STA_902_cmis_ACC_CREDIT_ADD_20150226_0.dat", confList);
+			List<Map<String, Object>> datas = tools.parseDataFile("C:\\Users\\Administrator\\Desktop\\shuju\\test.dat", confList);
 			for(Map<String, Object> map : datas){
 				Iterator<String> keys = map.keySet().iterator(); 
 

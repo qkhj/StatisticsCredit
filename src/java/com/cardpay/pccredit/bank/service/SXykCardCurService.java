@@ -51,6 +51,15 @@ public class SXykCardCurService {
 		return sXykCardCurDao.findSXykCardCur(createdTime);
 	}
 	
+	public List<SXykCardCur> findSXykCardCurByPage(int start,int end){
+		String createdTime = DateHelper.getDateFormat(new Date(), "yyyyMMdd");
+		return sXykCardCurDao.findSXykCardCurByPage(createdTime,start,end);
+	}
+	
+	public int getTableCount(){
+		int tableCount = sXykCardCurDao.getTableCount();
+		return tableCount;
+	}
 	public void deleteOld(){
 		sXykCardCurDao.deleteOld();
 	}

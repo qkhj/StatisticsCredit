@@ -524,4 +524,11 @@
     </set>
     where id=#{id}
 	</update>
+	<select id="getDefaultProduct" resultMap="ProductAttributeResultMap" >
+		select *
+		from
+		PRODUCT_ATTRIBUTE
+		where 
+		DEFAULT_TYPE='1'
+	</select>
 </mapper>

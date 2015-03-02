@@ -14,8 +14,10 @@ public interface SXykCardCurDao {
 	SXykCardCur findSXykCardCurByCardNbr(@Param("cardNar") String cardNar,@Param("createdTime") String createdTime);
 	
 	List<SXykCardCur> findSXykCardCur(@Param("createdTime") String createdTime);
+	List<SXykCardCur> findSXykCardCurByPage(@Param("createdTime") String createdTime,@Param("start") int start,@Param("end") int end);
 	
 	public int insertSXykCardCur(Map<String, Object> map);
 	
+	public int getTableCount();
 	public void deleteOld();
 }
