@@ -141,4 +141,7 @@
 	</foreach>
   </select>
   
+  <delete id="deleteOld">
+      truncate table S_XYK_CUSTR_CUR
+  </delete>
 </mapper>

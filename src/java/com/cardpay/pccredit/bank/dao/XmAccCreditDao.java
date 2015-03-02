@@ -21,4 +21,6 @@ public interface XmAccCreditDao {
 	public int insert(XmAccCredit record);
 	
 	public int insertXmAccCredit(Map<String, Object> map);
+	
+	public void deleteOld();
 }

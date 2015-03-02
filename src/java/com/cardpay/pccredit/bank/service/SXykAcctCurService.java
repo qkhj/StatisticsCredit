@@ -48,4 +48,8 @@ public class SXykAcctCurService {
 		String createdTime = DateHelper.getDateFormat(new Date(), "yyyyMMdd");
 		return sXykAcctCurDao.findSXykAcctCurByCardNbr(cardNbr,createdTime);
 	}
+	
+	public void deleteOld(){
+		sXykAcctCurDao.deleteOld();
+	}
 }

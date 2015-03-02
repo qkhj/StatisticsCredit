@@ -87,6 +87,15 @@
 		where 
 		CREATED_TIME=#{createdTime}
 	</select>
+	
+	<select id="findSXykCardCurByPage" resultMap="BaseResultMap">
+	    select * from
+		(select a.*,rownum row_num from
+		(select * from S_XYK_CARD_CUR t where 
+				CREATED_TIME=#{createdTime} order by rownum desc) a
+		) b where b.row_num between #{start} and #{end}
+	</select>
+	
 	<insert id="insertSXykCardCur" parameterType="map" >
 	    insert into S_XYK_CARD_CUR (CREATED_TIME,CARD_NBR, PRODUCT, CANCL_CODE, 
 	      CANCL_DAY, CANCL_EMPL, CANCL_TIME, 
@@ -135,4 +144,14 @@
 	      #{cashbckYn,jdbcType=VARCHAR}, #{xfrchnl,jdbcType=VARCHAR}, #{orgNo,jdbcType=VARCHAR}
       )
   </insert>
+  
+	<select id="getTableCount" resultType="int">
+	    select count(*) 
+		from
+		S_XYK_CARD_CUR
+	</select>
+	
+	<delete id="deleteOld">
+	    truncate table S_XYK_CARD_CUR
+	</delete>
 </mapper>

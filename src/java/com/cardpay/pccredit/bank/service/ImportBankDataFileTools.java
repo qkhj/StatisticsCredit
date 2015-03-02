@@ -4,15 +4,19 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
@@ -93,10 +97,10 @@ public class ImportBankDataFileTools {
 			String line="", value = null, type = null, column = null;
 	        String[] dataArrs=null;
 	        Map<String, Object> map = null;
-	        int count = 0;
+	        int count=0;
 	        while ((line=br.readLine())!=null) {
-	        	System.out.println(count);
 	        	count++;
+	        	//System.out.println(count);
 	        	dataArrs = StringUtils.splitPreserveAllTokens(line.replaceAll(SPLITE_CHARS, "±"),"±");
 	            map = new HashMap<String, Object>();
 	            boolean flag = true;
@@ -184,59 +188,326 @@ public class ImportBankDataFileTools {
 		return InitServer.getClassPath() + fileName;
 	}
 	
+	//RandomAccessFile 效率太低
 	public List<Map<String, Object>> largeFileIO(String fileName, List<DataFileConf> confList) {
 		List<Map<String, Object>> datas = new ArrayList<Map<String, Object>>();
-        try {
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(new File(fileName)));
-            BufferedReader in = new BufferedReader(new InputStreamReader(bis, "gbk"), 10 * 1024 * 1024);//10M缓存
-            
-            String line="", value = null, type = null, column = null;
+		try {
+			RandomAccessFile br=new RandomAccessFile(fileName,"r");//这里rw看你了。要是之都就只写r
+			String line = "", app = null;
+			String value = null, type = null, column = null;
 	        String[] dataArrs=null;
 	        Map<String, Object> map = null;
-	        int count = 0;
-            while (in.ready()) {
-				line = in.readLine();
-				System.out.println(count);
+			int count=0;int i=0;
+			while ((line = br.readLine()) != null) {
+				i++;
 				count++;
-				dataArrs = StringUtils.splitPreserveAllTokens(line.replaceAll(SPLITE_CHARS, "±"),"±");
-				map = new HashMap<String, Object>();
-				boolean flag = true;
-				for(DataFileConf dataFileConf : confList){
-					type = dataFileConf.getJdbcType();
-					column = dataFileConf.getColumn();
-					
-					if(dataFileConf.getIndex() >= 1){
-						value = dataArrs[dataFileConf.getIndex()-1].trim();
+				System.out.println(count);
+				String tmpLine = new String(line.getBytes("8859_1"),"gbk");
+				System.out.println(tmpLine);
+				app=app+tmpLine+"$";
+				
+				if(i>=500){//假设读取100行
+					i=0;
+					//这里你先对这100行操作，然后继续读
+					String[] lineArr = app.split("$");
+					for(String obj:lineArr){
+						dataArrs = StringUtils.splitPreserveAllTokens(obj.replaceAll(SPLITE_CHARS, "±"),"±");
+			            map = new HashMap<String, Object>();
+			            boolean flag = true;
+			            for(DataFileConf dataFileConf : confList){
+			            	type = dataFileConf.getJdbcType();
+			            	column = dataFileConf.getColumn();
+			            	
+			            	if(dataFileConf.getIndex() >= 1){
+			            		value = dataArrs[dataFileConf.getIndex()-1].trim();
+			            	}
+			            	
+			            	if(DECIMAL.equals(type) || VARCHAR.equals(type)){
+								value = value.trim();
+								
+								if(DECIMAL.equals(type) || NumberUtils.isNumber(value)){
+									value = NumberUtils.createBigDecimal(value).toString();
+								}
+													
+								if(DECIMAL.equals(type) && StringUtils.isNotEmpty(value) && !NumberUtils.isNumber(value)){
+									log.info(value + " is not number, line string : " + obj);
+									flag = false;
+									break;
+								}
+			            	}else if(DATE_STRING.equals(type)){
+			            		value = value.replaceAll("-", "");
+			            	}else if(DATE_NOW.equals(type)){
+			            		value = DateHelper.getDateFormat(new Date(), dataFileConf.getStyle());
+			            	}
+			            	
+							map.put(SqlJavaNameUtil.getVariableName(column, false),value);
+			            }
+			            if(flag){
+			            	datas.add(map);
+			            }
 					}
 					
-					if(DECIMAL.equals(type) || VARCHAR.equals(type)){
-						value = value.trim();
-						
-						if(DECIMAL.equals(type) || NumberUtils.isNumber(value)){
-							value = NumberUtils.createBigDecimal(value).toString();
-						}
-											
-						if(DECIMAL.equals(type) && StringUtils.isNotEmpty(value) && !NumberUtils.isNumber(value)){
-							log.info(value + " is not number, line string : " + line);
-							flag = false;
-							break;
-						}
-					}else if(DATE_STRING.equals(type)){
-						value = value.replaceAll("-", "");
-					}else if(DATE_NOW.equals(type)){
-						value = DateHelper.getDateFormat(new Date(), dataFileConf.getStyle());
-					}
-					
-					map.put(SqlJavaNameUtil.getVariableName(column, false),value);
+					app=null;
 				}
-				if(flag){
-					datas.add(map);
+			}
+			if(app != null){
+				//这里你先对这100行操作，然后继续读
+				String[] lineArr = app.split("$");
+				for(String obj:lineArr){
+					dataArrs = StringUtils.splitPreserveAllTokens(obj.replaceAll(SPLITE_CHARS, "±"),"±");
+		            map = new HashMap<String, Object>();
+		            boolean flag = true;
+		            for(DataFileConf dataFileConf : confList){
+		            	type = dataFileConf.getJdbcType();
+		            	column = dataFileConf.getColumn();
+		            	
+		            	if(dataFileConf.getIndex() >= 1){
+		            		value = dataArrs[dataFileConf.getIndex()-1].trim();
+		            	}
+		            	
+		            	if(DECIMAL.equals(type) || VARCHAR.equals(type)){
+							value = value.trim();
+							
+							if(DECIMAL.equals(type) || NumberUtils.isNumber(value)){
+								value = NumberUtils.createBigDecimal(value).toString();
+							}
+												
+							if(DECIMAL.equals(type) && StringUtils.isNotEmpty(value) && !NumberUtils.isNumber(value)){
+								log.info(value + " is not number, line string : " + obj);
+								flag = false;
+								break;
+							}
+		            	}else if(DATE_STRING.equals(type)){
+		            		value = value.replaceAll("-", "");
+		            	}else if(DATE_NOW.equals(type)){
+		            		value = DateHelper.getDateFormat(new Date(), dataFileConf.getStyle());
+		            	}
+		            	
+						map.put(SqlJavaNameUtil.getVariableName(column, false),value);
+		            }
+		            if(flag){
+		            	datas.add(map);
+		            }
 				}
-            }
-            in.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return datas;
 	}
+	
+	//Scanner 耗时89s
+	public List<Map<String, Object>> largeFileIO2(String fileName, List<DataFileConf> confList) {
+		List<Map<String, Object>> datas = new ArrayList<Map<String, Object>>();
+		try {  
+			FileInputStream fis=new FileInputStream(fileName);
+			InputStreamReader isr=new InputStreamReader(fis, "gbk");
+            Scanner sc = new Scanner(isr);  
+            String line = "", app = "";
+			String value = null, type = null, column = null;
+	        String[] dataArrs=null;
+	        Map<String, Object> map = null;
+            int count = 0;  
+            int i = 0;
+            while(sc.hasNextLine()){  
+            	i++;
+            	count++;
+            	System.out.println(count);
+            	line = sc.nextLine();  
+                String tmpLine = new String(line.getBytes("8859_1"),"gbk");
+				System.out.println(tmpLine);
+				app=app+tmpLine+"$";
+				
+				if(i>=500){//假设读取100行
+					i=0;
+					//这里你先对这100行操作，然后继续读
+					String[] lineArr = app.split("$");
+					for(String obj:lineArr){
+						dataArrs = StringUtils.splitPreserveAllTokens(obj.replaceAll(SPLITE_CHARS, "±"),"±");
+			            map = new HashMap<String, Object>();
+			            boolean flag = true;
+			            for(DataFileConf dataFileConf : confList){
+			            	type = dataFileConf.getJdbcType();
+			            	column = dataFileConf.getColumn();
+			            	if(dataFileConf.getIndex() >= 1){
+			            		value = dataArrs[dataFileConf.getIndex()-1].trim();
+			            	}
+			            	
+			            	if(DECIMAL.equals(type) || VARCHAR.equals(type)){
+								value = value.trim();
+								
+								if(DECIMAL.equals(type) || NumberUtils.isNumber(value)){
+									value = NumberUtils.createBigDecimal(value).toString();
+								}
+													
+								if(DECIMAL.equals(type) && StringUtils.isNotEmpty(value) && !NumberUtils.isNumber(value)){
+									log.info(value + " is not number, line string : " + obj);
+									flag = false;
+									break;
+								}
+			            	}else if(DATE_STRING.equals(type)){
+			            		value = value.replaceAll("-", "");
+			            	}else if(DATE_NOW.equals(type)){
+			            		value = DateHelper.getDateFormat(new Date(), dataFileConf.getStyle());
+			            	}
+			            	
+							map.put(SqlJavaNameUtil.getVariableName(column, false),value);
+			            }
+			            if(flag){
+			            	datas.add(map);
+			            }  
+					}
+					app="";
+				}
+            }  
+            
+            if(!app.equals("")){
+            	//这里你先对这100行操作，然后继续读
+				String[] lineArr = app.split("$");
+				for(String obj:lineArr){
+					dataArrs = StringUtils.splitPreserveAllTokens(obj.replaceAll(SPLITE_CHARS, "±"),"±");
+		            map = new HashMap<String, Object>();
+		            boolean flag = true;
+		            for(DataFileConf dataFileConf : confList){
+		            	type = dataFileConf.getJdbcType();
+		            	column = dataFileConf.getColumn();
+		            	if(dataFileConf.getIndex() >= 1){
+		            		value = dataArrs[dataFileConf.getIndex()-1].trim();
+		            	}
+		            	
+		            	if(DECIMAL.equals(type) || VARCHAR.equals(type)){
+							value = value.trim();
+							
+							if(DECIMAL.equals(type) || NumberUtils.isNumber(value)){
+								value = NumberUtils.createBigDecimal(value).toString();
+							}
+												
+							if(DECIMAL.equals(type) && StringUtils.isNotEmpty(value) && !NumberUtils.isNumber(value)){
+								log.info(value + " is not number, line string : " + obj);
+								flag = false;
+								break;
+							}
+		            	}else if(DATE_STRING.equals(type)){
+		            		value = value.replaceAll("-", "");
+		            	}else if(DATE_NOW.equals(type)){
+		            		value = DateHelper.getDateFormat(new Date(), dataFileConf.getStyle());
+		            	}
+		            	
+						map.put(SqlJavaNameUtil.getVariableName(column, false),value);
+		            }
+		            if(flag){
+		            	datas.add(map);
+		            }  
+				}
+            }
+            sc.close();  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        } 
+		return datas;
+	}
+	
+	//NIO
+	public List<Map<String, Object>> largeFileIO3(String fileName, List<DataFileConf> confList) {  
+		List<Map<String, Object>> datas = new ArrayList<Map<String, Object>>();
+		
+		int bufSize = 100*1024*1024;
+		ByteBuffer rBuffer = ByteBuffer.allocate(bufSize);
+		FileChannel fcin = null;
+		try {
+			fcin = new RandomAccessFile(fileName, "r").getChannel();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+        String enterStr = "\n";  
+        try {  
+        	Map<String, Object> map = null;
+            String value = null, type = null, column = null;
+	        String[] dataArrs=null;
+	        
+            byte[] bs = new byte[bufSize];  
+            StringBuilder strBuf = new StringBuilder("");  
+            String tempString = null;
+            
+            int count = 0;
+            while (fcin.read(rBuffer) != -1) {  
+                int rSize = rBuffer.position();  
+                rBuffer.rewind();  
+                rBuffer.get(bs);  
+                rBuffer.clear();  
+                tempString = new String(bs, 0, rSize);  
+                int fromIndex = 0;  
+                int endIndex = 0;  
+    	        
+                while ((endIndex = tempString.indexOf(enterStr, fromIndex)) != -1) {  
+                    String line = tempString.substring(fromIndex, endIndex);  
+                    line = strBuf.toString() + line;
+                    //line = new String(line.getBytes("8859_1"),"utf8");
+                    System.out.println(line);
+                    //writeFileByLine(fcout, wBuffer, line); 
+                    count++;
+                    System.out.println(count);
+                    dataArrs = StringUtils.splitPreserveAllTokens(line.replaceAll(SPLITE_CHARS, "±"),"±");
+		            map = new HashMap<String, Object>();
+		            boolean flag = true;
+		            for(DataFileConf dataFileConf : confList){
+		            	type = dataFileConf.getJdbcType();
+		            	column = dataFileConf.getColumn();
+		            	if(dataFileConf.getIndex() >= 1){
+		            		value = dataArrs[dataFileConf.getIndex()-1].trim();
+		            	}
+		            	
+		            	if(DECIMAL.equals(type) || VARCHAR.equals(type)){
+							value = value.trim();
+							
+							if(DECIMAL.equals(type) || NumberUtils.isNumber(value)){
+								value = NumberUtils.createBigDecimal(value).toString();
+							}
+												
+							if(DECIMAL.equals(type) && StringUtils.isNotEmpty(value) && !NumberUtils.isNumber(value)){
+								log.info(value + " is not number, line string : " + line);
+								flag = false;
+								break;
+							}
+		            	}else if(DATE_STRING.equals(type)){
+		            		value = value.replaceAll("-", "");
+		            	}else if(DATE_NOW.equals(type)){
+		            		value = DateHelper.getDateFormat(new Date(), dataFileConf.getStyle());
+		            	}
+		            	
+						map.put(SqlJavaNameUtil.getVariableName(column, false),value);
+		            }
+		            if(flag){
+		            	datas.add(map);
+		            }
+                    
+                    strBuf.delete(0, strBuf.length());  
+                    fromIndex = endIndex + 1;  
+                }  
+  
+                if (rSize > tempString.length()) {  
+                    strBuf.append(tempString.substring(fromIndex,  
+                            tempString.length()));  
+                } else {  
+                    strBuf.append(tempString.substring(fromIndex, rSize));  
+                }  
+            }  
+  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        }  
+        return null;
+    } 
 }
+
+

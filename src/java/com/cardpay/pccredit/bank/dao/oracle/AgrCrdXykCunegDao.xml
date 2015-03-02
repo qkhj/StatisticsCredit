@@ -59,4 +59,8 @@
 		F_AGR_CRD_XYK_CUNEG
 		where CREATED_TIME=#{createdTime}
 	</select>
+	
+	  <delete id="deleteOld">
+	      truncate table F_AGR_CRD_XYK_CUNEG
+	  </delete>
 </mapper>

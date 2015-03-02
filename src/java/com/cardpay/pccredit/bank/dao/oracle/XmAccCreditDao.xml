@@ -117,7 +117,7 @@
 	  </insert>
 	  
 	  <insert id="insertXmAccCredit" parameterType="map" >
-	    insert into XM_ACC_CREDIT (DATA_DT, LOAD_TIME, LOAN_ACCOUNT, 
+	    insert into XM_ACC_CREDIT (CREATED_TIME,DATA_DT, LOAD_TIME, LOAN_ACCOUNT, 
       CUS_NAME, CERT_TYPE, CERT_CODE, 
       FINA_BR_ID, TYPE_CARD, OPEN_ACCOUNT_DATE, 
       CREDIT_LIMIT, CRE_LMT_DIV_PAY, DUE_DATE, 
@@ -140,7 +140,7 @@
       LEVEL_FIVE_MACHINE_REASON, LEVEL_FIVE_REASON, 
       CARD_STATUS, GUAR_CERT_CODE, GUAR_NAME, 
       GUAR_MPHONE)
-    values (#{dataDt,jdbcType=VARCHAR}, #{loadTime,jdbcType=VARCHAR}, #{loanAccount,jdbcType=VARCHAR}, 
+    values (#{createdTime,jdbcType=VARCHAR},#{dataDt,jdbcType=VARCHAR}, #{loadTime,jdbcType=VARCHAR}, #{loanAccount,jdbcType=VARCHAR}, 
       #{cusName,jdbcType=VARCHAR}, #{certType,jdbcType=VARCHAR}, #{certCode,jdbcType=VARCHAR}, 
       #{finaBrId,jdbcType=VARCHAR}, #{typeCard,jdbcType=VARCHAR}, #{openAccountDate,jdbcType=VARCHAR}, 
       #{creditLimit,jdbcType=DECIMAL}, #{creLmtDivPay,jdbcType=DECIMAL}, #{dueDate,jdbcType=VARCHAR}, 
@@ -180,4 +180,8 @@
 		from 
 		XM_ACC_CREDIT
 	</select>
+	
+	<delete id="deleteOld" >
+    	truncate table XM_ACC_CREDIT
+  	</delete>
 </mapper>

@@ -23,4 +23,5 @@ public interface AgrCrdXykCunegDao {
 	
 	List<AgrCrdXykCuneg> findAgrCrdXykCunegs(@Param("createdTime") String createdTime);
 	
+	public void deleteOld();
 }

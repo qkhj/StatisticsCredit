@@ -265,4 +265,7 @@
 		and
 		CREATED_TIME=#{createdTime}
 </select>
+<delete id="deleteOld">
+    truncate table S_XYK_ACCT_CUR
+</delete>
 </mapper>

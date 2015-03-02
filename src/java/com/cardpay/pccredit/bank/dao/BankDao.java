@@ -43,4 +43,5 @@ public interface BankDao {
 	AverageDailyOverdraft findAverageDailyOverdraftByAccountNumber(@Param("accountNumber")String accountNumber,@Param("year") int year,@Param("month") int month);
 	
 	int updateAverageDailyOverdraft(AverageDailyOverdraft averageDailyOverdraft);
+	public ProductAttribute getDefaultProduct();
 }
