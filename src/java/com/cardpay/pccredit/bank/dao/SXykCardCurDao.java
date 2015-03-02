@@ -16,4 +16,6 @@ public interface SXykCardCurDao {
 	List<SXykCardCur> findSXykCardCur(@Param("createdTime") String createdTime);
 	
 	public int insertSXykCardCur(Map<String, Object> map);
+	
+	public void deleteOld();
 }

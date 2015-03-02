@@ -17,4 +17,6 @@ public interface SXykCustrCurDao {
 	public int insertSXykCustrCur(Map<String, Object> map);
 
 	public List<SXykCustrCur> findBankCustomerByCardIds(Map<String, Object> map);
+	
+	public void deleteOld();
 }

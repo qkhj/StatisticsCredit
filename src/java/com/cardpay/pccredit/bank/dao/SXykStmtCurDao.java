@@ -16,4 +16,6 @@ public interface SXykStmtCurDao {
 	
 	List<SXykStmtCur> findSXykStmtCur();
 	public int insertSXykStmtCur(Map<String, Object> map);
+	
+	public void deleteOld();
 }

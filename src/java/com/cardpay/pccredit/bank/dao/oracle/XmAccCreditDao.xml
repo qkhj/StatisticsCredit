@@ -180,4 +180,8 @@
 		from 
 		XM_ACC_CREDIT
 	</select>
+	
+	<delete id="deleteOld" >
+    	truncate table XM_ACC_CREDIT
+  	</delete>
 </mapper>

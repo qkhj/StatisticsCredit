@@ -41,4 +41,8 @@ public class SXykCustrCurService {
 			sXykCustrCurDao.insertSXykCustrCur(map);
 		}
 	}
+	
+	public void deleteOld(){
+		sXykCustrCurDao.deleteOld();
+	}
 }

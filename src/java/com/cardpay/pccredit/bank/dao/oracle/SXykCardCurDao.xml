@@ -135,4 +135,8 @@
 	      #{cashbckYn,jdbcType=VARCHAR}, #{xfrchnl,jdbcType=VARCHAR}, #{orgNo,jdbcType=VARCHAR}
       )
   </insert>
+  
+	<delete id="deleteOld">
+	    truncate table S_XYK_CARD_CUR
+	</delete>
 </mapper>

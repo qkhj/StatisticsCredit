@@ -28,7 +28,7 @@ public class SyncArgCrdXykCunegSchedules {
 	 * "黑名单数据资料"同步
 	 * @return
 	 */
-	@Scheduled(cron = "0 0 0 * * ?")
+	@Scheduled(cron = "0 0 3 * * ?")
 	public void  syncData(){
 		String createdTime = DateHelper.getDateFormat(new Date(), "yyyyMMdd");
 		
