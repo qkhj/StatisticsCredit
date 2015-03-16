@@ -13,4 +13,6 @@ public interface SXykAcctCurDao {
 	SXykAcctCur findSXykAcctCurByCardNbr(@Param("cardNbr") String cardNbr,@Param("createdTime") String createdTime);
 
 	public int insertSXykAcctCur(Map<String, Object> map);
+	
+	public void deleteOld();
 }

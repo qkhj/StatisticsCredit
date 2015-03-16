@@ -1,6 +1,7 @@
 package com.cardpay.pccredit.bank.service;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +41,6 @@ public class XmAccCreditService {
 		
 		// 解析”存贷记卡台帐“数据文件
 		List<Map<String, Object>> datas = tools.parseDataFile(fileName, confList);
-		System.out.println("twh-datas.size()="+datas.size());
 		for(Map<String, Object> map : datas){
 			String value = (String) map.get("billDays");
 			value = value.replaceAll("[\\.0]+$", "");
@@ -65,11 +65,28 @@ public class XmAccCreditService {
 			List<DataFileConf> confList = tools.parseDataFileConf("D:\\Development\\eclipse-jee-with-android_workspace\\StatisticsCredit\\src\\conf\\datamapping\\xmAccCredit.xml");
 			
 			// 解析”存贷记卡台帐“数据文件
-			List<Map<String, Object>> datas = tools.largeFileIO("C:\\Users\\Administrator\\Desktop\\STA_902_cmis_ACC_CREDIT_ADD_20141228.dat", confList);
+			long start = System.currentTimeMillis();
+			List<Map<String, Object>> datas = tools.parseDataFile("C:\\Users\\Administrator\\Desktop\\shuju\\test.dat", confList);
+			for(Map<String, Object> map : datas){
+				Iterator<String> keys = map.keySet().iterator(); 
+
+				   while(keys.hasNext()) { 
+				   String key = (String) keys.next(); 
+				   String value=map.get(key).toString(); 
+				   System.out.println("键"+key+"="+"值"+value); 
+
+				} 
+			}
+			long end = System.currentTimeMillis();
+			System.out.println("读取文件内容花费：" + (end - start) + "毫秒");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void deleteOld(){
+		xmAccCreditDao.deleteOld();
 	}
 }	
 	

@@ -60,121 +60,136 @@ public class BankServive extends AmountConfig{
 	
 	@Autowired
 	private CustomerInformationDao customerInformationDao;
+	
+	private final int PAGESIZE = 1000;
 	/**
 	 * 定时同步客户账户信息,卡信息等
 	 */
 	@Scheduled(cron = "${b2b.link.scheduled.day}")
 	public void addCustomerMessageSync(){
 		/*得到今日的所有的卡片资料*/
-		List<SXykCardCur> SXykCardCurList =  sXykCardCurService.findSXykCardCur();
-		for(SXykCardCur sxcc :SXykCardCurList){
-			//卡号 
-			String cardNbr = sxcc.getCardNbr();
-			//卡片状态代码
-			String canclCode = sxcc.getCanclCode();
-			try{
-				if(StringUtils.isNotEmpty(cardNbr)){
-					/*卡号关联得到对应的账户资料信息*/
-					if(DataSourceContextHolder.getDbType()==null || !DataSourceContextHolder.getDbType().equalsIgnoreCase(DataSourceContextHolder.BANK)){
-						DataSourceContextHolder.setDbType(DataSourceContextHolder.BANK);
-					}
-					SXykAcctCur sxac = sXykAcctCurService.findSXykAcctCurByCardNbr(cardNbr);
-					//卡片激活日期
-					String activeday = sxcc.getActiveday();
-					if(sxac!=null){
-						XmAccCredit xm = null;
-						//证件号码
-						String custrNbr = sxcc.getCustrNbr();
-						/*若证件号码存在*/
-						if(StringUtils.isNotEmpty(custrNbr)){
-							/*得到产品编号*/
-							String product = sxcc.getProduct();
-							if(StringUtils.isNotEmpty(product)){
-								/*得到台账信息,同步台账与申请件信息*/
-								xm = SyncXmAccCreditAndCustomerApplicationInfo(custrNbr,product,cardNbr);
-								if(xm==null){
-									if(DataSourceContextHolder.getDbType()==null || !DataSourceContextHolder.getDbType().equalsIgnoreCase(DataSourceContextHolder.BANK)){
-										DataSourceContextHolder.setDbType(DataSourceContextHolder.BANK);
+		int tableCount = sXykCardCurService.getTableCount();
+		tableCount = 1;
+		//每1000条处理一次，防止当日数据过大
+		for(int page=0;page<=tableCount/PAGESIZE;page++){
+			int start = page*PAGESIZE+1;
+			int end = (page+1)*PAGESIZE;
+			if(end>tableCount){
+				end = tableCount;
+			}
+			List<SXykCardCur> SXykCardCurList =  sXykCardCurService.findSXykCardCurByPage(start, end);
+			
+			for(SXykCardCur sxcc :SXykCardCurList){
+				//卡号
+				String cardNbr = sxcc.getCardNbr();
+				//卡片状态代码
+				String canclCode = sxcc.getCanclCode();
+				try{
+					if(StringUtils.isNotEmpty(cardNbr)){
+						/*卡号关联得到对应的账户资料信息*/
+						if(DataSourceContextHolder.getDbType()==null || !DataSourceContextHolder.getDbType().equalsIgnoreCase(DataSourceContextHolder.BANK)){
+							DataSourceContextHolder.setDbType(DataSourceContextHolder.BANK);
+						}
+						SXykAcctCur sxac = sXykAcctCurService.findSXykAcctCurByCardNbr(cardNbr);
+						//卡片激活日期
+						String activeday = sxcc.getActiveday();
+						if(sxac!=null){
+							XmAccCredit xm = null;
+							//证件号码
+							String custrNbr = sxcc.getCustrNbr();
+							/*若证件号码存在*/
+							if(StringUtils.isNotEmpty(custrNbr)){
+								/*得到产品编号*/
+								String product = sxcc.getProduct();
+								if(StringUtils.isNotEmpty(product)){
+									/*得到台账信息,同步台账与申请件信息*/
+									xm = SyncXmAccCreditAndCustomerApplicationInfo(custrNbr,product,cardNbr);
+									if(xm==null){
+										if(DataSourceContextHolder.getDbType()==null || !DataSourceContextHolder.getDbType().equalsIgnoreCase(DataSourceContextHolder.BANK)){
+											DataSourceContextHolder.setDbType(DataSourceContextHolder.BANK);
+										}
+										xm= xmAccCreditService.findXmAccCreditByCustrNbr(custrNbr);
 									}
-									xm= xmAccCreditService.findXmAccCreditByCustrNbr(custrNbr);
-								}
-							}else{
-								logger.error("卡号:"+cardNbr+" 的卡片资料字段产品编号缺失");
-							}
-						}
-						/*同步客户经理日均额度*/
-						if(xm!=null){
-							//账单日
-							String billDays = xm.getBillDays();
-							/*当存在账单日时,进行同步客户经理日均额度*/
-							if(StringUtils.isNotEmpty(billDays)){
-								HandleAverageDailyOverdraft(xm,billDays);								
-							}
-						}
-						String customerId = "";
-						/*客户账户处理*/
-						if(xm!=null){
-							customerId = HandleCustomerAccountInfor(xm,cardNbr);
-						}
-						/*逾期客户处理 */
-						if(xm!=null){
-							/*是否逾期*/
-							String flagOverdue = xm.getFlagOverdue();
-							String productId = "";
-							/*卡片信息*/
-							String productCode =  sxcc.getProduct();
-							if(DataSourceContextHolder.getDbType()==null || !DataSourceContextHolder.getDbType().equalsIgnoreCase(DataSourceContextHolder.PCCREDIT)){
-								DataSourceContextHolder.setDbType(DataSourceContextHolder.PCCREDIT);
-							}
-							ProductAttribute productAttribute =	bankDao.findProductAttributeByCode(productCode);
-							if(productAttribute!=null){
-								productId = productAttribute.getId();
-							}else{
-								logger.error("/*卡片信息*/ 不存在产品编号为"+productCode+"的产品");
-							}
-
-							/*卡号生成 客户id和产品id存在*/
-							if(productId!=null && !productId.equals("")){
-								/*得到卡片信息*/
-								CardInformation cardInfor = findCardInformation(cardNbr);
-								
-								/*卡片信息存在*/
-								if(cardInfor!=null){
-									/*更新操作*/
-									cardInfor.setCardActivateDate(activeday);
-									cardInfor.setCardStatusCode(canclCode);
-									/*执行操作*/
-									updateCardInformation(cardInfor);
 								}else{
-									/*卡片信息不存在*/
-									/*添加操作*/
-									cardInfor = new CardInformation();
-									cardInfor.setId(IDGenerator.generateID());
-									cardInfor.setCardNumber(cardNbr);
-									cardInfor.setCustomerId(customerId);
-									cardInfor.setProductId(productId);
-									cardInfor.setCardActivateDate(activeday);
-									cardInfor.setCardStatusCode(canclCode);
-									cardInfor.setIdNumber(xm.getCertCode()==null?null:xm.getCertCode());
-									/*执行操作*/
-									insertCardInformation(cardInfor);
+									logger.error("卡号:"+cardNbr+" 的卡片资料字段产品编号缺失");
 								}
 							}
-							if(StringUtils.isNotEmpty(flagOverdue)){
-								HandleCustomerOverdue(sxac,xm,customerId,productId);
+							/*同步客户经理日均额度*/
+							if(xm!=null){
+								//账单日
+								String billDays = xm.getBillDays();
+								/*当存在账单日时,进行同步客户经理日均额度*/
+								if(StringUtils.isNotEmpty(billDays)){
+									HandleAverageDailyOverdraft(xm,billDays);								
+								}
 							}
+							String customerId = "";
+							/*客户账户处理*/
+							if(xm!=null){
+								customerId = HandleCustomerAccountInfor(xm,cardNbr);
+							}
+							/*逾期客户处理 */
+							if(xm!=null){
+								/*是否逾期*/
+								String flagOverdue = xm.getFlagOverdue();
+								String productId = "";
+								/*卡片信息*/
+								String productCode =  sxcc.getProduct();
+								if(DataSourceContextHolder.getDbType()==null || !DataSourceContextHolder.getDbType().equalsIgnoreCase(DataSourceContextHolder.PCCREDIT)){
+									DataSourceContextHolder.setDbType(DataSourceContextHolder.PCCREDIT);
+								}
+								//ProductAttribute productAttribute =	bankDao.findProductAttributeByCode(productCode);
+								ProductAttribute productAttribute =	bankDao.getDefaultProduct();
+								if(productAttribute!=null){
+									productId = productAttribute.getId();
+								}else{
+									logger.error("/*卡片信息*/ 不存在产品编号为"+productCode+"的产品");
+								}
+
+								/*卡号生成 客户id和产品id存在*/
+								if(productId!=null && !productId.equals("")){
+									/*得到卡片信息*/
+									CardInformation cardInfor = findCardInformation(cardNbr);
+									
+									/*卡片信息存在*/
+									if(cardInfor!=null){
+										/*更新操作*/
+										cardInfor.setCardActivateDate(activeday);
+										cardInfor.setCardStatusCode(canclCode);
+										/*执行操作*/
+										updateCardInformation(cardInfor);
+									}else{
+										/*卡片信息不存在*/
+										/*添加操作*/
+										cardInfor = new CardInformation();
+										cardInfor.setId(IDGenerator.generateID());
+										cardInfor.setCardNumber(cardNbr);
+										cardInfor.setCustomerId(customerId);
+										cardInfor.setProductId(productId);
+										cardInfor.setCardActivateDate(activeday);
+										cardInfor.setCardStatusCode(canclCode);
+										cardInfor.setIdNumber(xm.getCertCode()==null?null:xm.getCertCode());
+										/*执行操作*/
+										insertCardInformation(cardInfor);
+									}
+								}
+								if(StringUtils.isNotEmpty(flagOverdue)){
+									HandleCustomerOverdue(sxac,xm,customerId,productId);
+								}
+							}
+						}else{
+							logger.error("卡号:"+cardNbr+" 所对应的账户资料缺失");
 						}
 					}else{
-						logger.error("卡号:"+cardNbr+" 所对应的账户资料缺失");
+						logger.error("数据缺失!字段卡号不存在");
 					}
-				}else{
-					logger.error("数据缺失!字段卡号不存在");
+				}catch(Exception e){
+					logger.error("出现异常!"+e.getStackTrace());
+					continue;
 				}
-			}catch(Exception e){
-				logger.error("出现异常!"+e.getStackTrace());
-				continue;
 			}
 		}
+		
 	}
 	/**
 	 * 同步台账与申请件信息
@@ -197,7 +212,8 @@ public class BankServive extends AmountConfig{
 			}else{
 				logger.error("证件号码:"+custrNbr+"贷记卡台帐表,字段证件类型数据不存在");
 			}
-			ProductAttribute productAttribute =	bankDao.findProductAttributeByCode(product);
+			//ProductAttribute productAttribute =	bankDao.findProductAttributeByCode(product);
+			ProductAttribute productAttribute =	bankDao.getDefaultProduct();
 			if(productAttribute!=null){
 				/*得到产品id*/
 				String productId = productAttribute.getId();

@@ -41,4 +41,8 @@ public class AgrCrdXykCunegService {
 			agrCrdXykCunegDao.insertAgrCrdXykCuneg(map);
 		}
 	}
+	
+	public void deleteOld(){
+		agrCrdXykCunegDao.deleteOld();
+	}
 }

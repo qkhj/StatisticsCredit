@@ -186,4 +186,8 @@
   	from
   	S_XYK_STMT_CUR
   </select>
+  
+  <delete id="deleteOld">
+      truncate table S_XYK_STMT_CUR
+  </delete>
 </mapper>
