@@ -39,7 +39,14 @@ public class SXykCardCurService {
 		List<Map<String, Object>> datas = tools.parseDataFile(fileName, confList);
 		for(Map<String, Object> map : datas){
 			// 保存数据
-			sXykCardCurDao.insertSXykCardCur(map);
+			//先查询对应卡片信息是否存在，存在则更新，否则插入
+			int count = sXykCardCurDao.findSXykCardCurByCardNbr2(map.get("cardNbr").toString());
+			if(count == 0){
+				sXykCardCurDao.insertSXykCardCur(map);
+			}
+			else{
+				sXykCardCurDao.updateSXykCardCur(map);
+			}
 		}
 	}
 	public SXykCardCur findSXykCardCurByCardNbr(String cardNbr){
@@ -57,7 +64,8 @@ public class SXykCardCurService {
 	}
 	
 	public int getTableCount(){
-		int tableCount = sXykCardCurDao.getTableCount();
+		String createdTime = DateHelper.getDateFormat(new Date(), "yyyyMMdd");
+		int tableCount = sXykCardCurDao.getTableCount(createdTime);
 		return tableCount;
 	}
 	public void deleteOld(){

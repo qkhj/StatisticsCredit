@@ -34,6 +34,12 @@ public interface SynCustomerInfoDao {
 	List<Dict> findIndustryType();
 	
 	/**
+	 * 插入客户信息
+	 * @param infor
+	 */
+	void insertCustomerInfos(CustomerInfor infor);
+	
+	/**
 	 * 更新客户信息
 	 * @param infor
 	 */
@@ -44,5 +50,13 @@ public interface SynCustomerInfoDao {
 	 * @param careersInformation
 	 */
 	void updateCustomerCarresInfos(CustomerCareersInformation careersInformation);
+	
+	/**
+	 * 按身份证查找
+	 * @param infor
+	 */
+	CustomerInfor findCustomerInforByCustrNbr(@Param("custrNbr") String custrNbr);
+	
+	String findMgrIdByNo(@Param("mgrNo") String mgrNo);
 	
 }

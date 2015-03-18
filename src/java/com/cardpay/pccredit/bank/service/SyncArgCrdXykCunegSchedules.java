@@ -28,12 +28,17 @@ public class SyncArgCrdXykCunegSchedules {
 	 * "黑名单数据资料"同步
 	 * @return
 	 */
-	@Scheduled(cron = "0 0 3 * * ?")
+	@Scheduled(cron = "0 0 22 * * ?")
 	public void  syncData(){
+		if(DataSourceContextHolder.getDbType()!=null &&!DataSourceContextHolder.getDbType().equalsIgnoreCase(DataSourceContextHolder.BANK)){
+			DataSourceContextHolder.setDbType(DataSourceContextHolder.BANK);
+		}
 		String createdTime = DateHelper.getDateFormat(new Date(), "yyyyMMdd");
 		
 		List<AgrCrdXykCuneg> list = agrCrdXykCunegDao.findAgrCrdXykCunegs(createdTime);
-		DataSourceContextHolder.setDbType(DataSourceContextHolder.PCCREDIT);
+		if(DataSourceContextHolder.getDbType()!=null &&!DataSourceContextHolder.getDbType().equalsIgnoreCase(DataSourceContextHolder.PCCREDIT)){
+			DataSourceContextHolder.setDbType(DataSourceContextHolder.PCCREDIT);
+		}
 		for(int i = 0; i < list.size(); i++){
 			agrCrdXykCunegDao.insert(list.get(i));
 		}

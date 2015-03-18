@@ -8,6 +8,7 @@ import com.cardpay.pccredit.bank.model.CustomerAccountInfor;
 import com.cardpay.pccredit.bank.model.CustomerInfor;
 import com.cardpay.pccredit.bank.model.CustomerOverdue;
 import com.cardpay.pccredit.bank.model.CustomerOverdueHistory;
+import com.cardpay.pccredit.bank.model.NplsInfomation;
 import com.cardpay.pccredit.bank.model.ProductAttribute;
 import com.wicresoft.util.annotation.Mapper;
 
@@ -44,4 +45,9 @@ public interface BankDao {
 	
 	int updateAverageDailyOverdraft(AverageDailyOverdraft averageDailyOverdraft);
 	public ProductAttribute getDefaultProduct();
+	int insertNplsInfomation(NplsInfomation nplsInfomation);
+	void updateNplsInfomation(NplsInfomation nplsInfomation);
+	void deleteNplsInfomation(@Param("accountNumber")String accountNumber);
+	public NplsInfomation findNplsInfomation(@Param("accountNumber")String accountNumber);
+	
 }

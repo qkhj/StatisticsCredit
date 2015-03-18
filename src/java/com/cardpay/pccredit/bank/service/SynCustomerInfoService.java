@@ -4,18 +4,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.cardpay.pccredit.bank.dao.SXykCustrCurDao;
 import com.cardpay.pccredit.bank.dao.SynCustomerInfoDao;
+import com.cardpay.pccredit.bank.id.IDGenerator;
 import com.cardpay.pccredit.bank.model.CustomerCareersInformation;
 import com.cardpay.pccredit.bank.model.CustomerInfor;
 import com.cardpay.pccredit.bank.model.Dict;
 import com.cardpay.pccredit.bank.model.SXykCustrCur;
+import com.cardpay.pccredit.bank.model.XmAccCredit;
+import com.cardpay.pccredit.bank.util.Cn2Spell;
 import com.cardpay.pccredit.datasource.DataSourceContextHolder;
 
 /**
@@ -37,13 +42,16 @@ public class SynCustomerInfoService{
 	@Autowired
 	private SXykCustrCurDao sXykCustrCurDao;
 	
-	public void synCustomerInfo(){
+	/**
+	 * 客户信息同步
+	 * @return
+	 */
+	public void synCustomerInfo(XmAccCredit xm){
 		try {
-			int limit = 100;
-			// 查询页码
-			int page = 0;
 			//连接系统库
-			DataSourceContextHolder.setDbType(DataSourceContextHolder.PCCREDIT);
+			/*if(DataSourceContextHolder.getDbType()!=null &&!DataSourceContextHolder.getDbType().equalsIgnoreCase(DataSourceContextHolder.PCCREDIT)){
+				DataSourceContextHolder.setDbType(DataSourceContextHolder.PCCREDIT);
+			}
 			Map<String, String> nationBanckCodeMap = this.findDictToMapByDictType("CMMSCNTC-国籍");
 			Map<String, String> genderBankMap = this.findDictToMapByDictType("GENDER");
 			Map<String, String> cardTypeBankMap = this.findDictToMapByDictType("CMMSCCST-证件类型");
@@ -56,101 +64,65 @@ public class SynCustomerInfoService{
 			Map<String, String> industryTypeBankMap = new HashMap<String, String>();
 			for(Dict dict : industryTypeDicts){
 				industryTypeBankMap.put(dict.getBankCode(), dict.getTypeCode());
-			}
+			}*/
 			
-			List<CustomerInfor> list = synCustomerInfoDao.findCustomerInforByPage(page, limit);
-			while(list != null && list.size() != 0){
-				//证件号码list
-				List<String> cardIds = new ArrayList<String>();
-				//证件号码  客户id map
-				Map<String, String> cardIdAndCustrIdMap = new HashMap<String, String>();
-				for(CustomerInfor infor : list){
-					if(StringUtils.isNotEmpty(infor.getCardId())){
-						cardIds.add(infor.getCardId());
-						cardIdAndCustrIdMap.put(infor.getCardId(), infor.getId());
-					}
-				}
-				if(cardIds.size() > 0){
-					//连接数据同步的库
-					DataSourceContextHolder.setDbType(DataSourceContextHolder.BANK);
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("cardIds", cardIds);
-					List<SXykCustrCur> SXykCustrCurList = sXykCustrCurDao.findBankCustomerByCardIds(map);
-//					custr_nbr	客户证件号码  -
-//					nation	国籍 -
-//					busi_phone	单位电话号码  -
-//					comp_name	单位名称-
-//					educa	教育程度-
-//					gender	性别 -
-//					home_code	住房情况-
-//					home_phone	住宅电话号码-
-//					mar_status	婚姻状况-
-//					mo_phone	手机号码-
-//					occ_catgry	公司性质-
-//					occ_code	行业类别代码 -
-//					posn_emply	职务 -
-//					race_code	证件类型 -
-//					surname	姓名 -
-//					yr_in_comp	个人工龄 -
-//					id_verify	身份核查结果-
-					
-					DataSourceContextHolder.setDbType(DataSourceContextHolder.PCCREDIT);
-					//修改数据  连接系统库 TODO
-					for(SXykCustrCur custrCur : SXykCustrCurList){
-						CustomerInfor infor = new CustomerInfor();
-						infor.setId(cardIdAndCustrIdMap.get(custrCur.getCustrNbr()));
-						infor.setCardId(custrCur.getCustrNbr());
-						infor.setChineseName(custrCur.getSurname());
-						infor.setTelephone(custrCur.getMoPhone());
-						infor.setHomePhone(custrCur.getHomePhone());
-						infor.setIdVerify(custrCur.getIdVerify());
-						if(StringUtils.isNotEmpty(nationBanckCodeMap.get(custrCur.getNation()))){
-							infor.setNationality(nationBanckCodeMap.get(custrCur.getNation()));
-						}
-						if(StringUtils.isNotEmpty(genderBankMap.get(custrCur.getGender()))){
-							infor.setSex(genderBankMap.get(custrCur.getGender()));
-						}
-						if(StringUtils.isNotEmpty(cardTypeBankMap.get(custrCur.getRaceCode()))){
-							infor.setCardType(cardTypeBankMap.get(custrCur.getRaceCode()));
-						}
-						if(StringUtils.isNotEmpty(homeCodeBankMap.get(custrCur.getHomeCode()))){
-							infor.setResidentialPropertie(homeCodeBankMap.get(custrCur.getHomeCode()));
-						}
-						if(StringUtils.isNotEmpty(educaBankMap.get(custrCur.getEduca()))){
-							infor.setDegreeEducation(educaBankMap.get(custrCur.getEduca()));
-						}
-						if(StringUtils.isNotEmpty(marStatusBankMap.get(custrCur.getMarStatus()))){
-							infor.setMaritalStatus(marStatusBankMap.get(custrCur.getMarStatus()));
-						}
-						
-						synCustomerInfoDao.updateCustomerInfos(infor);
-						
-						CustomerCareersInformation careersInformation = new CustomerCareersInformation();
-						careersInformation.setCustomerId(cardIdAndCustrIdMap.get(custrCur.getCustrNbr()));
-						careersInformation.setUnitPhone(custrCur.getBusiPhone());
-						careersInformation.setNameUnit(custrCur.getCompName());
-						if(custrCur.getYrInComp() != null){
-							careersInformation.setWorkTime(custrCur.getYrInComp().intValue() + "");
-						}
-						if(StringUtils.isNotEmpty(occCatgryBankMap.get(custrCur.getOccCatgry()))){
-							careersInformation.setUnitNature(occCatgryBankMap.get(custrCur.getOccCatgry()));
-						}
-						if(StringUtils.isNotEmpty(industryTypeBankMap.get(custrCur.getOccCode()))){
-							careersInformation.setIndustryType(industryTypeBankMap.get(custrCur.getOccCode()));
-						}
-						if(StringUtils.isNotEmpty(posnEmplyBankMap.get(custrCur.getPosnEmply()))){
-							careersInformation.setTitle(posnEmplyBankMap.get(custrCur.getPosnEmply()));
-						}
-						synCustomerInfoDao.updateCustomerCarresInfos(careersInformation);
-					}
-				}
+			/////////////////////////
+			/*if(DataSourceContextHolder.getDbType()!=null &&!DataSourceContextHolder.getDbType().equalsIgnoreCase(DataSourceContextHolder.BANK)){
+				DataSourceContextHolder.setDbType(DataSourceContextHolder.BANK);
+			}*/
+			
+			//客户信息改为从xm_acc_credit中查询
+			//SXykCustrCur custrCur = sXykCustrCurDao.findBankCustomerByCertCode(xm.getCertCode());
+			
+			if(DataSourceContextHolder.getDbType()!=null &&!DataSourceContextHolder.getDbType().equalsIgnoreCase(DataSourceContextHolder.PCCREDIT)){
 				DataSourceContextHolder.setDbType(DataSourceContextHolder.PCCREDIT);
-				page ++;
-				//连接系统库
-				list = synCustomerInfoDao.findCustomerInforByPage(page, limit);;
+			}
+			CustomerInfor infor = synCustomerInfoDao.findCustomerInforByCustrNbr(xm.getCertCode());
+			//查询客户经理ID
+			String mgrId = synCustomerInfoDao.findMgrIdByNo(xm.getMgrNo());
+			
+			if(infor == null){
+				infor = new CustomerInfor();
+			}
+			infor.setUserId(mgrId);
+			infor.setCardId(xm.getCertCode());
+			infor.setChineseName(xm.getCusName());
+			infor.setPinyinenglishName(Cn2Spell.converterToSpell(xm.getCusName()));
+			infor.setBirthday(xm.getCertCode().substring(6,10)+"-"+xm.getCertCode().substring(10,12)+"-"+xm.getCertCode().substring(12,14));
+			//infor.setTelephone(custrCur.getMoPhone());
+			//infor.setHomePhone(custrCur.getHomePhone());
+			//infor.setIdVerify(custrCur.getIdVerify());
+			/*if(StringUtils.isNotEmpty(nationBanckCodeMap.get(custrCur.getNation()))){
+				infor.setNationality(nationBanckCodeMap.get(custrCur.getNation()));
+			}*/
+			infor.setNationality("NTC00000000156");
+			/*if(StringUtils.isNotEmpty(genderBankMap.get(custrCur.getGender()))){
+				//infor.setSex(genderBankMap.get(custrCur.getGender()));
+			}*/
+			infor.setSex(Integer.parseInt(xm.getCertCode().substring(16,17))/2==0?"Male":"Female");
+			/*if(StringUtils.isNotEmpty(cardTypeBankMap.get(custrCur.getRaceCode()))){
+				infor.setCardType(cardTypeBankMap.get(custrCur.getRaceCode()));
+			}*/
+			infor.setCardType("01");
+			/*if(StringUtils.isNotEmpty(homeCodeBankMap.get(custrCur.getHomeCode()))){
+				infor.setResidentialPropertie(homeCodeBankMap.get(custrCur.getHomeCode()));
+			}
+			if(StringUtils.isNotEmpty(educaBankMap.get(custrCur.getEduca()))){
+				infor.setDegreeEducation(educaBankMap.get(custrCur.getEduca()));
+			}
+			if(StringUtils.isNotEmpty(marStatusBankMap.get(custrCur.getMarStatus()))){
+				infor.setMaritalStatus(marStatusBankMap.get(custrCur.getMarStatus()));
+			}*/
+			//infor.setUserId(xm.getMgrNo());
+			if(StringUtils.isNotEmpty(infor.getId())){
+				synCustomerInfoDao.updateCustomerInfos(infor);
+			}else{
+				infor.setId(IDGenerator.generateID());
+				synCustomerInfoDao.insertCustomerInfos(infor);
 			}
 		} catch (Exception e) {
-			logger.error("SynCustomerInfoService.synCustomerInfo error.",e);
+			//e.printStackTrace();
+			logger.error("SynCustomerInfoService.synCustomerInfo error.(同步客户信息报错，直接跳过该条记录)",e);
 			throw new RuntimeException(e);
 		}
 	}

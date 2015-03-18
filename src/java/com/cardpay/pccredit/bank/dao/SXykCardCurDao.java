@@ -12,12 +12,14 @@ import com.wicresoft.util.annotation.Mapper;
 public interface SXykCardCurDao {
 	/**/
 	SXykCardCur findSXykCardCurByCardNbr(@Param("cardNar") String cardNar,@Param("createdTime") String createdTime);
+	int findSXykCardCurByCardNbr2(@Param("cardNar") String cardNar);
 	
 	List<SXykCardCur> findSXykCardCur(@Param("createdTime") String createdTime);
 	List<SXykCardCur> findSXykCardCurByPage(@Param("createdTime") String createdTime,@Param("start") int start,@Param("end") int end);
 	
 	public int insertSXykCardCur(Map<String, Object> map);
+	public void updateSXykCardCur(Map<String, Object> map);
 	
-	public int getTableCount();
+	public int getTableCount(@Param("createdTime") String createdTime);
 	public void deleteOld();
 }

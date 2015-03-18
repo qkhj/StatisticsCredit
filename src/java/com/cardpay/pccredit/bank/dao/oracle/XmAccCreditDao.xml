@@ -64,6 +64,8 @@
     <result column="GUAR_MPHONE" property="guarMphone" jdbcType="VARCHAR" />
     <result column="MAIN_BR_NETID" property="mainBrNetid" jdbcType="VARCHAR" />
     <result column="FINA_BR_NETID" property="finaBrNetid" jdbcType="VARCHAR" />
+    <result column="LEVEL_FIVE_RESULT" property="levelFiveResult" jdbcType="VARCHAR" />
+    <result column="LEVEL_FIVE_REASON" property="levelFiveReason" jdbcType="VARCHAR" />
   </resultMap>
 
 
@@ -171,8 +173,7 @@
 		XM_ACC_CREDIT
 		where 
 		CERT_CODE=#{custrNbr}
-		and
-		CREATED_TIME=#{createdTime}
+		and LOAN_ACCOUNT=#{cardNbr}
 	</select>
 	
 	<select id="findXmAccCredit" resultMap="BaseResultMap">
