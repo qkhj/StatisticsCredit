@@ -11,7 +11,7 @@ import com.wicresoft.util.annotation.Mapper;
 @Mapper
 public interface XmAccCreditDao {
 	/*通过证件号码得到*/
-	XmAccCredit findXmAccCreditByCustrNbr(@Param("custrNbr") String custrNbr,@Param("createdTime") String createdTime);
+	XmAccCredit findXmAccCreditByCustrNbr(@Param("custrNbr") String custrNbr,@Param("cardNbr") String cardNbr,@Param("createdTime") String createdTime);
 	/**
 	 * 得到所有的台账信息
 	 * @return

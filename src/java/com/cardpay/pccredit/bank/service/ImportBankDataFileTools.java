@@ -89,12 +89,13 @@ public class ImportBankDataFileTools {
 		FileInputStream fis = null;
 		InputStreamReader isr = null;
 		BufferedReader br = null;
+		String value = null;
 		try{
 			fis=new FileInputStream(fileName);
 		    isr=new InputStreamReader(fis, "gbk");
-		    br = new BufferedReader(isr,10*1024*1024);// 用5M的缓冲读取文本文件  
+		    br = new BufferedReader(isr,10*1024*1024);// 用10M的缓冲读取文本文件  
 		      
-			String line="", value = null, type = null, column = null;
+			String line="", type = null, column = null;
 	        String[] dataArrs=null;
 	        Map<String, Object> map = null;
 	        int count=0;
@@ -116,7 +117,13 @@ public class ImportBankDataFileTools {
 						value = value.trim();
 						
 						if(DECIMAL.equals(type) || NumberUtils.isNumber(value)){
-							value = NumberUtils.createBigDecimal(value).toString();
+							try {
+								value = NumberUtils.createBigDecimal(value).toString();
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								//e.printStackTrace();
+								log.error("处理数据出错，保留原值");
+							}
 						}
 											
 						if(DECIMAL.equals(type) && StringUtils.isNotEmpty(value) && !NumberUtils.isNumber(value)){

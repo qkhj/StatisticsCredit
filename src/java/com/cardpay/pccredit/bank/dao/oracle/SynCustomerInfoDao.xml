@@ -72,9 +72,20 @@
 			<if test="maritalStatus!=null and maritalStatus!=''">
 				marital_status=#{maritalStatus},
 			</if>
+			<if test="userId!=null and userId!=''">
+				USER_ID=#{userId},
+			</if>
 		</set>
 		where id=#{id}
 	</update>
+	<insert id="insertCustomerInfos" parameterType="com.cardpay.pccredit.bank.model.CustomerInfor">
+		insert into basic_customer_information
+			(id,card_id,chinese_name,pinyinenglish_name,telephone,home_phone,nationality,sex,
+			birthday,card_type,residential_propertie,degree_education,marital_status,user_id)
+		values
+			(#{id},#{cardId},#{chineseName},#{pinyinenglishName},#{telephone},#{homePhone},#{nationality},#{sex},
+			#{birthday},#{cardType},#{residentialPropertie},#{degreeEducation},#{maritalStatus},#{userId})
+	</insert>
 	
 	<update id="updateCustomerCarresInfos" parameterType="com.cardpay.pccredit.bank.model.CustomerCareersInformation">
 		update customer_careers_information
@@ -100,5 +111,13 @@
 		</set>
 		where customer_id=#{customerId}
 	</update>
-
+	<select id="findCustomerInforByCustrNbr" resultMap="customerInfoMap">
+	    SELECT c.id,
+				c.card_id
+		 FROM  basic_customer_information c
+		 where c.card_id = #{custrNbr}
+	</select>
+	<select id="findMgrIdByNo" resultType="String">
+	    select id from sys_user where EXTERNAL_ID = #{mgrNo}
+	</select>
 </mapper>

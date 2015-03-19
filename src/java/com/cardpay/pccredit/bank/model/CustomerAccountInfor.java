@@ -59,6 +59,8 @@ public class CustomerAccountInfor {
 	private String chargeLogo;
 	private String accountNumber;
 	private String aging;
+	private String principalOverdraft;
+	private String totalAmountOverdraft;
 
 	public String getCustomerId() {
 		return customerId;
@@ -451,4 +453,21 @@ public class CustomerAccountInfor {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	public String getPrincipalOverdraft() {
+		return principalOverdraft;
+	}
+
+	public void setPrincipalOverdraft(String principalOverdraft) {
+		this.principalOverdraft = principalOverdraft;
+	}
+
+	public String getTotalAmountOverdraft() {
+		return totalAmountOverdraft;
+	}
+
+	public void setTotalAmountOverdraft(String totalAmountOverdraft) {
+		this.totalAmountOverdraft = totalAmountOverdraft;
+	}
+	
 }

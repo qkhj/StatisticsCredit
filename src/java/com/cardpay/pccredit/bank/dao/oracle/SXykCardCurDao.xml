@@ -79,7 +79,13 @@
 		and
 		CREATED_TIME=#{createdTime}
 	</select>
-	
+	<select id="findSXykCardCurByCardNbr2" resultType="int">
+		select count(*) 
+		from
+		S_XYK_CARD_CUR
+		where
+		CARD_NBR=#{cardNar}
+	</select>
 	<select id="findSXykCardCur" resultMap="BaseResultMap">
 		select * 
 		from
@@ -92,7 +98,9 @@
 	    select * from
 		(select a.*,rownum row_num from
 		(select * from S_XYK_CARD_CUR t where 
-				CREATED_TIME=#{createdTime} order by rownum desc) a
+				CREATED_TIME=#{createdTime}
+				and length(CUSTR_NBR) = 18 
+				order by rownum desc) a
 		) b where b.row_num between #{start} and #{end}
 	</select>
 	
@@ -144,11 +152,40 @@
 	      #{cashbckYn,jdbcType=VARCHAR}, #{xfrchnl,jdbcType=VARCHAR}, #{orgNo,jdbcType=VARCHAR}
       )
   </insert>
-  
+  <update id="updateSXykCardCur" parameterType="map" >
+	    update S_XYK_CARD_CUR set CREATED_TIME=#{createdTime,jdbcType=VARCHAR},CARD_NBR=#{cardNbr,jdbcType=VARCHAR}, PRODUCT=#{product,jdbcType=VARCHAR},
+	      CANCL_CODE=#{canclCode,jdbcType=VARCHAR}, 
+	      CANCL_DAY=#{canclDay,jdbcType=VARCHAR}, CANCL_EMPL=#{canclEmpl,jdbcType=VARCHAR}, CANCL_TIME=#{canclTime,jdbcType=VARCHAR}, 
+	      ACTIONCODE=#{actioncode,jdbcType=VARCHAR}, CREATE_DAY=#{createDay,jdbcType=VARCHAR}, CASHAD_NOX=#{cashadNox,jdbcType=VARCHAR}, 
+	      CASHADV_NO=#{cashadvNo,jdbcType=VARCHAR}, DESPATCH=#{despatch,jdbcType=VARCHAR}, EMBOSS_LN2=#{embossLn2,jdbcType=VARCHAR}, 
+	      EMBOSS_NME=#{embossNme,jdbcType=VARCHAR}, EXPIRY_DTE=#{expiryDte,jdbcType=VARCHAR}, EXPIRY_NEW=#{expiryNew,jdbcType=VARCHAR}, 
+	      FEE_CODE=#{feeCode,jdbcType=VARCHAR}, ISSUE_DAY=#{issueDay,jdbcType=VARCHAR}, ISSUE_REAS=#{issueReas,jdbcType=VARCHAR}, 
+	      LOSS_DAY=#{lossDay,jdbcType=VARCHAR}, LOSS_REPRT=#{lossReprt,jdbcType=VARCHAR}, LOSS_TIME=#{lossTime,jdbcType=VARCHAR}, 
+	      DEPAM_TDX=#{depamTdx,jdbcType=DECIMAL}, DEPAM_TDY=#{depamTdy,jdbcType=DECIMAL}, DEPNO_TDX=#{depnoTdx,jdbcType=VARCHAR}, 
+	      DEPNO_TDY=#{depnoTdy,jdbcType=VARCHAR}, DEPOSIT_NO=#{depositNo,jdbcType=VARCHAR}, HRCASH_NO=#{hrcashNo,jdbcType=VARCHAR}, 
+	      HRCASH_NOX=#{hrcashNox,jdbcType=VARCHAR}, MAX_PAMTX=#{maxPamtx,jdbcType=VARCHAR}, MAX_PINTRY=#{maxPintry,jdbcType=VARCHAR}, 
+	      PIN_FAILDL=#{pinFaildl,jdbcType=VARCHAR}, PIN_FAILS=#{pinFails,jdbcType=VARCHAR}, PURCAM_TDX=#{purcamTdx,jdbcType=DECIMAL}, 
+	      PURCAM_TDY=#{purcamTdy,jdbcType=DECIMAL}, PURCHS_NOX=#{purchsNox,jdbcType=VARCHAR}, PURCHSE_NO=#{purchseNo,jdbcType=VARCHAR}, 
+	      REISS_DTE=#{reissDte,jdbcType=VARCHAR}, URGENTFEE=#{urgentfee,jdbcType=VARCHAR}, VALID_FROM=#{validFrom,jdbcType=VARCHAR}, 
+	      VALID_NEW=#{validNew,jdbcType=VARCHAR}, SMS_YN=#{smsYn,jdbcType=VARCHAR}, PIN_CHK=#{pinChk,jdbcType=VARCHAR}, 
+	      CDFRM=#{cdfrm,jdbcType=VARCHAR}, LIMIT_X=#{limitX,jdbcType=VARCHAR}, CRED_LMT0=#{credLmt0,jdbcType=VARCHAR}, 
+	      CUSTR_NBR=#{custrNbr,jdbcType=VARCHAR}, AREA_CODE=#{areaCode,jdbcType=VARCHAR}, FEE_MONTH=#{feeMonth,jdbcType=VARCHAR}, 
+	      EC_YN=#{ecYn,jdbcType=VARCHAR}, EC_ENDDT=#{ecEnddt,jdbcType=VARCHAR}, LTNONLY_YN=#{ltnonlyYn,jdbcType=VARCHAR}, 
+	      TRACK2_N=#{track2N,jdbcType=VARCHAR}, ACTIVEDAY=#{activeday,jdbcType=VARCHAR}, ACTIVECH=#{activech,jdbcType=VARCHAR}, 
+	      CANCL_REAS=#{canclReas,jdbcType=VARCHAR}, NTNP_YN=#{ntnpYn,jdbcType=VARCHAR}, PASSWORD_AMT=#{passwordAmt,jdbcType=VARCHAR}, 
+	      INTEGRAL_FEE=#{integralFee,jdbcType=VARCHAR}, WITHDRW_YN=#{withdrwYn,jdbcType=VARCHAR}, XFRFROM_YN=#{xfrfromYn,jdbcType=VARCHAR}, 
+	      DEPOSIT_YN=#{depositYn,jdbcType=VARCHAR}, BALINQ_YN=#{balinqYn,jdbcType=VARCHAR}, PURCH_YN=#{purchYn,jdbcType=VARCHAR}, 
+	      CASHBCK_YN=#{cashbckYn,jdbcType=VARCHAR}, XFRCHNL=#{xfrchnl,jdbcType=VARCHAR}, ORG_NO=#{orgNo,jdbcType=VARCHAR}
+	      where
+	      CARD_NBR=#{cardNbr,jdbcType=VARCHAR}
+  </update>
 	<select id="getTableCount" resultType="int">
 	    select count(*) 
 		from
 		S_XYK_CARD_CUR
+		where 
+		CREATED_TIME=#{createdTime}
+		and length(CUSTR_NBR) = 18
 	</select>
 	
 	<delete id="deleteOld">

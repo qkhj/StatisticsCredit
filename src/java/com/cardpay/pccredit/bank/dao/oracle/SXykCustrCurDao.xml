@@ -130,7 +130,36 @@
       #{intTaxcod,jdbcType=VARCHAR}, #{idVerify,jdbcType=VARCHAR}, #{idcpYn,jdbcType=VARCHAR}, 
       #{orgNo,jdbcType=VARCHAR})
   </insert>
-  
+	<update id="updateSXykCustrCur" parameterType="map" >
+    update S_XYK_CUSTR_CUR set CREATED_TIME=#{createdTime,jdbcType=VARCHAR},CUSTR_NBR=#{custrNbr,jdbcType=VARCHAR}, SECUR_NBR=#{securNbr,jdbcType=VARCHAR}, 
+      NATION=#{nation,jdbcType=VARCHAR}, 
+      BUSI_PHONE=#{busiPhone,jdbcType=VARCHAR}, CAR_DATE=#{carDate,jdbcType=VARCHAR}, CAR_ID=#{carId,jdbcType=VARCHAR}, 
+      CAR_NAM=#{carNam,jdbcType=VARCHAR}, CAR_CODE=#{carCode,jdbcType=VARCHAR}, CLASS_CODE=#{classCode,jdbcType=VARCHAR}, 
+      COMP_NAME=#{compName,jdbcType=VARCHAR}, CON_NAM1=#{conNam1,jdbcType=VARCHAR}, CON_NAM2=#{conNam2,jdbcType=VARCHAR}, 
+      CON_TEL1=#{conTel1,jdbcType=VARCHAR}, CON_TEL2=#{conTel2,jdbcType=VARCHAR}, CONTR_NAM1=#{contrNam1,jdbcType=VARCHAR}, 
+      CONTR_REA1=#{contrRea1,jdbcType=VARCHAR}, CONTR_NAM2=#{contrNam2,jdbcType=VARCHAR}, CONTR_REA2=#{contrRea2,jdbcType=VARCHAR}, 
+      CONTR_REA=#{contrRea,jdbcType=VARCHAR}, CONTR_NAM=#{contrNam,jdbcType=VARCHAR}, CONTR_TEL=#{contrTel,jdbcType=VARCHAR}, 
+      CRED_LIMIT=#{credLimit,jdbcType=DECIMAL}, CREDLIM_X=#{credlimX,jdbcType=DECIMAL}, DAY_BIRTH=#{dayBirth,jdbcType=VARCHAR}, 
+      DEPENDENTS=#{dependents,jdbcType=DECIMAL}, EDUCA=#{educa,jdbcType=VARCHAR}, EMAIL_ADDR=#{emailAddr,jdbcType=VARCHAR}, 
+      EMPLY_DEPT=#{emplyDept,jdbcType=VARCHAR}, EMPLY_NBR=#{emplyNbr,jdbcType=VARCHAR}, EXTENSION=#{extension,jdbcType=VARCHAR}, 
+      GENDER=#{gender,jdbcType=VARCHAR}, HOME_CODE=#{homeCode,jdbcType=VARCHAR}, HOME_PHONE=#{homePhone,jdbcType=VARCHAR}, 
+      INCOME_AN2=#{incomeAn2,jdbcType=DECIMAL}, INCOME_ANN=#{incomeAnn,jdbcType=DECIMAL}, INCOME_SR2=#{incomeSr2,jdbcType=VARCHAR}, 
+      INCOME_SRC=#{incomeSrc,jdbcType=VARCHAR}, IRD_N=#{irdN,jdbcType=VARCHAR}, LANG_CODE=#{langCode,jdbcType=VARCHAR}, 
+      MAIL_CODE=#{mailCode,jdbcType=VARCHAR}, MAR_STATUS=#{marStatus,jdbcType=VARCHAR}, MO_PHONE=#{moPhone,jdbcType=VARCHAR}, 
+      MP_LIMIT=#{mpLimit,jdbcType=DECIMAL}, MTHR_MNAME=#{mthrMname,jdbcType=VARCHAR}, OCC_CATGRY=#{occCatgry,jdbcType=VARCHAR}, 
+      OCC_CODE=#{occCode,jdbcType=VARCHAR}, POSN_EMPLY=#{posnEmply,jdbcType=VARCHAR}, RACE_CODE=#{raceCode,jdbcType=VARCHAR}, 
+      REL_NAM=#{relNam,jdbcType=VARCHAR}, REL_TEL=#{relTel,jdbcType=VARCHAR}, FORECOMP=#{forecomp,jdbcType=VARCHAR}, 
+      FOREDEPT=#{foredept,jdbcType=VARCHAR}, FOREJOB=#{forejob,jdbcType=VARCHAR}, FOREBUSI=#{forebusi,jdbcType=VARCHAR}, 
+      FOREANN=#{foreann,jdbcType=DECIMAL}, YR_FORECOM=#{yrForecom,jdbcType=DECIMAL}, SPU_NAM=#{spuNam,jdbcType=VARCHAR}, 
+      SPU_TEL=#{spuTel,jdbcType=VARCHAR}, SURNAME=#{surname,jdbcType=VARCHAR}, XTITLE=#{xtitle,jdbcType=VARCHAR}, 
+      WORK_CALLS=#{workCalls,jdbcType=VARCHAR}, YR_IN_COM2=#{yrInCom2,jdbcType=DECIMAL}, YR_IN_COMP=#{yrInComp,jdbcType=DECIMAL}, 
+      YR_THERE=#{yrThere,jdbcType=DECIMAL}, SPU_MOBILE=#{spuMobile,jdbcType=VARCHAR}, HOME_LOAN=#{homeLoan,jdbcType=DECIMAL}, 
+      CON_MO1=#{conMo1,jdbcType=VARCHAR}, CON_MO2=#{conMo2,jdbcType=VARCHAR}, REL_MOBILE=#{relMobile,jdbcType=VARCHAR}, 
+      INT_TAXCOD=#{intTaxcod,jdbcType=VARCHAR}, ID_VERIFY=#{idVerify,jdbcType=VARCHAR}, IDCP_YN=#{idcpYn,jdbcType=VARCHAR}, 
+      ORG_NO=#{orgNo,jdbcType=VARCHAR}
+      where
+      CUSTR_NBR=#{custrNbr,jdbcType=VARCHAR}
+  </update>
   <select id="findBankCustomerByCardIds" resultMap="BaseResultMap">
   	select custr_Nbr,nation,busi_Phone,comp_Name,educa,gender,home_Code,home_Phone,mar_Status,
   	mo_Phone,occ_Catgry,occ_Code,posn_Emply,race_Code,surname,yr_In_Comp,id_Verify
@@ -141,6 +170,28 @@
 	</foreach>
   </select>
   
+  <select id="findBankCustomerByPage" resultMap="BaseResultMap" >
+		SELECT * FROM
+			(SELECT ROW_.*,ROWNUM ROWNUM_
+				FROM (
+					 select custr_Nbr,nation,busi_Phone,comp_Name,educa,gender,home_Code,home_Phone,mar_Status,
+				  	 mo_Phone,occ_Catgry,occ_Code,posn_Emply,race_Code,surname,yr_In_Comp,id_Verify,
+				  	 day_Birth
+				  	 from S_XYK_CUSTR_CUR 
+ 			<![CDATA[
+					) ROW_
+				WHERE ROWNUM <= #{limit}*#{page} + #{limit}) 
+			WHERE ROWNUM_ > #{limit}*#{page}
+			]]>
+	</select>
+	
+  <select id="findBankCustomerByCertCode" resultMap="BaseResultMap">
+      select custr_Nbr,nation,busi_Phone,comp_Name,educa,gender,home_Code,home_Phone,mar_Status,
+	  	 mo_Phone,occ_Catgry,occ_Code,posn_Emply,race_Code,surname,yr_In_Comp,id_Verify,
+	  	 day_Birth
+	  	 from S_XYK_CUSTR_CUR 
+	  		where custr_Nbr = #{certCode}
+  </select>
   <delete id="deleteOld">
       truncate table S_XYK_CUSTR_CUR
   </delete>
