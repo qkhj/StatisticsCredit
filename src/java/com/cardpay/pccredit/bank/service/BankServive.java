@@ -87,12 +87,12 @@ public class BankServive extends AmountConfig{
 	/**
 	 * 定时同步客户账户信息,卡信息等
 	 */
-	//@Scheduled(cron = "${b2b.link.scheduled.day}")
-	@Scheduled(fixedDelay=5000)
+	@Scheduled(cron = "${b2b.link.scheduled.day}")
+	//@Scheduled(fixedDelay=5000)
 	public void addCustomerMessageSync(){
-		if(!flag){
-			return;
-		}
+		//if(!flag){
+		//	return;
+		//}
 		long start = System.currentTimeMillis();
 		CountDownLatch latch=new CountDownLatch(CountDownLatch_Num);//1个producer+10个consumer
 		new Producer(queue,latch).start();
