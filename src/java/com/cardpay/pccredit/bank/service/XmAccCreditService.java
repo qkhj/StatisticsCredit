@@ -53,9 +53,9 @@ public class XmAccCreditService {
 		}
 	}
 	
-	public XmAccCredit findXmAccCreditByCustrNbr(String custrNbr){
+	public XmAccCredit findXmAccCreditByCustrNbr(String custrNbr,String cardNbr){
 		String createdTime = DateHelper.getDateFormat(new Date(), "yyyyMMdd");
-		return xmAccCreditDao.findXmAccCreditByCustrNbr(custrNbr,createdTime);
+		return xmAccCreditDao.findXmAccCreditByCustrNbr(custrNbr,cardNbr,createdTime);
 	}
 	
 	public static void main(String[] args) {

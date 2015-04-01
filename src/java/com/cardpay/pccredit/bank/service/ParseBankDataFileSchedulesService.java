@@ -21,6 +21,7 @@ import com.cardpay.pccredit.bank.util.BankFtpConfig;
 import com.cardpay.pccredit.bank.util.DateUtils;
 import com.cardpay.pccredit.bank.util.ExpandGZ;
 import com.cardpay.pccredit.bank.util.SPTxt;
+import com.cardpay.pccredit.datasource.DataSourceContextHolder;
 import com.cardpay.sftp.Sftp;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
@@ -65,6 +66,7 @@ public class ParseBankDataFileSchedulesService {
 	private AgrCrdXykCunegService agrCrdXykCunegService;
 	
 	//public static boolean flag = true;
+	
 	public void init() {
 		File file = new File(bankFtpConfig.getDownloadPath());
 		// 检测下载临时保存目录是否存在
@@ -83,12 +85,15 @@ public class ParseBankDataFileSchedulesService {
 	 * @return
 	 * @throws Exception 
 	 */
-	@Scheduled(cron = "0 0 1 * * ?")
+	@Scheduled(cron = "0 30 20 * * ?")
 	//@Scheduled(fixedDelay=5000)
 	public void downloadAndParseDataFileSchedules(){
 		/*if(!flag){
 			return;
 		}*/
+		if(DataSourceContextHolder.getDbType()!=null &&!DataSourceContextHolder.getDbType().equalsIgnoreCase(DataSourceContextHolder.BANK)){
+			DataSourceContextHolder.setDbType(DataSourceContextHolder.BANK);
+		}
 		Sftp sftp = null;
 		try {
 			sftp = new Sftp(bankFtpConfig.getHost(),bankFtpConfig.getUsername(), bankFtpConfig.getPassword(),
@@ -99,8 +104,7 @@ public class ParseBankDataFileSchedulesService {
 			SimpleDateFormat sdf = new SimpleDateFormat(fmt);
 			Date date = new Date();
 			String dateStr = sdf.format(date);
-			//dateStr = "2015-03-02";
-			
+			//dateStr = "2015-03-09";
 			curRemotePath = bankFtpConfig.getRemothPath()+DateUtils.getSpecifiedDayBefore(dateStr)+"/902";
 			log.info("downloadAndParseDataFileSchedules path = "+ curRemotePath);
 			//获取文件列表
@@ -113,7 +117,7 @@ public class ParseBankDataFileSchedulesService {
 			//sXykCustrCurService.deleteOld();
 			//agrCrdXykCunegService.deleteOld();
 			// 处理ftp文件
-			processFtpFile(sftp, files);
+			processFtpFile(dateStr,sftp, files);
 			
 		} catch (JSchException e) {
 			log.error("", e);
@@ -136,7 +140,7 @@ public class ParseBankDataFileSchedulesService {
 	 * @return
 	 * @throws Exception 
 	 */
-	public void processFtpFile(Sftp sftp, ArrayList<String> files) throws Exception{
+	public void processFtpFile(String obj,Sftp sftp, ArrayList<String> files) throws Exception{
 		Iterator<String> pathIterator = files.iterator();
 		// 下载路径
 		String downloadPath =  bankFtpConfig.getDownloadPath();
@@ -150,7 +154,7 @@ public class ParseBankDataFileSchedulesService {
 		SimpleDateFormat sdf = new SimpleDateFormat(fmt);
 		Date date = new Date();
 		String dateStr = sdf.format(date);
-		//dateStr = "2015-03-02";
+		dateStr = obj;
 		backupPath  = backupPath + File.separator + DateUtils.getSpecifiedDayBefore(dateStr);
 		File backupPathDir = new File(backupPath);
 		//判断文件夹是否存在,如果不存在则创建文件夹
@@ -236,42 +240,42 @@ public class ParseBankDataFileSchedulesService {
 			bankDataFileProcess.setStatus(PARSE);
 			
 			try{
-				if(fn.startsWith("STA_902_cmis_ACC_CREDIT_ADD_")) {
+				if(fn.startsWith("STA_902_cmis_ACC_CREDIT_ADD_")) {//19:30
 					/**
 					 * “贷记卡台帐”数据文件
 					 */
 					bankDataFileProcess.setType("ACC_CREDIT");
 					bankDataFileProcessService.insert(bankDataFileProcess);
 					xmAccCreditService.saveXmAccCreditDataFile(path + File.separator + fn);
-				} else if(fn.startsWith("STA_902_djk_STA_YW_DJK_ACCT_ADD_")) {
+				} else if(fn.startsWith("STA_902_djk_STA_YW_DJK_ACCT_ADD_")) {//22:30
 					/**
 					 * “账户资料表“数据文件
 					 */
 					bankDataFileProcess.setType("ACC");
 					bankDataFileProcessService.insert(bankDataFileProcess);
 					sXykAcctCurService.saveSXykAcctCurDataFile(path + File.separator + fn);
-				} else if(fn.startsWith("STA_902_djk_STA_YW_DJK_CARD_ADD_")) {
+				} else if(fn.startsWith("STA_902_djk_STA_YW_DJK_CARD_ADD_")) {//22:30
 					/**
 					 * "卡片资料”数据文件 
 					 */
 					bankDataFileProcess.setType("CARD");
 					bankDataFileProcessService.insert(bankDataFileProcess);
 					sXykCardCurService.saveSXykCardCurDataFile(path + File.separator + fn);
-				} else if(fn.startsWith("STA_902_djk_STA_YW_DJK_STMT_ADD_")) {
+				} else if(fn.startsWith("STA_902_djk_STA_YW_DJK_STMT_ADD_")) {//22:15
 					/**
 					 * ”帐单记录表“数据文件
 					 */
 					bankDataFileProcess.setType("STMT");
 					bankDataFileProcessService.insert(bankDataFileProcess);
 					sXykStmtCurService.saveSXykStmtCurDataFile(path + File.separator + fn);
-				} else if(fn.startsWith("STA_902_djk_STA_YW_DJK_CUSTR_ADD_")) {
+				} else if(fn.startsWith("STA_902_djk_STA_YW_DJK_CUSTR_ADD_")) {//23:30
 					/**
 					 * ”客户资料表“数据文件
 					 */
 					bankDataFileProcess.setType("CUSTR");
 					bankDataFileProcessService.insert(bankDataFileProcess);
 					sXykCustrCurService.saveSXykCustrCurDataFile(path + File.separator + fn);
-				} else if(fn.startsWith("STA_902_djk_STA_YW_DJK_CUNEG_ADD_")) {
+				} else if(fn.startsWith("STA_902_djk_STA_YW_DJK_CUNEG_ADD_")) {//23:30
 					/**
 					 * ”黑名单数据资料“数据文件
 					 */

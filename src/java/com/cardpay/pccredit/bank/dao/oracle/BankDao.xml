@@ -74,6 +74,8 @@
 		<result property="chargeLogo" column="CHARGE_LOGO" />
 		<result property="accountNumber" column="ACCOUNT_NUMBER" />
 		<result property="aging" column="AGING" />
+		<result property="principalOverdraft" column="PRINCIPAL_OVERDRAFT" />
+		<result property="totalAmountOverdraft" column="TOTAL_AMOUNT_OVERDRAFT" />
 	</resultMap>
 <resultMap id="AverageDailyOverdraftResultMap" type="com.cardpay.pccredit.bank.model.AverageDailyOverdraft">
 	<result property="id" column="id" />
@@ -160,6 +162,24 @@
 	<result property="modifiedBy" column="MODIFIED_BY"/>
 	<result property="modifiedTime" column="MODIFIED_TIME"/>
 </resultMap>
+<resultMap id="NplsInfomationResultMap" type="com.cardpay.pccredit.bank.model.NplsInfomation">
+	<result property="id" column="id"/>
+	<result property="customerId" column="CUSTOMER_ID"/>
+	<result property="accountId" column="ACCOUNT_ID"/>
+	<result property="reviewResults" column="REVIEW_RESULTS"/>
+	<result property="createMethod" column="CREATE_METHOD"/>
+	<result property="verificationTime" column="VERIFICATION_TIME"/>
+	<result property="verificationStatus" column="VERIFICATION_STATUS"/>
+	<result property="verificationType" column="VERIFICATION_TYPE"/>
+	<result property="verificationAccount" column="VERIFICATION_ACCOUNT"/>
+	<result property="createdBy" column="CREATED_BY"/>
+	<result property="createdTime" column="CREATED_TIME"/>
+	<result property="modifiedBy" column="MODIFIED_BY"/>
+	<result property="modifiedTime" column="MODIFIED_TIME"/>
+	<result property="overdueBalanceIn" column="OVERDUE_BALANCE_IN"/>
+	<result property="overdueIntIn" column="OVERDUE_INT_IN"/>
+	<result property="levelFiveReason" column="LEVEL_FIVE_REASON"/>
+</resultMap>
 	<delete id="deleteCustomerOverdue">
 		delete 
 		from
@@ -225,9 +245,11 @@
 	<insert id="insertCustomerAccountInfor" parameterType="com.cardpay.pccredit.bank.model.CustomerAccountInfor">
 		insert into 
 		customer_account_information
-		(ID,CUSTOMER_ID,ACCOUNT_STATUS,OVERDUE_AMOUNT,TABLE_TURN_PAY,COMPOUND_AMOUNT,CURRENT_PERIOD_PAY,VERIFICATION_CODE,	CURRENT_PERIOD_ANNUITY,CARD_NUMBER,CURRENT_PERIOD_OVERDUE_PAY,CURRENT_PERIOD_CASH,CURRENT_PERIOD_SCALE,	ACCOUNT_STATUS_DATE,ACCOUNT_CHARGE_AMOUNT,CREDIT_AMOUNT,AMOUNT_PROFITS_INRETURN,REIMBURSEMENT_DEADLINE,STATEMENT_DATE,	DEBIT_AMOUNT_ADJUSTMENT,CONSUMPTION_LOGO,COMPOUND_INTEREST_RECEIVABLE,INTEREST_RECEIVABLE,ACCRUED_INTEREST_COMPOUND,CURRENT_PERIOD_ACCRUED,	CURRENT_SHOULD_COMPOUNDED,NEXT_INTEREST_RECEIVABLE,RECENT_INTEREST_DATE,LAST_PAYMENT_DATE,AMOUNT_INSTALLMENT_PAYMENT,INSTALMENT_TOTAL_AMOUNT,	PAYMENT_INSTALLMENT_CREDIT,STAGING_REMAINING_PRINCIPAL,OVERDUE_TOTAL_NUMBER,REPAYMENT_ACCOUNT_PERIOD,CONSUMPTION_ACCOUNT_PERIOD,TRANSACTIONS_ACCOUNT,	ACCOUNT_QUEUE_DATE,AMOUNT_OTHER_COSTS,AMOUNT_CONTROVERSY,PRE_PERIOD_ACCOUNT,RECENT_LOWEST_BILL,OVERDUE_TIME,TEMP_AMOUNT,TEMP_START_DATE,TEMP_LOSS_DATE,CHARGE_LOGO,ACCOUNT_NUMBER,AGING)
+		(ID,CUSTOMER_ID,ACCOUNT_STATUS,OVERDUE_AMOUNT,TABLE_TURN_PAY,COMPOUND_AMOUNT,CURRENT_PERIOD_PAY,VERIFICATION_CODE,	CURRENT_PERIOD_ANNUITY,CARD_NUMBER,CURRENT_PERIOD_OVERDUE_PAY,CURRENT_PERIOD_CASH,CURRENT_PERIOD_SCALE,	ACCOUNT_STATUS_DATE,ACCOUNT_CHARGE_AMOUNT,CREDIT_AMOUNT,AMOUNT_PROFITS_INRETURN,REIMBURSEMENT_DEADLINE,STATEMENT_DATE,	DEBIT_AMOUNT_ADJUSTMENT,CONSUMPTION_LOGO,COMPOUND_INTEREST_RECEIVABLE,INTEREST_RECEIVABLE,ACCRUED_INTEREST_COMPOUND,CURRENT_PERIOD_ACCRUED,	CURRENT_SHOULD_COMPOUNDED,NEXT_INTEREST_RECEIVABLE,RECENT_INTEREST_DATE,LAST_PAYMENT_DATE,AMOUNT_INSTALLMENT_PAYMENT,INSTALMENT_TOTAL_AMOUNT,	PAYMENT_INSTALLMENT_CREDIT,STAGING_REMAINING_PRINCIPAL,OVERDUE_TOTAL_NUMBER,REPAYMENT_ACCOUNT_PERIOD,CONSUMPTION_ACCOUNT_PERIOD,TRANSACTIONS_ACCOUNT,	ACCOUNT_QUEUE_DATE,AMOUNT_OTHER_COSTS,AMOUNT_CONTROVERSY,PRE_PERIOD_ACCOUNT,RECENT_LOWEST_BILL,OVERDUE_TIME,TEMP_AMOUNT,TEMP_START_DATE,TEMP_LOSS_DATE,CHARGE_LOGO,ACCOUNT_NUMBER,AGING,
+		PRINCIPAL_OVERDRAFT,TOTAL_AMOUNT_OVERDRAFT)
 		values
-		(#{id},#{customerId},#{accountStatus},#{overdueAmount},#{tableTurnPay},#{compoundAmount},#{currentPeriodPay},#{verificationCode},#{currentPeriodAnnuity},#{cardNumber},#{currentPeriodOverduePay},#{currentPeriodCash},#{currentPeriodScale},#{accountStatusDate},#{accountChargeAmount},#{creditAmount},#{amountProfitsInreturn},#{reimbursementDeadline},#{statementDate},#{debitAmountAdjustment},#{consumptionLogo},#{compoundInterestReceivable},#{interestReceivable},#{accruedInterestCompound},#{currentPeriodAccrued},#{currentShouldCompounded},#{nextInterestReceivable},#{recentInterestDate},#{lastPaymentDate},#{amountInstallmentPayment},#{instalmentTotalAmount},#{paymentInstallmentCredit},#{stagingRemainingPrincipal},#{overdueTotalNumber},#{repaymentAccountPeriod},#{consumptionAccountPeriod},#{transactionsAccount},#{accountQueueDate},#{amountOtherCosts},#{amountControversy},#{prePeriodAccount},#{recentLowestBill},#{overdueTime},#{tempAmount},#{tempStartDate},#{tempLossDate},#{chargeLogo},#{accountNumber},#{aging})
+		(#{id},#{customerId},#{accountStatus},#{overdueAmount},#{tableTurnPay},#{compoundAmount},#{currentPeriodPay},#{verificationCode},#{currentPeriodAnnuity},#{cardNumber},#{currentPeriodOverduePay},#{currentPeriodCash},#{currentPeriodScale},#{accountStatusDate},#{accountChargeAmount},#{creditAmount},#{amountProfitsInreturn},#{reimbursementDeadline},#{statementDate},#{debitAmountAdjustment},#{consumptionLogo},#{compoundInterestReceivable},#{interestReceivable},#{accruedInterestCompound},#{currentPeriodAccrued},#{currentShouldCompounded},#{nextInterestReceivable},#{recentInterestDate},#{lastPaymentDate},#{amountInstallmentPayment},#{instalmentTotalAmount},#{paymentInstallmentCredit},#{stagingRemainingPrincipal},#{overdueTotalNumber},#{repaymentAccountPeriod},#{consumptionAccountPeriod},#{transactionsAccount},#{accountQueueDate},#{amountOtherCosts},#{amountControversy},#{prePeriodAccount},#{recentLowestBill},#{overdueTime},#{tempAmount},#{tempStartDate},#{tempLossDate},#{chargeLogo},#{accountNumber},#{aging},
+		#{principalOverdraft},#{totalAmountOverdraft})
 	</insert>
 	<insert id="insertCustomerOverdue" parameterType="com.cardpay.pccredit.bank.model.CustomerOverdue">
 		insert into
@@ -295,6 +317,9 @@
 			</if>
 			<if test="cashSuspendMode!=null and cashSuspendMode!=''">
 				CASH_SUSPEND_MODE=#{cashSuspendMode},
+			</if>
+			<if test="id!=null and id!=''">
+				ID=#{id},
 			</if>
 		</set>
 		where ID=#{id}
@@ -471,10 +496,16 @@
 			CHARGE_LOGO=#{chargeLogo},
 		</if>
 		<if test="aging!=null and aging!=''">
-			AGING=#{aging}
+			AGING=#{aging},
+		</if>
+		<if test="principalOverdraft!=null and principalOverdraft!=''">
+			PRINCIPAL_OVERDRAFT=#{principalOverdraft},
+		</if>
+		<if test="totalAmountOverdraft!=null and totalAmountOverdraft!=''">
+			TOTAL_AMOUNT_OVERDRAFT=#{totalAmountOverdraft}
 		</if>
 	</set> 
-	where ACCOUNT_NUMBER=#{accountNumber}
+	where card_NUMBER=#{accountNumber}
 	</update>
 	<update id="updateCustomerOverdue">
 		update customer_overdue
@@ -531,4 +562,33 @@
 		where 
 		DEFAULT_TYPE='1'
 	</select>
+	<insert id="insertNplsInfomation" parameterType="com.cardpay.pccredit.bank.model.NplsInfomation">
+		insert into 
+		NPLS_INFORMATION
+		(ID,CUSTOMER_ID,ACCOUNT_ID,REVIEW_RESULTS,CREATE_METHOD,
+		VERIFICATION_TYPE,CREATED_BY,CREATED_TIME,MODIFIED_BY,MODIFIED_TIME,
+		OVERDUE_BALANCE_IN,OVERDUE_INT_IN,LEVEL_FIVE_REASON)
+		values
+		(#{id},#{customerId},#{accountId},#{reviewResults},#{createMethod},
+		#{verificationType},#{createdBy},#{createdTime},#{modifiedBy},#{modifiedTime},
+		#{overdueBalanceIn},#{overdueIntIn},#{levelFiveReason})
+	</insert>
+	<update id="updateNplsInfomation" parameterType="com.cardpay.pccredit.bank.model.NplsInfomation">
+		update NPLS_INFORMATION
+		set ID=#{id},CUSTOMER_ID=#{customerId},ACCOUNT_ID=#{accountId},
+		REVIEW_RESULTS=#{reviewResults},CREATE_METHOD=#{createMethod},
+		VERIFICATION_TYPE=#{verificationType},CREATED_BY=#{createdBy},
+		CREATED_TIME=#{createdTime},MODIFIED_BY=#{modifiedBy},MODIFIED_TIME=#{modifiedTime},
+		OVERDUE_BALANCE_IN=#{overdueBalanceIn},OVERDUE_INT_IN=#{overdueIntIn},LEVEL_FIVE_REASON=#{levelFiveReason}
+		where 
+		ID=#{id}
+	</update>
+	<select id="findNplsInfomation" resultMap="NplsInfomationResultMap">
+	    select * from NPLS_INFORMATION
+	    where ACCOUNT_ID = #{accountNumber}
+	</select>
+	<delete id="deleteNplsInfomation">
+	    delete from NPLS_INFORMATION
+	    where ACCOUNT_ID = #{accountNumber}
+	</delete>
 </mapper>

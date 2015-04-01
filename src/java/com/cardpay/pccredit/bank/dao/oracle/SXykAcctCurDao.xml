@@ -255,7 +255,61 @@
       #{mpRemPpl,jdbcType=DECIMAL}, #{credLmt3,jdbcType=VARCHAR}, #{mpautoGw,jdbcType=VARCHAR}, 
       #{orgNo,jdbcType=VARCHAR})
   </insert>
-  
+  <update id="updateSXykAcctCur" parameterType="map">
+    update S_XYK_ACCT_CUR set CREATED_TIME=#{createdTime,jdbcType=VARCHAR},CARD_NBR=#{cardNbr,jdbcType=VARCHAR}, XACCOUNT=#{xaccount,jdbcType=VARCHAR},
+      ADD_CHGDAY=#{addChgday,jdbcType=VARCHAR}, 
+      ADDR_TYPE=#{addrType,jdbcType=VARCHAR}, PRODUCT=#{product,jdbcType=VARCHAR}, BRANCH=#{branch,jdbcType=VARCHAR}, 
+      BUSINESS=#{business,jdbcType=VARCHAR}, DAY_OPENED=#{dayOpened,jdbcType=VARCHAR}, CRED_LIMIT=#{credLimit,jdbcType=DECIMAL}, 
+      CREDLIM_X=#{credlimX,jdbcType=DECIMAL}, MP_LIMIT=#{mpLimit,jdbcType=DECIMAL}, AUTHS_AMT=#{authsAmt,jdbcType=DECIMAL}, 
+      CUTOFF_DAY=#{cutoffDay,jdbcType=VARCHAR}, LASTPAYDAY=#{lastpayday,jdbcType=VARCHAR}, PAYMT_CLRD=#{paymtClrd,jdbcType=DECIMAL}, 
+      PURCHASES=#{purchases,jdbcType=DECIMAL}, PURCHASES_SIGN=#{purchasesSign,jdbcType=VARCHAR}, CARD_FEES=#{cardFees,jdbcType=DECIMAL}, 
+      CASH_ADFEE=#{cashAdfee,jdbcType=DECIMAL}, CASH_ADVCE=#{cashAdvce,jdbcType=DECIMAL}, OTHER_FEES=#{otherFees,jdbcType=DECIMAL}, 
+      PENCHG_ACC=#{penchgAcc,jdbcType=DECIMAL}, STM_OVERDU=#{stmOverdu,jdbcType=DECIMAL}, STM_DAY=#{stmDay,jdbcType=VARCHAR}, 
+      QUERY_AMT=#{queryAmt,jdbcType=DECIMAL}, DEBIT_ADJ=#{debitAdj,jdbcType=DECIMAL}, CRED_ADJ=#{credAdj,jdbcType=DECIMAL}, 
+      CLOSE_CODE=#{closeCode,jdbcType=VARCHAR}, CLOSE_CHDY=#{closeChdy,jdbcType=VARCHAR}, BAL_FREE=#{balFree,jdbcType=DECIMAL}, 
+      BAL_INT=#{balInt,jdbcType=DECIMAL}, BAL_INT_SIGN=#{balIntSign,jdbcType=VARCHAR}, BAL_NOINT=#{balNoint,jdbcType=DECIMAL}, 
+      BAL_ORINT=#{balOrint,jdbcType=DECIMAL}, OCT_DAYIN=#{octDayin,jdbcType=VARCHAR}, CURR_NUM=#{currNum,jdbcType=VARCHAR}, 
+      INT_UPTODY=#{intUptody,jdbcType=VARCHAR}, INT_CHGD=#{intChgd,jdbcType=DECIMAL}, NBR_PAYMNT=#{nbrPaymnt,jdbcType=VARCHAR}, 
+      NBR_PURCH=#{nbrPurch,jdbcType=VARCHAR}, NBR_TRANS=#{nbrTrans,jdbcType=VARCHAR}, POINT_ADJ=#{pointAdj,jdbcType=VARCHAR}, 
+      POINT_CLM=#{pointClm,jdbcType=VARCHAR}, POINT_CUM=#{pointCum,jdbcType=VARCHAR}, POINT_EAR=#{pointEar,jdbcType=VARCHAR}, 
+      REPAY_CODE=#{repayCode,jdbcType=VARCHAR}, STM_NOINT=#{stmNoint,jdbcType=DECIMAL}, STM_BALFRE=#{stmBalfre,jdbcType=DECIMAL}, 
+      STM_BALORI=#{stmBalori,jdbcType=DECIMAL}, STM_BALINT=#{stmBalint,jdbcType=DECIMAL}, STM_BALINT_SIGN=#{stmBalintSign,jdbcType=VARCHAR}, 
+      STM_BALNCE=#{stmBalnce,jdbcType=DECIMAL}, STM_MINDUE=#{stmMindue,jdbcType=DECIMAL}, STM_CODE=#{stmCode,jdbcType=VARCHAR}, 
+      AGEING_A_1=#{ageingA1,jdbcType=DECIMAL}, AGEING_A_2=#{ageingA2,jdbcType=DECIMAL}, AGEING_A_3=#{ageingA3,jdbcType=DECIMAL}, 
+      AGEING_A_4=#{ageingA4,jdbcType=DECIMAL}, AGEING_A_5=#{ageingA5,jdbcType=DECIMAL}, AGEING_A_6=#{ageingA6,jdbcType=DECIMAL}, 
+      MTHS_ODUE=#{mthsOdue,jdbcType=VARCHAR}, BAL_CMPINT=#{balCmpint,jdbcType=DECIMAL}, CRED_VOUCH=#{credVouch,jdbcType=DECIMAL}, 
+      CYCLE_NBR=#{cycleNbr,jdbcType=VARCHAR}, EXCH_FLAG=#{exchFlag,jdbcType=VARCHAR}, MP_AUTHS=#{mpAuths,jdbcType=DECIMAL}, 
+      MP_BAL=#{mpBal,jdbcType=DECIMAL}, ADDRESS1=#{address1,jdbcType=VARCHAR}, ADDRESS2=#{address2,jdbcType=VARCHAR}, 
+      ADDRESS3=#{address3,jdbcType=VARCHAR}, ADDRESS4=#{address4,jdbcType=VARCHAR}, ADDRESS5=#{address5,jdbcType=VARCHAR}, 
+      POST_CODE=#{postCode,jdbcType=VARCHAR}, BAL_MP=#{balMp,jdbcType=DECIMAL}, STM_BALMP=#{stmBalmp,jdbcType=DECIMAL}, 
+      BANKACCT_A_1= #{bankacctA1,jdbcType=VARCHAR}, BANKACCT_A_2= #{bankacctA2,jdbcType=VARCHAR}, BANKACCT_A_3= #{bankacctA3,jdbcType=VARCHAR}, 
+      BANKACCT_A_4= #{bankacctA4,jdbcType=VARCHAR}, BANKCODE_A_5= #{bankacctA5,jdbcType=VARCHAR}, BANKCODE_A_6= #{bankacctA6,jdbcType=VARCHAR}, 
+      BANKCODE_A_7= #{bankacctA7,jdbcType=VARCHAR}, BANKCODE_A_8= #{bankacctA8,jdbcType=VARCHAR}, REPAY_CODE_1=#{repayCode1,jdbcType=VARCHAR}, 
+      REPAY_CODX=#{repayCodx,jdbcType=VARCHAR}, EXCH_CODE=#{exchCode,jdbcType=VARCHAR}, EXCH_CODE_1=#{exchCode1,jdbcType=VARCHAR}, 
+      STM_CLOSDY=#{stmClosdy,jdbcType=VARCHAR}, POINT_ADJ_1=#{pointAdj1,jdbcType=VARCHAR}, POINT_CUM_1=#{pointCum1,jdbcType=VARCHAR}, 
+      CREDCODE=#{credcode,jdbcType=VARCHAR}, CREDCODE_1=#{credcode1,jdbcType=VARCHAR}, ACCT_FLAG=#{acctFlag,jdbcType=VARCHAR}, 
+      CA_PCNT=#{caPcnt,jdbcType=DECIMAL}, BRNCH_INTR=#{brnchIntr,jdbcType=VARCHAR}, BRNCHCRLMT=#{brnchcrlmt,jdbcType=VARCHAR}, 
+      VRF_CNTNT=#{vrfCntnt,jdbcType=VARCHAR}, SMS_FREEYN=#{smsFreeyn,jdbcType=VARCHAR}, TEMP_LIMIT=#{tempLimit,jdbcType=VARCHAR}, 
+      TLMT_END=#{tlmtEnd,jdbcType=VARCHAR}, TLMT_BEG=#{tlmtBeg,jdbcType=VARCHAR}, PA_LIMIT=#{paLimit,jdbcType=VARCHAR}, 
+      PAY_FLAG=#{payFlag,jdbcType=VARCHAR}, INT_CHDCMP=#{intChdcmp,jdbcType=DECIMAL}, INT_NOTION=#{intNotion,jdbcType=DECIMAL}, 
+      INT_CUNOT=#{intCunot,jdbcType=DECIMAL}, INT_CURCMP=#{intCurcmp,jdbcType=DECIMAL}, INT_CMPOND=#{intCmpond,jdbcType=DECIMAL}, 
+      IMP_FLAG=#{impFlag,jdbcType=VARCHAR}, NCRED_REN=#{ncredRen,jdbcType=VARCHAR}, MONTR_CODE=#{montrCode,jdbcType=VARCHAR}, 
+      CRED_LMT2=#{credLmt2,jdbcType=VARCHAR}, CRED_FLAG=#{credFlag,jdbcType=VARCHAR}, BAL_NINT01=#{balNint01,jdbcType=DECIMAL}, 
+      BAL_NINT02=#{balNint02,jdbcType=DECIMAL}, BAL_NINT03=#{balNint03,jdbcType=DECIMAL}, BAL_NINT04=#{balNint04,jdbcType=DECIMAL}, 
+      BAL_NINT05=#{balNint05,jdbcType=DECIMAL}, BAL_NINT06=#{balNint06,jdbcType=DECIMAL}, BAL_NINT07=#{balNint07,jdbcType=DECIMAL}, 
+      BAL_NINT08=#{balNint08,jdbcType=DECIMAL}, BAL_NINT09=#{balNint09,jdbcType=DECIMAL}, BAL_NINT10=#{balNint10,jdbcType=DECIMAL}, 
+      STM_NINT01=#{stmNint01,jdbcType=DECIMAL}, STM_NINT02=#{stmNint02,jdbcType=DECIMAL}, STM_NINT03=#{stmNint03,jdbcType=DECIMAL}, 
+      STM_NINT04=#{stmNint04,jdbcType=DECIMAL}, STM_NINT05=#{stmNint05,jdbcType=DECIMAL}, STM_NINT06=#{stmNint06,jdbcType=DECIMAL}, 
+      STM_NINT07=#{stmNint07,jdbcType=DECIMAL}, STM_NINT08=#{stmNint08,jdbcType=DECIMAL}, STM_NINT09=#{stmNint09,jdbcType=DECIMAL}, 
+      STM_NINT10=#{stmNint10,jdbcType=DECIMAL}, WROF_FLAG=#{wrofFlag,jdbcType=VARCHAR}, CANCL_RESN=#{canclResn,jdbcType=VARCHAR}, 
+      SHADOW_INT=#{shadowInt,jdbcType=DECIMAL}, SHADOW_CMP=#{shadowCmp,jdbcType=DECIMAL}, SHADOW_PEN=#{shadowPen,jdbcType=DECIMAL}, 
+      BAL_CMPFEE=#{balCmpfee,jdbcType=DECIMAL}, FP_FLAG=#{fpFlag,jdbcType=VARCHAR}, FREE_LIMIT=#{freeLimit,jdbcType=DECIMAL}, 
+      FREE_PCNT=#{freePcnt,jdbcType=DECIMAL}, FREE_MAX=#{freeMax,jdbcType=DECIMAL}, FREE_MIN=#{freeMin,jdbcType=DECIMAL}, 
+      MP_REM_PPL=#{mpRemPpl,jdbcType=DECIMAL}, CRED_LMT3=#{credLmt3,jdbcType=VARCHAR}, MPAUTO_GW=#{mpautoGw,jdbcType=VARCHAR}, 
+      ORG_NO=#{orgNo,jdbcType=VARCHAR}
+      where 
+      CARD_NBR=#{cardNbr,jdbcType=VARCHAR}
+  </update>
 <select id="findSXykAcctCurByCardNbr" resultMap="BaseResultMap">
 		select *
 		from 
@@ -264,6 +318,20 @@
 		CARD_NBR=#{cardNbr}
 		and
 		CREATED_TIME=#{createdTime}
+</select>
+<select id="findSXykAcctCurByCardNbr2" resultType="int">
+		select count(*)
+		from 
+		S_XYK_ACCT_CUR
+		where
+		CARD_NBR=#{cardNbr}
+</select>
+<select id="findSXykAcctCurByCardNbr3" resultMap="BaseResultMap">
+		select *
+		from 
+		S_XYK_ACCT_CUR
+		where
+		CARD_NBR=#{cardNbr}
 </select>
 <delete id="deleteOld">
     truncate table S_XYK_ACCT_CUR
