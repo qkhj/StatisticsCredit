@@ -87,7 +87,7 @@ public class SynCustomerInfoService{
 			infor.setUserId(mgrId);
 			infor.setCardId(xm.getCertCode());
 			infor.setChineseName(xm.getCusName());
-			infor.setPinyinenglishName(Cn2Spell.converterToSpell(xm.getCusName()));
+			//infor.setPinyinenglishName(Cn2Spell.converterToSpell(xm.getCusName()));
 			infor.setBirthday(xm.getCertCode().substring(6,10)+"-"+xm.getCertCode().substring(10,12)+"-"+xm.getCertCode().substring(12,14));
 			//infor.setTelephone(custrCur.getMoPhone());
 			//infor.setHomePhone(custrCur.getHomePhone());
