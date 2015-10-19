@@ -28,7 +28,7 @@ public class SyncArgCrdXykCunegSchedules {
 	 * "黑名单数据资料"同步
 	 * @return
 	 */
-	@Scheduled(cron = "0 0 22 * * ?")
+	@Scheduled(cron = "0 30 21 * * ?")
 	public void  syncData(){
 		if(DataSourceContextHolder.getDbType()!=null &&!DataSourceContextHolder.getDbType().equalsIgnoreCase(DataSourceContextHolder.BANK)){
 			DataSourceContextHolder.setDbType(DataSourceContextHolder.BANK);

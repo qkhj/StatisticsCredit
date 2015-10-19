@@ -87,12 +87,12 @@ public class BankServive extends AmountConfig{
 	/**
 	 * 定时同步客户账户信息,卡信息等
 	 */
-	//@Scheduled(cron = "${b2b.link.scheduled.day}")
-	@Scheduled(fixedDelay=5000)
+	@Scheduled(cron = "${b2b.link.scheduled.day}")
+	//@Scheduled(fixedDelay=5000)
 	public void addCustomerMessageSync(){
-		if(!flag){
-			return;
-		}
+		//if(!flag){
+		//	return;
+		//}
 		long start = System.currentTimeMillis();
 		CountDownLatch latch=new CountDownLatch(CountDownLatch_Num);//1个producer+10个consumer
 		new Producer(queue,latch).start();
@@ -599,6 +599,8 @@ public class BankServive extends AmountConfig{
 		String cardNbr = sxcc.getCardNbr();
 		//卡片状态代码
 		String canclCode = sxcc.getCanclCode();
+		//卡片产品种类
+		String cardType = sxcc.getProduct();
 		try{
 			if(StringUtils.isNotEmpty(cardNbr)){
 				/*卡号关联得到对应的账户资料信息*/
@@ -608,6 +610,7 @@ public class BankServive extends AmountConfig{
 				SXykAcctCur sxac = sXykAcctCurService.findSXykAcctCurByCardNbr(cardNbr);
 				//卡片激活日期
 				String activeday = sxcc.getActiveday();
+				String expiryDte = sxcc.getExpiryDte();
 				XmAccCredit xm = null;
 				//证件号码
 				String custrNbr = sxcc.getCustrNbr();
@@ -672,7 +675,9 @@ public class BankServive extends AmountConfig{
 						if(cardInfor!=null){
 							/*更新操作*/
 							cardInfor.setCardActivateDate(activeday);
+							cardInfor.setExpireDate(expiryDte);
 							cardInfor.setCardStatusCode(canclCode);
+							cardInfor.setCardType(cardType);
 							/*执行操作*/
 							updateCardInformation(cardInfor);
 						}else{
@@ -684,8 +689,10 @@ public class BankServive extends AmountConfig{
 							cardInfor.setCustomerId(customerId);
 							cardInfor.setProductId(productId);
 							cardInfor.setCardActivateDate(activeday);
+							cardInfor.setExpireDate(expiryDte);
 							cardInfor.setCardStatusCode(canclCode);
 							cardInfor.setIdNumber(xm.getCertCode()==null?null:xm.getCertCode());
+							cardInfor.setCardType(cardType);
 							/*执行操作*/
 							insertCardInformation(cardInfor);
 						}
